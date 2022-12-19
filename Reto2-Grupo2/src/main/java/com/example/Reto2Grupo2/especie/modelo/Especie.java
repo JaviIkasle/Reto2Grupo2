@@ -1,10 +1,18 @@
 package com.example.Reto2Grupo2.especie.modelo;
 
+import java.util.List;
+
+import com.example.Reto2Grupo2.animal.modelo.Animal;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +27,9 @@ public class Especie {
 	@Column(length = 250)
 	private String informacion;
 	
+	@OneToMany(mappedBy = "especie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Animal> animales;
 	
 	public Especie() {}
 
@@ -30,6 +41,15 @@ public class Especie {
 		this.informacion = informacion;
 	}
 
+	
+	
+	public Especie(Integer id, String nombre, String informacion, List<Animal> animales) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.informacion = informacion;
+		this.animales = animales;
+	}
 
 	public Integer getId() {
 		return id;
@@ -61,8 +81,18 @@ public class Especie {
 	}
 
 
+	public List<Animal> getAnimales() {
+		return animales;
+	}
+
+
+	public void setAnimales(List<Animal> animales) {
+		this.animales = animales;
+	}
+
 	@Override
 	public String toString() {
-		return "Especie [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + "]";
+		return "Especie [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", animales=" + animales
+				+ "]";
 	}
 }

@@ -1,10 +1,19 @@
 package com.example.Reto2Grupo2.zoo.modelo;
 
+import java.util.List;
+
+import com.example.Reto2Grupo2.billete.modelo.Billete;
+import com.example.Reto2Grupo2.evento.modelo.Evento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +30,14 @@ public class Zoo {
 	@Column
 	private String web;
 	
+	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Evento> eventos;
+	
+	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Billete> billetes; //TODO PREGUNTAR A MIKEL SI EL MAPEO=ZOO DE BILLETES INTERFIERE CON EL MAPEO=ZOO DE EVENTOS
+	
 	public Zoo() {}
 
 	public Zoo(Integer id, String nombre, float pvpEntrada, String web) {
@@ -29,6 +46,16 @@ public class Zoo {
 		this.nombre = nombre;
 		this.pvpEntrada = pvpEntrada;
 		this.web = web;
+	}
+
+	public Zoo(Integer id, String nombre, float pvpEntrada, String web, List<Evento> eventos, List<Billete> billetes) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.pvpEntrada = pvpEntrada;
+		this.web = web;
+		this.eventos = eventos;
+		this.billetes = billetes;
 	}
 
 	public Integer getId() {
@@ -63,8 +90,25 @@ public class Zoo {
 		this.web = web;
 	}
 
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
+	public List<Billete> getBilletes() {
+		return billetes;
+	}
+
+	public void setBilletes(List<Billete> billetes) {
+		this.billetes = billetes;
+	}
+
 	@Override
 	public String toString() {
-		return "Zoo [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web + "]";
+		return "Zoo [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web + ", eventos="
+				+ eventos + ", billetes=" + billetes + "]";
 	}
 }

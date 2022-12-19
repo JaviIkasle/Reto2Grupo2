@@ -2,12 +2,18 @@ package com.example.Reto2Grupo2.zooHasEspecie.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="zoo_has_especie")
 public class ZooHasEspecie {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	@Column
 	private Integer cantidad;
 	@Column
