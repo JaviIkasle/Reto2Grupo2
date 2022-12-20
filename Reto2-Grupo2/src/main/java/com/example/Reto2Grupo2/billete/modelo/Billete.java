@@ -26,8 +26,8 @@ public class Billete {
 	private int id;
 	@Column
 	private Date fecha;
-	@Column(length = 60)
-	private String tipo;
+	@Column
+	private int cantidad;
 	@Column
 	private float importe;
 
@@ -38,23 +38,23 @@ public class Billete {
 	private Zoo zoo;
 	
 	@Column(name="id_zoo", insertable=false, updatable=false)
-	private Integer idZoo;
+	private int idZoo;
 	
 	public Billete() {}
 
-	public Billete(int id, Date fecha, String tipo, float importe) {
+	public Billete(int id, Date fecha, int cantidad, float importe) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
-		this.tipo = tipo;
+		this.cantidad = cantidad;
 		this.importe = importe;
 	}
 
-	public Billete(int id, Date fecha, String tipo, float importe, Zoo zoo, Integer idZoo) {
+	public Billete(int id, Date fecha, int cantidad, float importe, Zoo zoo, int idZoo) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
-		this.tipo = tipo;
+		this.cantidad = cantidad;
 		this.importe = importe;
 		this.zoo = zoo;
 		this.idZoo = idZoo;
@@ -76,12 +76,12 @@ public class Billete {
 		this.fecha = fecha;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public int getCantidad() {
+		return cantidad;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public float getImporte() {
@@ -100,18 +100,17 @@ public class Billete {
 		this.zoo = zoo;
 	}
 
-	public Integer getIdZoo() {
+	public int getIdZoo() {
 		return idZoo;
 	}
 
-	public void setIdZoo(Integer idZoo) {
+	public void setIdZoo(int idZoo) {
 		this.idZoo = idZoo;
 	}
 
 	@Override
 	public String toString() {
-		return "Billete [id=" + id + ", fecha=" + fecha + ", tipo=" + tipo + ", importe=" + importe + ", zoo=" + zoo
-				+ ", idZoo=" + idZoo + "]";
+		return "Billete [id=" + id + ", fecha=" + fecha + ", cantidad=" + cantidad + ", importe=" + importe + ", zoo="
+				+ zoo + ", idZoo=" + idZoo + "]";
 	}
-
 }

@@ -26,6 +26,8 @@ public class Evento {
 	private int id;
 	@Column(length = 60)
 	private String nombre;
+	@Column(length = 400)
+	private String informacion;
 	@Column
 	private Date fecha;
 	
@@ -37,18 +39,22 @@ public class Evento {
 
 	@Column(name="id_zoo", insertable=false, updatable=false)
 	private Integer idZoo;
-	
-	public Evento(int id, String nombre, Date fecha) {
+
+	public Evento() {}
+
+	public Evento(int id, String nombre, String informacion, Date fecha) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.informacion = informacion;
 		this.fecha = fecha;
 	}
 
-	public Evento(int id, String nombre, Date fecha, Zoo zoo, Integer idZoo) {
+	public Evento(int id, String nombre, String informacion, Date fecha, Zoo zoo, Integer idZoo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.informacion = informacion;
 		this.fecha = fecha;
 		this.zoo = zoo;
 		this.idZoo = idZoo;
@@ -68,6 +74,14 @@ public class Evento {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getInformacion() {
+		return informacion;
+	}
+
+	public void setInformacion(String informacion) {
+		this.informacion = informacion;
 	}
 
 	public Date getFecha() {
@@ -96,8 +110,7 @@ public class Evento {
 
 	@Override
 	public String toString() {
-		return "Evento [id=" + id + ", nombre=" + nombre + ", fecha=" + fecha + ", zoo=" + zoo + ", idZoo=" + idZoo
-				+ "]";
+		return "Evento [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", fecha=" + fecha
+				+ ", zoo=" + zoo + ", idZoo=" + idZoo + "]";
 	}
-
 }

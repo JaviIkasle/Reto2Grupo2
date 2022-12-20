@@ -1,10 +1,15 @@
 package com.example.Reto2Grupo2.localizacion.modelo;
 
+import com.example.Reto2Grupo2.zoo.modelo.Zoo;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +30,9 @@ public class Localizacion {
 	@Column()
 	private float latitud;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_zoo", referencedColumnName = "id")
+	private Zoo zoo;
 	
 	public Localizacion() {}
 	
@@ -87,10 +95,19 @@ public class Localizacion {
 		this.latitud = latitud;
 	}
 
+	public Zoo getZoo() {
+		return zoo;
+	}
+
+
+	public void setZoo(Zoo zoo) {
+		this.zoo = zoo;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Localizacion [id=" + id + ", ciudad=" + ciudad + ", pais=" + pais + ", continente=" + continente
-				+ ", longitud=" + longitud + ", latitud=" + latitud + "]";
+				+ ", longitud=" + longitud + ", latitud=" + latitud + ", zoo=" + zoo + "]";
 	}
-
 }

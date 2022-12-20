@@ -21,10 +21,10 @@ public class Especie {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 	@Column(length = 100)
 	private String nombre;
-	@Column(length = 250)
+	@Column(length = 400)
 	private String informacion;
 	
 	@OneToMany(mappedBy = "especie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -33,17 +33,14 @@ public class Especie {
 	
 	public Especie() {}
 
-
-	public Especie(Integer id, String nombre, String informacion) {
+	public Especie(int id, String nombre, String informacion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
 	}
 
-	
-	
-	public Especie(Integer id, String nombre, String informacion, List<Animal> animales) {
+	public Especie(int id, String nombre, String informacion, List<Animal> animales) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -51,40 +48,33 @@ public class Especie {
 		this.animales = animales;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public String getInformacion() {
 		return informacion;
 	}
 
-
 	public void setInformacion(String informacion) {
 		this.informacion = informacion;
 	}
 
-
 	public List<Animal> getAnimales() {
 		return animales;
 	}
-
 
 	public void setAnimales(List<Animal> animales) {
 		this.animales = animales;
@@ -94,5 +84,5 @@ public class Especie {
 	public String toString() {
 		return "Especie [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", animales=" + animales
 				+ "]";
-	}
+	}	
 }
