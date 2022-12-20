@@ -2,6 +2,7 @@ package com.example.Reto2Grupo2.billete.modelo;
 
 import java.sql.Date;
 
+import com.example.Reto2Grupo2.cliente.Cliente;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -40,6 +41,15 @@ public class Billete {
 	@Column(name="id_zoo", insertable=false, updatable=false)
 	private int idZoo;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_cliente", foreignKey=@ForeignKey(name = "FK_id_zooCliente"))
+	@JsonManagedReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Cliente cliente;
+	
+	@Column(name="id_cliente", insertable=false, updatable=false)
+	private int idCliente;
+	
 	public Billete() {}
 
 	public Billete(int id, Date fecha, int cantidad, float importe) {
@@ -50,7 +60,8 @@ public class Billete {
 		this.importe = importe;
 	}
 
-	public Billete(int id, Date fecha, int cantidad, float importe, Zoo zoo, int idZoo) {
+	public Billete(int id, Date fecha, int cantidad, float importe, Zoo zoo, int idZoo, Cliente cliente,
+			int idCliente) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -58,6 +69,8 @@ public class Billete {
 		this.importe = importe;
 		this.zoo = zoo;
 		this.idZoo = idZoo;
+		this.cliente = cliente;
+		this.idCliente = idCliente;
 	}
 
 	public int getId() {
@@ -108,9 +121,25 @@ public class Billete {
 		this.idZoo = idZoo;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+
 	@Override
 	public String toString() {
 		return "Billete [id=" + id + ", fecha=" + fecha + ", cantidad=" + cantidad + ", importe=" + importe + ", zoo="
-				+ zoo + ", idZoo=" + idZoo + "]";
+				+ zoo + ", idZoo=" + idZoo + ", cliente=" + cliente + ", idCliente=" + idCliente + "]";
 	}
 }

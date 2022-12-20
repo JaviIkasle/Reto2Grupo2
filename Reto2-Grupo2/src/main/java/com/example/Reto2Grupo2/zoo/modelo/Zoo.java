@@ -6,6 +6,7 @@ import com.example.Reto2Grupo2.animal.modelo.Animal;
 import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.evento.modelo.Evento;
 import com.example.Reto2Grupo2.localizacion.modelo.Localizacion;
+import com.example.Reto2Grupo2.trabajador.Trabajador;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -53,6 +54,10 @@ public class Zoo {
 	@OneToOne(mappedBy = "zoo")
 	private Localizacion localizacion;
 
+	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Trabajador> trabajadores;
+	
 	public Zoo() {
 	}
 
@@ -66,7 +71,7 @@ public class Zoo {
 	}
 
 	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, List<Evento> eventos,
-			List<Billete> billetes, List<Animal> animales, Localizacion localizacion) {
+			List<Billete> billetes, List<Animal> animales, Localizacion localizacion, List<Trabajador> trabajadores) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -77,6 +82,7 @@ public class Zoo {
 		this.billetes = billetes;
 		this.animales = animales;
 		this.localizacion = localizacion;
+		this.trabajadores = trabajadores;
 	}
 
 	public int getId() {
@@ -151,10 +157,18 @@ public class Zoo {
 		this.localizacion = localizacion;
 	}
 
+	public List<Trabajador> getTrabajadores() {
+		return trabajadores;
+	}
+
+	public void setTrabajadores(List<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
+	}
+
 	@Override
 	public String toString() {
 		return "Zoo [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web + ", informacion="
 				+ informacion + ", eventos=" + eventos + ", billetes=" + billetes + ", animales=" + animales
-				+ ", localizacion=" + localizacion + "]";
+				+ ", localizacion=" + localizacion + ", trabajadores=" + trabajadores + "]";
 	}
 }
