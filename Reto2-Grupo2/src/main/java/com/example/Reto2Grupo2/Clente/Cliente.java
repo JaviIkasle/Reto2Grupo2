@@ -3,11 +3,22 @@ package com.example.Reto2Grupo2.Clente;
 
 
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -23,7 +34,9 @@ public class Cliente {
 	   @Column(length = 60)
 	  	private String password;
 	   
-	   
+	   @OneToMany(mappedBy = "billete", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	   @JsonBackReference
+	   private Billete billete;
 	   
 	public Cliente() {
 		super();
@@ -57,9 +70,6 @@ public class Cliente {
 		return "Cliente [id=" + id + ", email=" + email + ", password=" + password + "]";
 	}
 	  	
-	
-	
-	
 	
 	
 }
