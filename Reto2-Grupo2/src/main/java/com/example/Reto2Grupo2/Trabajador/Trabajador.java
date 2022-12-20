@@ -1,71 +1,60 @@
 package com.example.Reto2Grupo2.Trabajador;
 
-import java.util.Date;
-
-import com.example.Reto2Grupo2.Users.Users;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Trabajdor")
 
-public class Trabajador extends Users{
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ", locale = "en_GB") 
-	private Date fec_alta;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ", locale = "en_GB") 
-	private Date fec_baja;
-
-	@Column(length = 60)
-	private Double sueldo;
+public class Trabajador {
 	
 	
+	   @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Integer id;
+	   @Column(length = 60)
+	   	private String username;
+	   @Column(length = 60)
+	   	private String password;
+	   
 	
-	
-	
-
 	public Trabajador() {
 		super();
 	}
-
-	public Trabajador(Date fec_alta, Date fec_baja, Double sueldo) {
+	public Trabajador(Integer id, String username, String password) {
 		super();
-		this.fec_alta = fec_alta;
-		this.fec_baja = fec_baja;
-		this.sueldo = sueldo;
+		this.id = id;
+		this.username = username;
+		this.password = password;
 	}
-
-	public Date getFec_alta() {
-		return fec_alta;
+	public Integer getId() {
+		return id;
 	}
-
-	public void setFec_alta(Date fec_alta) {
-		this.fec_alta = fec_alta;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
-	public Date getFec_baja() {
-		return fec_baja;
+	public String getUsername() {
+		return username;
 	}
-
-	public void setFec_baja(Date fec_baja) {
-		this.fec_baja = fec_baja;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
-	public Double getSueldo() {
-		return sueldo;
+	public String getPassword() {
+		return password;
 	}
-
-	public void setSueldo(Double sueldo) {
-		this.sueldo = sueldo;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-
 	@Override
 	public String toString() {
-		return super.toString() +",fec_alta=" + fec_alta + ", fec_baja=" + fec_baja + ", sueldo=" + sueldo + "]";
+		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + "]";
 	}
+	   	
 	
 	
 	
