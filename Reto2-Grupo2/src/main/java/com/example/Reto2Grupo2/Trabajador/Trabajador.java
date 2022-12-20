@@ -1,7 +1,7 @@
 package com.example.Reto2Grupo2.Trabajador;
 
 
-import com.example.Ejercicio2A.employees.Employee;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -31,43 +31,75 @@ public class Trabajador {
 	   	private String password;
 	   
 	   	@ManyToOne(fetch = FetchType.LAZY)
-		@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_zoo_id"))
+		@JoinColumn(name = "id_zoo", foreignKey = @ForeignKey(name = "FK_id_zoo"))
 		@JsonManagedReference
 		@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 		private Zoo zoo;
+	   	
+	   	@Column(name="id_zoo", insertable=false,updatable=false)
+	   	private Integer idZoo;
+	   	
+	
+		public Trabajador() {
+			super();
+		}
+
+		public Trabajador(Integer id, String username, String password, Zoo zoo, Integer idZoo) {
+			super();
+			this.id = id;
+			this.username = username;
+			this.password = password;
+			this.zoo = zoo;
+			this.idZoo = idZoo;
+		}
+
+		public Integer getId() {
+			return id;
+		}
+
+		public void setId(Integer id) {
+			this.id = id;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public Zoo getZoo() {
+			return zoo;
+		}
+
+		public void setZoo(Zoo zoo) {
+			this.zoo = zoo;
+		}
+
+		public Integer getIdZoo() {
+			return idZoo;
+		}
+
+		public void setIdZoo(Integer idZoo) {
+			this.idZoo = idZoo;
+		}
+
+		@Override
+		public String toString() {
+			return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", idZoo=" + idZoo
+					+ "]";
+		}
 	   
 	
-	public Trabajador() {
-		super();
-	}
-	public Trabajador(Integer id, String username, String password) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	@Override
-	public String toString() {
-		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + "]";
-	}
 	   	
 	
 	

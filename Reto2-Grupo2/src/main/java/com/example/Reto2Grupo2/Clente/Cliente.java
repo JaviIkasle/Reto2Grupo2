@@ -4,6 +4,9 @@ package com.example.Reto2Grupo2.Clente;
 
 
 
+import java.util.List;
+
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,7 +29,7 @@ import jakarta.persistence.Table;
 @Table(name="Cliente")
 public class Cliente {
 	
-	   @Id
+		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Integer id;
 	   @Column(length = 60)
@@ -36,40 +39,62 @@ public class Cliente {
 	   
 	   @OneToMany(mappedBy = "billete", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	   @JsonBackReference
-	   private Billete billete;
+	   private List<Billetes> billetes;
 	   
+
+
 	public Cliente() {
 		super();
 	}
-	public Cliente(Integer id, String email, String password) {
+
+	public Cliente(Integer id, String email, String password, List<Billetes> billetes) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
+		this.billetes = billetes;
 	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Billetes> getBilletes() {
+		return billetes;
+	}
+
+	public void setBilletes(List<Billetes> billetes) {
+		this.billetes = billetes;
+	}
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", email=" + email + ", password=" + password + "]";
 	}
-	  	
+	   
+	   
+	   
+	
 	
 	
 }
