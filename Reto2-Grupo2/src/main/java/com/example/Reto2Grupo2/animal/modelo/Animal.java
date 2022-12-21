@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -30,7 +31,8 @@ public class Animal {
 	private String nombre;
 	@Column(length = 400)
 	private String informacion;
-	@Column(columnDefinition="MEDIUMTEXT")
+	@Lob
+	@Column(columnDefinition="MEDIUMBLOB")
 	private String foto;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
