@@ -27,6 +27,7 @@ public class Especie {
 	@Column(length = 400)
 	private String informacion;
 	
+	
 	@OneToMany(mappedBy = "especie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<Animal> animales;

@@ -5,7 +5,6 @@ import java.util.List;
 import com.example.Reto2Grupo2.animal.modelo.Animal;
 import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.evento.modelo.Evento;
-import com.example.Reto2Grupo2.localizacion.modelo.Localizacion;
 import com.example.Reto2Grupo2.trabajador.Trabajador;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -38,6 +37,14 @@ public class Zoo {
 	private String web;
 	@Column(length = 400)
 	private String informacion;
+	@Column
+	private float latitud;
+	@Column
+	private float longitud;
+	@Column(length = 200)
+	private String ciudad;
+	@Column(length = 200)
+	private String pais;
 
 	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
@@ -50,9 +57,6 @@ public class Zoo {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "zoo_has_animales", joinColumns = @JoinColumn(name = "id_zoo"), inverseJoinColumns = @JoinColumn(name = "id_animal"))
 	private List<Animal> animales;
-	
-	@OneToOne(mappedBy = "zoo")
-	private Localizacion localizacion;
 
 	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
@@ -61,27 +65,36 @@ public class Zoo {
 	public Zoo() {
 	}
 
-	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion) {
+	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
+			String ciudad, String pais) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.pvpEntrada = pvpEntrada;
 		this.web = web;
 		this.informacion = informacion;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.ciudad = ciudad;
+		this.pais = pais;
 	}
 
-	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, List<Evento> eventos,
-			List<Billete> billetes, List<Animal> animales, Localizacion localizacion, List<Trabajador> trabajadores) {
+	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
+			String ciudad, String pais, List<Evento> eventos, List<Billete> billetes, List<Animal> animales,
+			List<Trabajador> trabajadores) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.pvpEntrada = pvpEntrada;
 		this.web = web;
 		this.informacion = informacion;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.ciudad = ciudad;
+		this.pais = pais;
 		this.eventos = eventos;
 		this.billetes = billetes;
 		this.animales = animales;
-		this.localizacion = localizacion;
 		this.trabajadores = trabajadores;
 	}
 
@@ -149,14 +162,6 @@ public class Zoo {
 		this.animales = animales;
 	}
 
-	public Localizacion getLocalizacion() {
-		return localizacion;
-	}
-
-	public void setLocalizacion(Localizacion localizacion) {
-		this.localizacion = localizacion;
-	}
-
 	public List<Trabajador> getTrabajadores() {
 		return trabajadores;
 	}
@@ -165,10 +170,44 @@ public class Zoo {
 		this.trabajadores = trabajadores;
 	}
 
+	
+	public float getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
 	@Override
 	public String toString() {
 		return "Zoo [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web + ", informacion="
-				+ informacion + ", eventos=" + eventos + ", billetes=" + billetes + ", animales=" + animales
-				+ ", localizacion=" + localizacion + ", trabajadores=" + trabajadores + "]";
+				+ informacion + ", latitud=" + latitud + ", longitud=" + longitud + ", ciudad=" + ciudad + ", pais="
+				+ pais + ", eventos=" + eventos + ", billetes=" + billetes + ", animales=" + animales
+				+ ", trabajadores=" + trabajadores + "]";
 	}
 }

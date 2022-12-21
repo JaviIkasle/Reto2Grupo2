@@ -1,5 +1,6 @@
 package com.example.Reto2Grupo2.trabajador;
 
+import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -16,8 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Trabajdor")
-
+@Table(name = "trabajadores")
 public class Trabajador {
 
 	@Id
@@ -37,17 +37,36 @@ public class Trabajador {
 	@Column(name = "id_zoo", insertable = false, updatable = false)
 	private Integer idZoo;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_rol", foreignKey=@ForeignKey(name = "FK_id_trabajadorRoles"))
+	@JsonManagedReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Rol rol;
+	
+	@Column(name="id_rol", insertable=false, updatable=false)
+	private int idRol;
+	
 	public Trabajador() {
 		super();
 	}
 
-	public Trabajador(Integer id, String username, String password, Zoo zoo, Integer idZoo) {
+	public Trabajador(Integer id, String username, String password) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+
+	}
+
+	public Trabajador(Integer id, String username, String password, Zoo zoo, Integer idZoo, Rol rol, int idRol) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.zoo = zoo;
 		this.idZoo = idZoo;
+		this.rol = rol;
+		this.idRol = idRol;
 	}
 
 	public Integer getId() {
@@ -90,8 +109,25 @@ public class Trabajador {
 		this.idZoo = idZoo;
 	}
 
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	public int getIdRol() {
+		return idRol;
+	}
+
+	public void setIdRol(int idRol) {
+		this.idRol = idRol;
+	}
+
 	@Override
 	public String toString() {
-		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", idZoo=" + idZoo + "]";
+		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
+				+ ", idZoo=" + idZoo + ", rol=" + rol + ", idRol=" + idRol + "]";
 	}
 }

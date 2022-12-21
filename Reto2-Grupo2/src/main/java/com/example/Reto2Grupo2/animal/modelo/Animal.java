@@ -30,6 +30,8 @@ public class Animal {
 	private String nombre;
 	@Column(length = 400)
 	private String informacion;
+	@Column(columnDefinition="MEDIUMTEXT")
+	private String foto;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_especie", foreignKey=@ForeignKey(name = "FK_id_especie"))
@@ -45,18 +47,21 @@ public class Animal {
 	
 	public Animal() {}
 
-	public Animal(int id, String nombre, String informacion) {
+	public Animal(int id, String nombre, String informacion, String foto) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
+		this.foto = foto;
 	}
 
-	public Animal(int id, String nombre, String informacion, Especie especie, int idEspecie, List<Zoo> zoos) {
+	public Animal(int id, String nombre, String informacion, String foto, Especie especie, int idEspecie,
+			List<Zoo> zoos) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
+		this.foto = foto;
 		this.especie = especie;
 		this.idEspecie = idEspecie;
 		this.zoos = zoos;
@@ -110,9 +115,17 @@ public class Animal {
 		this.zoos = zoos;
 	}
 
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	@Override
 	public String toString() {
-		return "Animal [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", especie=" + especie
-				+ ", idEspecie=" + idEspecie + ", zoos=" + zoos + "]";
+		return "Animal [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", foto=" + foto
+				+ ", especie=" + especie + ", idEspecie=" + idEspecie + ", zoos=" + zoos + "]";
 	}
 }
