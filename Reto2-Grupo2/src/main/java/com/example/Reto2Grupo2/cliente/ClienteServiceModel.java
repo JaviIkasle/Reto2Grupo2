@@ -1,16 +1,16 @@
 package com.example.Reto2Grupo2.cliente;
 
-public class ClientePostRequest {
+public class ClienteServiceModel {
 
 	private Integer id;
 	private String email;
 	private String password;
 
-	public ClientePostRequest() {
+	public ClienteServiceModel() {
 		super();
 	}
 
-	public ClientePostRequest(Integer id, String email, String password) {
+	public ClienteServiceModel(Integer id, String email, String password) {
 		super();
 		this.id = id;
 		this.email = email;

@@ -1,6 +1,6 @@
 package com.example.Reto2Grupo2.trabajador;
 
-public class TrabajadorPostRequest {
+public class TrabajadorServiceModel {
 
 	private Integer id;
 
@@ -10,11 +10,11 @@ public class TrabajadorPostRequest {
 
 	private Integer idZoo;
 
-	public TrabajadorPostRequest() {
+	public TrabajadorServiceModel() {
 		super();
 	}
 
-	public TrabajadorPostRequest(Integer id, String username, String password, Integer idZoo) {
+	public TrabajadorServiceModel(Integer id, String username, String password, Integer idZoo) {
 		super();
 		this.id = id;
 		this.username = username;
