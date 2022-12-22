@@ -51,10 +51,25 @@ public class Billete {
 	private int idCliente;
 	
 	public Billete() {}
+	
+	
+	
 
-	public Billete(int id, Date fecha, int cantidad, float importe) {
+	public Billete(Date fecha, int cantidad, float importe, int idZoo, int idCliente) {
 		super();
-		this.id = id;
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.importe = importe;
+		this.idZoo = idZoo;
+		this.idCliente = idCliente;
+	}
+
+
+
+
+	public Billete( Date fecha, int cantidad, float importe) {
+		super();
+		
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
