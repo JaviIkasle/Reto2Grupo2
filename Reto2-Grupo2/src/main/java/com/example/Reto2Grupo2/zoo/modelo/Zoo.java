@@ -19,7 +19,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,7 +27,7 @@ public class Zoo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(length = 150)
 	private String nombre;
 	@Column(name = "pvp_entrada")
@@ -46,26 +45,26 @@ public class Zoo {
 	@Column(length = 200)
 	private String pais;
 
-	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<Evento> eventos;
-
-	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<Billete> billetes;
-
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "zoo_has_animales", joinColumns = @JoinColumn(name = "id_zoo"), inverseJoinColumns = @JoinColumn(name = "id_animal"))
-	private List<Animal> animales;
-
-	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<Trabajador> trabajadores;
-	
+//	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//	@JsonBackReference
+//	private List<Evento> eventos;
+//
+//	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//	@JsonBackReference
+//	private List<Billete> billetes;
+//
+//	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+//	@JoinTable(name = "zoo_has_animales", joinColumns = @JoinColumn(name = "id_zoo"), inverseJoinColumns = @JoinColumn(name = "id_animal"))
+//	private List<Animal> animales;
+//
+//	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//	@JsonBackReference
+//	private List<Trabajador> trabajadores;
+//	
 	public Zoo() {
 	}
 
-	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
+	public Zoo(Integer id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
 			String ciudad, String pais) {
 		super();
 		this.id = id;
@@ -79,30 +78,30 @@ public class Zoo {
 		this.pais = pais;
 	}
 
-	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
-			String ciudad, String pais, List<Evento> eventos, List<Billete> billetes, List<Animal> animales,
-			List<Trabajador> trabajadores) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.pvpEntrada = pvpEntrada;
-		this.web = web;
-		this.informacion = informacion;
-		this.latitud = latitud;
-		this.longitud = longitud;
-		this.ciudad = ciudad;
-		this.pais = pais;
-		this.eventos = eventos;
-		this.billetes = billetes;
-		this.animales = animales;
-		this.trabajadores = trabajadores;
-	}
+//	public Zoo(Integer id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
+//			String ciudad, String pais, List<Evento> eventos, List<Billete> billetes, List<Animal> animales,
+//			List<Trabajador> trabajadores) {
+//		super();
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.pvpEntrada = pvpEntrada;
+//		this.web = web;
+//		this.informacion = informacion;
+//		this.latitud = latitud;
+//		this.longitud = longitud;
+//		this.ciudad = ciudad;
+//		this.pais = pais;
+//		this.eventos = eventos;
+//		this.billetes = billetes;
+//		this.animales = animales;
+//		this.trabajadores = trabajadores;
+//	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -138,37 +137,37 @@ public class Zoo {
 		this.informacion = informacion;
 	}
 
-	public List<Evento> getEventos() {
-		return eventos;
-	}
-
-	public void setEventos(List<Evento> eventos) {
-		this.eventos = eventos;
-	}
-
-	public List<Billete> getBilletes() {
-		return billetes;
-	}
-
-	public void setBilletes(List<Billete> billetes) {
-		this.billetes = billetes;
-	}
-
-	public List<Animal> getAnimales() {
-		return animales;
-	}
-
-	public void setAnimales(List<Animal> animales) {
-		this.animales = animales;
-	}
-
-	public List<Trabajador> getTrabajadores() {
-		return trabajadores;
-	}
-
-	public void setTrabajadores(List<Trabajador> trabajadores) {
-		this.trabajadores = trabajadores;
-	}
+//	public List<Evento> getEventos() {
+//		return eventos;
+//	}
+//
+//	public void setEventos(List<Evento> eventos) {
+//		this.eventos = eventos;
+//	}
+//
+//	public List<Billete> getBilletes() {
+//		return billetes;
+//	}
+//
+//	public void setBilletes(List<Billete> billetes) {
+//		this.billetes = billetes;
+//	}
+//
+//	public List<Animal> getAnimales() {
+//		return animales;
+//	}
+//
+//	public void setAnimales(List<Animal> animales) {
+//		this.animales = animales;
+//	}
+//
+//	public List<Trabajador> getTrabajadores() {
+//		return trabajadores;
+//	}
+//
+//	public void setTrabajadores(List<Trabajador> trabajadores) {
+//		this.trabajadores = trabajadores;
+//	}
 
 	
 	public float getLatitud() {
@@ -207,7 +206,7 @@ public class Zoo {
 	public String toString() {
 		return "Zoo [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web + ", informacion="
 				+ informacion + ", latitud=" + latitud + ", longitud=" + longitud + ", ciudad=" + ciudad + ", pais="
-				+ pais + ", eventos=" + eventos + ", billetes=" + billetes + ", animales=" + animales
-				+ ", trabajadores=" + trabajadores + "]";
+				+ pais + ", eventos=" /*+ eventos + ", billetes=" + billetes + ", animales=" + animales
+				+ ", trabajadores=" + trabajadores */+ "]";
 	}
 }
