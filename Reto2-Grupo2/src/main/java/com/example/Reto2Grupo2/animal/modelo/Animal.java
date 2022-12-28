@@ -44,8 +44,8 @@ public class Animal {
 	@Column(name="id_especie", insertable=false, updatable=false)
 	private int idEspecie;
 	
-	@ManyToMany(mappedBy = "animales")
-	private List<Zoo> zoos;
+//	@ManyToMany(mappedBy = "animales")
+//	private List<Zoo> zoos;
 	
 	public Animal() {}
 
@@ -57,17 +57,17 @@ public class Animal {
 		this.foto = foto;
 	}
 
-	public Animal(int id, String nombre, String informacion, String foto, Especie especie, int idEspecie,
-			List<Zoo> zoos) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.informacion = informacion;
-		this.foto = foto;
-		this.especie = especie;
-		this.idEspecie = idEspecie;
-		this.zoos = zoos;
-	}
+//	public Animal(int id, String nombre, String informacion, String foto, Especie especie, int idEspecie,
+//			List<Zoo> zoos) {
+//		super();
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.informacion = informacion;
+//		this.foto = foto;
+//		this.especie = especie;
+//		this.idEspecie = idEspecie;
+//		this.zoos = zoos;
+//	}
 
 	public int getId() {
 		return id;
@@ -109,13 +109,13 @@ public class Animal {
 		this.idEspecie = idEspecie;
 	}
 
-	public List<Zoo> getZoos() {
-		return zoos;
-	}
-
-	public void setZoos(List<Zoo> zoos) {
-		this.zoos = zoos;
-	}
+//	public List<Zoo> getZoos() {
+//		return zoos;
+//	}
+//
+//	public void setZoos(List<Zoo> zoos) {
+//		this.zoos = zoos;
+//	}
 
 	public String getFoto() {
 		return foto;
@@ -125,9 +125,5 @@ public class Animal {
 		this.foto = foto;
 	}
 
-	@Override
-	public String toString() {
-		return "Animal [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", foto=" + foto
-				+ ", especie=" + especie + ", idEspecie=" + idEspecie + ", zoos=" + zoos + "]";
-	}
+
 }
