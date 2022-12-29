@@ -23,32 +23,35 @@ public class Evento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(length = 60)
 	private String nombre;
 	@Column(length = 400)
 	private String informacion;
 	@Column
 	private Date fecha;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_zoo", foreignKey=@ForeignKey(name = "FK_id_zoo"))
-//	@JsonManagedReference
-//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	private Zoo zoo;
-//
-//	@Column(name="id_zoo", insertable=false, updatable=false)
-//	private Integer idZoo;
 
-	public Evento() {}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_zoo_id"))
+	@JsonManagedReference
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Zoo zoo;
 
-	public Evento(int id, String nombre, String informacion, Date fecha) {
+	@Column(name="zoo_id", insertable=false, updatable=false)
+	private Integer idZoo;
+
+	public Evento() {
+	}
+
+	public Evento(Integer id, String nombre, String informacion, Date fecha, Zoo zoo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
 		this.fecha = fecha;
+		this.zoo = zoo;
 	}
+
 	public Evento(String nombre, String informacion, Date fecha) {
 		super();
 		this.nombre = nombre;
@@ -56,21 +59,28 @@ public class Evento {
 		this.fecha = fecha;
 	}
 
-//	public Evento(int id, String nombre, String informacion, Date fecha, Zoo zoo, Integer idZoo) {
-//		super();
-//		this.id = id;
-//		this.nombre = nombre;
-//		this.informacion = informacion;
-//		this.fecha = fecha;
-//		this.zoo = zoo;
-//		this.idZoo = idZoo;
-//	}
+	public Evento(Integer id, String nombre, String informacion, Date fecha, Zoo zoo, Integer idZoo) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.informacion = informacion;
+		this.fecha = fecha;
+		this.zoo = zoo;
+		this.idZoo = idZoo;
+	}
+	public Evento(Integer id, String nombre, String informacion, Date fecha) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.informacion = informacion;
+		this.fecha = fecha;
+	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -98,7 +108,24 @@ public class Evento {
 		this.fecha = fecha;
 	}
 
-	
+	public Zoo getZoo() {
+		return zoo;
+	}
 
+	public void setZoo(Zoo zoo) {
+		this.zoo = zoo;
+	}
+
+	public Integer getIdZoo() {
+		return idZoo;
+	}
+
+	public void setIdZoo(Integer idZoo) {
+		this.idZoo = idZoo;
+	}
+
+
+
+	
 
 }

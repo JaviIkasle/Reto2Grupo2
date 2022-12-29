@@ -9,21 +9,24 @@ import jakarta.persistence.Id;
 
 public class EventoPostRequest {
 
-//TODO falta validación
+//TODO falta alguna validación
 	private String nombre;
 
 	private String informacion;
 
 	private Date fecha;
 
+	private Integer zooId;
+
 	public EventoPostRequest() {
 	}
 
-	public EventoPostRequest(String nombre, String informacion, Date fecha) {
+	public EventoPostRequest(String nombre, String informacion, Date fecha, Integer zooId) {
 		super();
 		this.nombre = nombre;
 		this.informacion = informacion;
 		this.fecha = fecha;
+		this.zooId = zooId;
 	}
 
 	public String getNombre() {
@@ -48,6 +51,20 @@ public class EventoPostRequest {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public Integer getZooId() {
+		return zooId;
+	}
+
+	public void setZooId(Integer zooId) {
+		this.zooId = zooId;
+	}
+
+	@Override
+	public String toString() {
+		return "EventoPostRequest [nombre=" + nombre + ", informacion=" + informacion + ", fecha=" + fecha + ", zooId="
+				+ zooId + "]";
 	}
 
 }

@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.example.Reto2Grupo2.evento.modelo.Evento;
-import com.example.Reto2Grupo2.evento.modelo.EventoPostRequest;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooPostRequest;
+import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
 
 @RestController
@@ -34,11 +32,26 @@ public class ZooController {
 	}
 	
 	@GetMapping("/zoos/{id}")
-	public ResponseEntity<Zoo> getZooById(@PathVariable("id") Integer id) {
+	public ResponseEntity<ZooServiceModel> getZooById(@PathVariable("id") Integer id) {
 		Zoo zoo = zooRepository.findById(id).orElseThrow(
 
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
-		return new ResponseEntity<Zoo>(zoo, HttpStatus.OK);
+		
+		//List<Evento> even tos = zoo.getEventos();
+		
+		ZooServiceModel response = new ZooServiceModel(
+				zoo.getId(),
+				zoo.getNombre(), 
+				zoo.getPvpEntrada(),
+				zoo.getWeb(),
+				zoo.getInformacion(),
+				zoo.getLatitud(),
+				zoo.getLongitud(),
+				zoo.getCiudad(),
+				zoo.getPais(),
+				null);
+	
+		return new ResponseEntity<ZooServiceModel>(response, HttpStatus.OK);
 	}
 	
 	@PostMapping("/zoos")

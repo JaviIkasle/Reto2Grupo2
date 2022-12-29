@@ -46,9 +46,9 @@ public class Zoo {
 	@Column(length = 200)
 	private String pais;
 
-//	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//	@JsonBackReference
-//	private List<Evento> eventos;
+	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Evento> eventos;
 
 //	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 //	@JsonBackReference
@@ -92,25 +92,6 @@ public class Zoo {
 		this.pais = pais;
 	}
 
-//	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
-//			String ciudad, String pais, List<Evento> eventos, List<Billete> billetes, List<Animal> animales,
-//			List<Trabajador> trabajadores) {
-//		super();
-//		this.id = id;
-//		this.nombre = nombre;
-//		this.pvpEntrada = pvpEntrada;
-//		this.web = web;
-//		this.informacion = informacion;
-//		this.latitud = latitud;
-//		this.longitud = longitud;
-//		this.ciudad = ciudad;
-//		this.pais = pais;
-//		this.eventos = eventos;
-//		this.billetes = billetes;
-//		this.animales = animales;
-//		this.trabajadores = trabajadores;
-//	}
-
 	public int getId() {
 		return id;
 	}
@@ -151,39 +132,6 @@ public class Zoo {
 		this.informacion = informacion;
 	}
 
-//	public List<Evento> getEventos() {
-//		return eventos;
-//	}
-//
-//	public void setEventos(List<Evento> eventos) {
-//		this.eventos = eventos;
-//	}
-
-//	public List<Billete> getBilletes() {
-//		return billetes;
-//	}
-//
-//	public void setBilletes(List<Billete> billetes) {
-//		this.billetes = billetes;
-//	}
-
-//	public List<Animal> getAnimales() {
-//		return animales;
-//	}
-//
-//	public void setAnimales(List<Animal> animales) {
-//		this.animales = animales;
-//	}
-//
-//	public List<Trabajador> getTrabajadores() {
-//		return trabajadores;
-//	}
-//
-//	public void setTrabajadores(List<Trabajador> trabajadores) {
-//		this.trabajadores = trabajadores;
-//	}
-
-	
 	public float getLatitud() {
 		return latitud;
 	}
@@ -216,5 +164,33 @@ public class Zoo {
 		this.pais = pais;
 	}
 
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
+//	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
+//			String ciudad, String pais, List<Evento> eventos, List<Billete> billetes, List<Animal> animales,
+//			List<Trabajador> trabajadores) {
+//		super();
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.pvpEntrada = pvpEntrada;
+//		this.web = web;
+//		this.informacion = informacion;
+//		this.latitud = latitud;
+//		this.longitud = longitud;
+//		this.ciudad = ciudad;
+//		this.pais = pais;
+//		this.eventos = eventos;
+//		this.billetes = billetes;
+//		this.animales = animales;
+//		this.trabajadores = trabajadores;
+//	}
+
+	
 
 }

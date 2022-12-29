@@ -1,8 +1,13 @@
 package com.example.Reto2Grupo2.zoo.modelo;
 
-public class ZooPostRequest {
+import java.util.List;
 
-	//TODO validaciones
+import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
+
+public class ZooServiceModel {
+
+	private int id;
+
 	private String nombre;
 
 	private float pvpEntrada;
@@ -18,12 +23,16 @@ public class ZooPostRequest {
 	private String ciudad;
 
 	private String pais;
-	
-	public ZooPostRequest() {}
 
-	public ZooPostRequest(String nombre, float pvpEntrada, String web, String informacion, float latitud,
-			float longitud, String ciudad, String pais) {
+	private List<EventoServiceModel> eventos;
+
+	public ZooServiceModel() {
+	}
+
+	public ZooServiceModel(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud,
+			float longitud, String ciudad, String pais, List<EventoServiceModel> eventos) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.pvpEntrada = pvpEntrada;
 		this.web = web;
@@ -32,6 +41,15 @@ public class ZooPostRequest {
 		this.longitud = longitud;
 		this.ciudad = ciudad;
 		this.pais = pais;
+		this.eventos = eventos;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -97,7 +115,20 @@ public class ZooPostRequest {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	
-	
-	
-} 
+
+	public List<EventoServiceModel> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<EventoServiceModel> eventos) {
+		this.eventos = eventos;
+	}
+
+	@Override
+	public String toString() {
+		return "ZooServiceModel [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web
+				+ ", informacion=" + informacion + ", latitud=" + latitud + ", longitud=" + longitud + ", ciudad="
+				+ ciudad + ", pais=" + pais + ", eventos=" + eventos + "]";
+	}
+
+}
