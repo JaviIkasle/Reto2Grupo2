@@ -2,10 +2,6 @@ package com.example.Reto2Grupo2.evento.modelo;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 public class EventoPostRequest {
 

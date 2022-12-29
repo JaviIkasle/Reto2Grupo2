@@ -1,13 +1,8 @@
 package com.example.Reto2Grupo2.zoo.modelo;
 
 import java.util.List;
-
-import com.example.Reto2Grupo2.animal.modelo.Animal;
-import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.evento.modelo.Evento;
-import com.example.Reto2Grupo2.trabajador.Trabajador;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,11 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
