@@ -15,20 +15,20 @@ public class EventoServiceModel {
 
 	private ZooServiceModel zoo;
 
-	private Integer idZoo;
+	private Integer zooId;
 
 	public EventoServiceModel() {
 	}
 
 	public EventoServiceModel(Integer id, String nombre, String informacion, Date fecha, ZooServiceModel zooServiceModel,
-			Integer idZoo) {
+			Integer zooId) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
 		this.fecha = fecha;
 		this.zoo = zooServiceModel;
-		this.idZoo = idZoo;
+		this.zooId = zooId;
 	}
 
 	public Integer getId() {
@@ -71,17 +71,17 @@ public class EventoServiceModel {
 		this.zoo = zoo;
 	}
 
-	public Integer getIdZoo() {
-		return idZoo;
+	public Integer getZooId() {
+		return zooId;
 	}
 
-	public void setIdZoo(Integer idZoo) {
-		this.idZoo = idZoo;
+	public void setZooId(Integer idZoo) {
+		this.zooId = idZoo;
 	}
 
 	@Override
 	public String toString() {
 		return "EventoServiceModel [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", fecha="
-				+ fecha + ", zoo=" + zoo + ", idZoo=" + idZoo + "]";
+				+ fecha + ", zoo=" + zoo + ", idZoo=" + zooId + "]";
 	}
 }

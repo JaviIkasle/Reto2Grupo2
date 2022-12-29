@@ -38,7 +38,7 @@ public class Evento {
 	private Zoo zoo;
 
 	@Column(name="zoo_id", insertable=false, updatable=false)
-	private Integer idZoo;
+	private Integer zooId;
 
 	public Evento() {
 	}
@@ -52,29 +52,31 @@ public class Evento {
 		this.zoo = zoo;
 	}
 
-	public Evento(String nombre, String informacion, Date fecha) {
-		super();
-		this.nombre = nombre;
-		this.informacion = informacion;
-		this.fecha = fecha;
+	public Evento(Integer id, String nombre, String informacion, Date fecha, Zoo zoo, Integer zooId) {
+	super();
+	this.id = id;
+	this.nombre = nombre;
+	this.informacion = informacion;
+	this.fecha = fecha;
+	this.zoo = zoo;
+	this.zooId = zooId;
 	}
+	
+//	public Evento(String nombre, String informacion, Date fecha) {
+//		super();
+//		this.nombre = nombre;
+//		this.informacion = informacion;
+//		this.fecha = fecha;
+//	}
 
-	public Evento(Integer id, String nombre, String informacion, Date fecha, Zoo zoo, Integer idZoo) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.informacion = informacion;
-		this.fecha = fecha;
-		this.zoo = zoo;
-		this.idZoo = idZoo;
-	}
-	public Evento(Integer id, String nombre, String informacion, Date fecha) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.informacion = informacion;
-		this.fecha = fecha;
-	}
+
+//	public Evento(Integer id, String nombre, String informacion, Date fecha) {
+//		super();
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.informacion = informacion;
+//		this.fecha = fecha;
+//	}
 
 	public Integer getId() {
 		return id;
@@ -116,16 +118,11 @@ public class Evento {
 		this.zoo = zoo;
 	}
 
-	public Integer getIdZoo() {
-		return idZoo;
+	public Integer getZooId() {
+		return zooId;
 	}
 
-	public void setIdZoo(Integer idZoo) {
-		this.idZoo = idZoo;
+	public void setZooId(Integer idZoo) {
+		this.zooId = idZoo;
 	}
-
-
-
-	
-
 }

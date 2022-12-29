@@ -1,5 +1,7 @@
 package com.example.Reto2Grupo2.zoo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -25,10 +27,26 @@ public class ZooController {
 	@Autowired
 	private ZooRepository zooRepository;
 	
-
 	@GetMapping("/zoos")
-	public ResponseEntity<Iterable<Zoo>> getZoos() {
-		return new ResponseEntity<Iterable<Zoo>>(zooRepository.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<ZooServiceModel>> getZoos() {
+		Iterable<Zoo> zoos = zooRepository.findAll();
+		List<ZooServiceModel> response = new ArrayList<ZooServiceModel>();
+		for (Zoo zoo : zoos) {
+			response.add(
+					new ZooServiceModel(
+							zoo.getId(),
+							zoo.getNombre(), 
+							zoo.getPvpEntrada(),
+							zoo.getWeb(),
+							zoo.getInformacion(),
+							zoo.getLatitud(),
+							zoo.getLongitud(),
+							zoo.getCiudad(),
+							zoo.getPais(),
+							null));
+		}
+		
+		return new ResponseEntity<List<ZooServiceModel>>(response, HttpStatus.OK);
 	}
 	
 	@GetMapping("/zoos/{id}")
@@ -37,7 +55,7 @@ public class ZooController {
 
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 		
-		//List<Evento> even tos = zoo.getEventos();
+		//List<Evento> eventos = zoo.getEventos();
 		
 		ZooServiceModel response = new ZooServiceModel(
 				zoo.getId(),
@@ -55,9 +73,8 @@ public class ZooController {
 	}
 	
 	@PostMapping("/zoos")
-	public ResponseEntity<Zoo> createZoo(@RequestBody ZooPostRequest zooPostRequest) {
-		
-		//la id es null, se ha creado un constructor sin id
+	public ResponseEntity<ZooServiceModel> createZoo(@RequestBody ZooPostRequest zooPostRequest) {
+			
 		Zoo zoo = new Zoo(
 				zooPostRequest.getNombre(), 
 				zooPostRequest.getPvpEntrada(),
@@ -68,12 +85,25 @@ public class ZooController {
 				zooPostRequest.getCiudad(),
 				zooPostRequest.getPais());
 
-		Zoo zooResponse = zooRepository.save(zoo);
-		return new ResponseEntity<Zoo>(zooResponse, HttpStatus.CREATED);
+		zoo = zooRepository.save(zoo);
+		
+		ZooServiceModel zooResponse = new ZooServiceModel(
+				zoo.getId(),
+				zoo.getNombre(), 
+				zoo.getPvpEntrada(),
+				zoo.getWeb(),
+				zoo.getInformacion(),
+				zoo.getLatitud(),
+				zoo.getLongitud(),
+				zoo.getCiudad(),
+				zoo.getPais(),
+				null); //trampeado, evento.getZooId**
+		 							
+		return new ResponseEntity<ZooServiceModel>(zooResponse, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/zoos/{id}")
-	public ResponseEntity<Zoo> updateEvento(
+	public ResponseEntity<ZooServiceModel> updateEvento(
 			@PathVariable("id") Integer id,
 			@RequestBody ZooPostRequest zooPostRequest) {
 		
@@ -108,15 +138,21 @@ public class ZooController {
 		}
 
 		 zoo = zooRepository.save(zoo);
+		 			
+		 ZooServiceModel  zooResponse = new ZooServiceModel(
+				 zoo.getId(),
+					zoo.getNombre(), 
+					zoo.getPvpEntrada(),
+					zoo.getWeb(),
+					zoo.getInformacion(),
+					zoo.getLatitud(),
+					zoo.getLongitud(),
+					zoo.getCiudad(),
+					zoo.getPais(),
+					null);  //trampeado, evento.getZooId**
 		 
-		 return new ResponseEntity<Zoo>(zoo,HttpStatus.OK);
-		
-//		if(eventoExist) {
-//			return new ResponseEntity<Evento>(eventoResponse, HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Evento>(eventoResponse, HttpStatus.CREATED);
-//		}
-//		
+		 return new ResponseEntity<ZooServiceModel>(zooResponse,HttpStatus.OK);
+
 	}
 	
 	@DeleteMapping("/zoos/{id}")

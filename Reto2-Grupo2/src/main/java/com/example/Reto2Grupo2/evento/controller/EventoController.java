@@ -49,7 +49,7 @@ public class EventoController {
 							evento.getInformacion(),
 							evento.getFecha(),
 							null,
-							evento.getIdZoo()));
+							evento.getZooId()));
 		}
 		
 		return new ResponseEntity<List<EventoServiceModel>>(response, HttpStatus.OK);
@@ -60,6 +60,8 @@ public class EventoController {
 			@PathVariable("id")Integer id,
 			@RequestParam(required= false) List<EventosExpands> expand 
 			) {
+		
+		
 		Evento evento = eventoRepository.findById(id).orElseThrow(
 
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no encontrado"));
@@ -90,7 +92,7 @@ public class EventoController {
 													evento.getInformacion(),
 													evento.getFecha(),
 													zooResponse,
-													evento.getIdZoo())
+													evento.getZooId())
 										;
 		
 		return new ResponseEntity<EventoServiceModel>(response, HttpStatus.OK);
