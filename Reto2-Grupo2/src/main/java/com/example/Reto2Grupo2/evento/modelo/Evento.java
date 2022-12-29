@@ -32,7 +32,7 @@ public class Evento {
 	private Date fecha;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_zoo_id"))
+	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_zoo_id_Event"))
 	@JsonManagedReference
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Zoo zoo;

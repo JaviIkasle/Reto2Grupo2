@@ -2,7 +2,7 @@ package com.example.Reto2Grupo2.rol.modelo;
 
 import java.util.List;
 
-import com.example.Reto2Grupo2.trabajador.Trabajador;
+import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -25,9 +25,9 @@ public class Rol {
 	@Column(length = 150)
 	private String tipo;
 
-	@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<Trabajador> trabajadores;
+//	@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//	@JsonBackReference
+//	private List<Trabajador> trabajadores;
 
 	public Rol() {
 	}
@@ -37,13 +37,13 @@ public class Rol {
 		this.id = id;
 		this.tipo = tipo;
 	}
-
-	public Rol(int id, String tipo, List<Trabajador> trabajadores) {
-		super();
-		this.id = id;
-		this.tipo = tipo;
-		this.trabajadores = trabajadores;
-	}
+//
+//	public Rol(int id, String tipo, List<Trabajador> trabajadores) {
+//		super();
+//		this.id = id;
+//		this.tipo = tipo;
+//		this.trabajadores = trabajadores;
+//	}
 
 	public int getId() {
 		return id;
@@ -61,16 +61,16 @@ public class Rol {
 		this.tipo = tipo;
 	}
 
-	public List<Trabajador> getTrabajadores() {
-		return trabajadores;
-	}
-
-	public void setTrabajadores(List<Trabajador> trabajadores) {
-		this.trabajadores = trabajadores;
-	}
-
-	@Override
-	public String toString() {
-		return "Rol [id=" + id + ", tipo=" + tipo + ", trabajadores=" + trabajadores + "]";
-	}
+//	public List<Trabajador> getTrabajadores() {
+//		return trabajadores;
+//	}
+//
+//	public void setTrabajadores(List<Trabajador> trabajadores) {
+//		this.trabajadores = trabajadores;
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "Rol [id=" + id + ", tipo=" + tipo + ", trabajadores=" + trabajadores + "]";
+//	}
 }

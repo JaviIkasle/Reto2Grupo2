@@ -1,4 +1,6 @@
-package com.example.Reto2Grupo2.trabajador;
+package com.example.Reto2Grupo2.trabajador.modelo;
+
+import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 
 public class TrabajadorServiceModel {
 
@@ -8,18 +10,21 @@ public class TrabajadorServiceModel {
 
 	private String password;
 
-	private Integer idZoo;
+	private Zoo zoo;
+
+	private Integer zooId;
 
 	public TrabajadorServiceModel() {
-		super();
+
 	}
 
-	public TrabajadorServiceModel(Integer id, String username, String password, Integer idZoo) {
+	public TrabajadorServiceModel(Integer id, String username, String password, Zoo zoo, Integer zooId) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.idZoo = idZoo;
+		this.zoo = zoo;
+		this.zooId = zooId;
 	}
 
 	public Integer getId() {
@@ -46,18 +51,26 @@ public class TrabajadorServiceModel {
 		this.password = password;
 	}
 
-	public Integer getIdZoo() {
-		return idZoo;
+	public Zoo getZoo() {
+		return zoo;
 	}
 
-	public void setIdZoo(Integer idZoo) {
-		this.idZoo = idZoo;
+	public void setZoo(Zoo zoo) {
+		this.zoo = zoo;
+	}
+
+	public Integer getZooId() {
+		return zooId;
+	}
+
+	public void setZooId(Integer zooId) {
+		this.zooId = zooId;
 	}
 
 	@Override
 	public String toString() {
-		return "TrabajadorPostRequest [id=" + id + ", username=" + username + ", password=" + password + ", idZoo="
-				+ idZoo + "]";
+		return "TrabajadorServiceModel [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
+				+ ", zooId=" + zooId + "]";
 	}
 
 }

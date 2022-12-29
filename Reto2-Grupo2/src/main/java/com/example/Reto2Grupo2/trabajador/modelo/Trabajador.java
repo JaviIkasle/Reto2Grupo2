@@ -1,10 +1,8 @@
-package com.example.Reto2Grupo2.trabajador;
+package com.example.Reto2Grupo2.trabajador.modelo;
 
-import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,44 +27,34 @@ public class Trabajador {
 	private String password;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_zoo", foreignKey = @ForeignKey(name = "FK_id_zooTrabajador"))
+	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_zoo_id_Trab"))
 	@JsonManagedReference
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Zoo zoo;
 
-	@Column(name = "id_zoo", insertable = false, updatable = false)
-	private Integer idZoo;
+	@Column(name = "zoo_id", insertable = false, updatable = false)
+	private Integer zooId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_rol", foreignKey=@ForeignKey(name = "FK_id_trabajadorRoles"))
-	@JsonManagedReference
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Rol rol;
-	
-	@Column(name="id_rol", insertable=false, updatable=false)
-	private int idRol;
-	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "id_rol", foreignKey=@ForeignKey(name = "FK_id_trabajadorRoles"))
+//	@JsonManagedReference
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	private Rol rol;
+
+//	@Column(name="id_rol", insertable=false, updatable=false)
+//	private int idRol;
+
 	public Trabajador() {
-		super();
-	}
-
-	public Trabajador(Integer id, String username, String password) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
 
 	}
 
-	public Trabajador(Integer id, String username, String password, Zoo zoo, Integer idZoo, Rol rol, int idRol) {
+	public Trabajador(Integer id, String username, String password, Zoo zoo, Integer zooId) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.zoo = zoo;
-		this.idZoo = idZoo;
-		this.rol = rol;
-		this.idRol = idRol;
+		this.zooId = zooId;
 	}
 
 	public Integer getId() {
@@ -101,33 +89,18 @@ public class Trabajador {
 		this.zoo = zoo;
 	}
 
-	public Integer getIdZoo() {
-		return idZoo;
+	public Integer getZooId() {
+		return zooId;
 	}
 
-	public void setIdZoo(Integer idZoo) {
-		this.idZoo = idZoo;
-	}
-
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-
-	public int getIdRol() {
-		return idRol;
-	}
-
-	public void setIdRol(int idRol) {
-		this.idRol = idRol;
+	public void setZooId(Integer zooId) {
+		this.zooId = zooId;
 	}
 
 	@Override
 	public String toString() {
 		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
-				+ ", idZoo=" + idZoo + ", rol=" + rol + ", idRol=" + idRol + "]";
+				+ ", zooId=" + zooId + "]";
 	}
+
 }
