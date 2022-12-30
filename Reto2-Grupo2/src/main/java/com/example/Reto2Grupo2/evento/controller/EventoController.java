@@ -29,7 +29,7 @@ public class EventoController {
 	private EventoRepository eventoRepository;
 
 	@Autowired
-	EventoServiceImpl eventoService;
+	private EventoServiceImpl eventoService;
 
 
 

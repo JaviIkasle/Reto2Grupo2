@@ -34,6 +34,7 @@ public class ZooService implements ZooServiceImpl{
 							zoo.getLongitud(),
 							zoo.getCiudad(),
 							zoo.getPais(),
+							null,
 							null));
 		}		return response;
 	}
@@ -56,6 +57,7 @@ public class ZooService implements ZooServiceImpl{
 				zoo.getLongitud(),
 				zoo.getCiudad(),
 				zoo.getPais(),
+				null,
 				null);
 	
 		return response;
@@ -86,7 +88,8 @@ public class ZooService implements ZooServiceImpl{
 				zoo.getLongitud(),
 				zoo.getCiudad(),
 				zoo.getPais(),
-				null); //trampeado, evento.getZooId**
+				null,
+				null); 
 		
 		return zooResponse;
 	}
@@ -136,7 +139,8 @@ public class ZooService implements ZooServiceImpl{
 							zoo.getLongitud(),
 							zoo.getCiudad(),
 							zoo.getPais(),
-							null);  //trampeado, evento.getZooId**
+							null,
+							null);  
 		
 		return zooResponse;
 	}

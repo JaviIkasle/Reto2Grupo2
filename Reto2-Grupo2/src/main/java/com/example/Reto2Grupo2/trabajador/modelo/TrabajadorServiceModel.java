@@ -1,6 +1,6 @@
 package com.example.Reto2Grupo2.trabajador.modelo;
 
-import com.example.Reto2Grupo2.zoo.modelo.Zoo;
+import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 
 public class TrabajadorServiceModel {
 
@@ -10,7 +10,7 @@ public class TrabajadorServiceModel {
 
 	private String password;
 
-	private Zoo zoo;
+	private ZooServiceModel zoo;
 
 	private Integer zooId;
 
@@ -18,7 +18,7 @@ public class TrabajadorServiceModel {
 
 	}
 
-	public TrabajadorServiceModel(Integer id, String username, String password, Zoo zoo, Integer zooId) {
+	public TrabajadorServiceModel(Integer id, String username, String password, ZooServiceModel zoo, Integer zooId) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -51,11 +51,11 @@ public class TrabajadorServiceModel {
 		this.password = password;
 	}
 
-	public Zoo getZoo() {
+	public ZooServiceModel getZoo() {
 		return zoo;
 	}
 
-	public void setZoo(Zoo zoo) {
+	public void setZoo(ZooServiceModel zoo) {
 		this.zoo = zoo;
 	}
 

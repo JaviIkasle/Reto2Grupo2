@@ -61,6 +61,7 @@ public class EventoService  implements EventoServiceImpl{
 					zooBD.getLongitud(),
 					zooBD.getCiudad(),
 					zooBD.getPais(),
+					null,
 					null);
 			
 		}		

@@ -3,6 +3,7 @@ package com.example.Reto2Grupo2.zoo.modelo;
 import java.util.List;
 
 import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
+import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
 
 public class ZooServiceModel {
 
@@ -26,11 +27,14 @@ public class ZooServiceModel {
 
 	private List<EventoServiceModel> eventos;
 
+	private List<TrabajadorServiceModel> trabajadores;
+
 	public ZooServiceModel() {
 	}
 
 	public ZooServiceModel(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud,
-			float longitud, String ciudad, String pais, List<EventoServiceModel> eventos) {
+			float longitud, String ciudad, String pais, List<EventoServiceModel> eventos,
+			List<TrabajadorServiceModel> trabajadores) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -42,6 +46,7 @@ public class ZooServiceModel {
 		this.ciudad = ciudad;
 		this.pais = pais;
 		this.eventos = eventos;
+		this.trabajadores = trabajadores;
 	}
 
 	public int getId() {
@@ -124,11 +129,19 @@ public class ZooServiceModel {
 		this.eventos = eventos;
 	}
 
+	public List<TrabajadorServiceModel> getTrabajadores() {
+		return trabajadores;
+	}
+
+	public void setTrabajadores(List<TrabajadorServiceModel> trabajadores) {
+		this.trabajadores = trabajadores;
+	}
+
 	@Override
 	public String toString() {
 		return "ZooServiceModel [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web
 				+ ", informacion=" + informacion + ", latitud=" + latitud + ", longitud=" + longitud + ", ciudad="
-				+ ciudad + ", pais=" + pais + ", eventos=" + eventos + "]";
+				+ ciudad + ", pais=" + pais + ", eventos=" + eventos + ", trabajadores=" + trabajadores + "]";
 	}
 
 }
