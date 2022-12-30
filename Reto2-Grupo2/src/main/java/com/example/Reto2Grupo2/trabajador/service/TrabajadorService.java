@@ -2,11 +2,16 @@ package com.example.Reto2Grupo2.trabajador.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
+
+import com.example.Reto2Grupo2.auth.persistence.Rol;
+import com.example.Reto2Grupo2.auth.persistence.Trabajador;
+import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
+import com.example.Reto2Grupo2.rol.repository.RolRepository;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorExpands;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorPostRequest;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
@@ -24,6 +29,8 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 	//TODO podríamos llamar al servicio del Zoo y de ahí al repositorio
 	@Autowired
 	private ZooRepository zooRepository;
+	@Autowired
+	private RolRepository rolRepository;
 	
 	@Override
 	public List<TrabajadorServiceModel> getTrabajadores() {
@@ -36,7 +43,9 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 							trabajador.getUsername(),
 							trabajador.getPassword(),
 							null,
-							trabajador.getZooId()));
+							trabajador.getZooId(),
+							null,
+							trabajador.getRolId()));
 		}		return response;
 	}
 
@@ -65,13 +74,26 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 					null,
 					null);		
 		}	
+		RolServiceModel rolResponse = null;
+		
+		if (expand != null&& expand.indexOf(TrabajadorExpands.ROL) != -1) {
+			
+			Rol rolBD = trabajador.getRol();		
+			rolResponse = new RolServiceModel(
+					rolBD.getId(),
+					rolBD.getTipo(),
+					null);		
+		}	
  		
 		TrabajadorServiceModel response = new TrabajadorServiceModel(
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
 				zooResponse,
-				trabajador.getZooId());
+				trabajador.getZooId(),
+				rolResponse,
+				trabajador.getRolId()
+				);
 		
 		return response;
 	}
@@ -82,13 +104,18 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 		Zoo zoo = zooRepository.findById(trabajadorPostRequest.getZooId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 		
+		Rol rol = rolRepository.findById(trabajadorPostRequest.getRolId()).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+		
 		
 		Trabajador trabajador = new Trabajador(
 				null,
 				trabajadorPostRequest.getUsername(), 
 				trabajadorPostRequest.getPassword(),
 				zoo,
-				trabajadorPostRequest.getZooId()
+				trabajadorPostRequest.getZooId(),
+				rol,
+				trabajadorPostRequest.getRolId()
 				);
 
 		trabajador = trabajadorRepository.save(trabajador);
@@ -99,7 +126,9 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 				trabajador.getUsername(),
 				trabajador.getPassword(),
 				null,
-				zoo.getId()); //trampeado, evento.getZooId**Si no sale null
+				zoo.getId(),//trampeado, evento.getZooId**Si no sale null
+				null,
+				rol.getId()); //trampeado, evento.getZooId**Si no sale null
 		 return trabajadorResponse;			
 	}
 
@@ -111,24 +140,41 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Trabajador no encontrado")
 		);
 		
-		if(trabajadorPostRequest.getUsername()!=null && trabajadorPostRequest.getUsername()!= "") {
+		if ( trabajadorPostRequest.getUsername()!=null && trabajadorPostRequest.getUsername()!= "") {
 			trabajador.setUsername(trabajadorPostRequest.getUsername());
 		}	
-		if(trabajadorPostRequest.getPassword()!=null && trabajadorPostRequest.getPassword()!= "") {
+		if ( trabajadorPostRequest.getPassword()!=null && trabajadorPostRequest.getPassword()!= "") {
 			trabajador.setPassword(trabajadorPostRequest.getPassword());
 		}
-
-		trabajador = trabajadorRepository.save(trabajador);
+		if ( trabajadorPostRequest.getZooId()!= null ) {
+			trabajador.setZooId(trabajadorPostRequest.getZooId());
+		}
+		if ( trabajadorPostRequest.getRolId()!=null ) {
+			trabajador.setRolId(trabajadorPostRequest.getRolId());
+		}
 				
 		Zoo zoo = zooRepository.findById(trabajadorPostRequest.getZooId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 		
+		Rol rol = rolRepository.findById(trabajadorPostRequest.getRolId()).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+		
+		if (zoo != null) {
+			trabajador.setZoo(zoo);
+		}
+		if (rol != null) {
+			trabajador.setRol(rol);
+		}
+			trabajador = trabajadorRepository.save(trabajador);
+			
 		TrabajadorServiceModel trabajadorResponse = new TrabajadorServiceModel(
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
 				null,
-				zoo.getId()); //Trampeado, evento.getZooId**, lo trae null......
+				zoo.getId(),//Trampeado, evento.getZooId**, lo trae null......
+				null,
+				rol.getId()); //trampeado, evento.getZooId**Si no sale null); 
 		return trabajadorResponse;
 				
 	}

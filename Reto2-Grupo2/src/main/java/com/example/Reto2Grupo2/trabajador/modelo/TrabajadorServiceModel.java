@@ -1,5 +1,6 @@
 package com.example.Reto2Grupo2.trabajador.modelo;
 
+import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 
 public class TrabajadorServiceModel {
@@ -14,17 +15,24 @@ public class TrabajadorServiceModel {
 
 	private Integer zooId;
 
+	private RolServiceModel rol;
+
+	private Integer rolId;
+
 	public TrabajadorServiceModel() {
 
 	}
 
-	public TrabajadorServiceModel(Integer id, String username, String password, ZooServiceModel zoo, Integer zooId) {
+	public TrabajadorServiceModel(Integer id, String username, String password, ZooServiceModel zoo, Integer zooId,
+			RolServiceModel rol, Integer rolId) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.zoo = zoo;
 		this.zooId = zooId;
+		this.rol = rol;
+		this.rolId = rolId;
 	}
 
 	public Integer getId() {
@@ -67,10 +75,26 @@ public class TrabajadorServiceModel {
 		this.zooId = zooId;
 	}
 
+	public RolServiceModel getRol() {
+		return rol;
+	}
+
+	public void setRol(RolServiceModel rol) {
+		this.rol = rol;
+	}
+
+	public Integer getRolId() {
+		return rolId;
+	}
+
+	public void setRolId(Integer rolId) {
+		this.rolId = rolId;
+	}
+
 	@Override
 	public String toString() {
 		return "TrabajadorServiceModel [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
-				+ ", zooId=" + zooId + "]";
+				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + "]";
 	}
 
 }

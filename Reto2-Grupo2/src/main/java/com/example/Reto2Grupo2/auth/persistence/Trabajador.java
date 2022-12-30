@@ -1,8 +1,9 @@
-package com.example.Reto2Grupo2.trabajador.modelo;
+package com.example.Reto2Grupo2.auth.persistence;
 
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,26 +36,28 @@ public class Trabajador {
 	@Column(name = "zoo_id", insertable = false, updatable = false)
 	private Integer zooId;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_rol", foreignKey=@ForeignKey(name = "FK_id_trabajadorRoles"))
-//	@JsonManagedReference
-//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	private Rol rol;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "FK_id_trabajadorRoles"))
+	@JsonManagedReference
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Rol rol;
 
-//	@Column(name="id_rol", insertable=false, updatable=false)
-//	private int idRol;
+	@Column(name = "rol_id", insertable = false, updatable = false)
+	private Integer rolId;
 
 	public Trabajador() {
 
 	}
 
-	public Trabajador(Integer id, String username, String password, Zoo zoo, Integer zooId) {
+	public Trabajador(Integer id, String username, String password, Zoo zoo, Integer zooId, Rol rol, int rolId) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.zoo = zoo;
 		this.zooId = zooId;
+		this.rol = rol;
+		this.rolId = rolId;
 	}
 
 	public Integer getId() {
@@ -97,10 +100,26 @@ public class Trabajador {
 		this.zooId = zooId;
 	}
 
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	public Integer getRolId() {
+		return rolId;
+	}
+
+	public void setRolId(Integer rolId) {
+		this.rolId = rolId;
+	}
+
 	@Override
 	public String toString() {
 		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
-				+ ", zooId=" + zooId + "]";
+				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + "]";
 	}
 
 }

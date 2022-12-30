@@ -7,15 +7,18 @@ public class TrabajadorPostRequest {
 	private String password;
 
 	private Integer zooId;
+	
+	private Integer rolId;
 
 	public TrabajadorPostRequest() {
 	}
 
-	public TrabajadorPostRequest(String username, String password, Integer zooId) {
+	public TrabajadorPostRequest(String username, String password, Integer zooId, Integer rolId) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.zooId = zooId;
+		this.rolId = rolId;
 	}
 
 	public String getUsername() {
@@ -41,10 +44,20 @@ public class TrabajadorPostRequest {
 	public void setZooId(Integer zooId) {
 		this.zooId = zooId;
 	}
+	
+
+	public Integer getRolId() {
+		return rolId;
+	}
+
+	public void setRolId(Integer rolId) {
+		this.rolId = rolId;
+	}
 
 	@Override
 	public String toString() {
-		return "TrabajadorPostRequest [username=" + username + ", password=" + password + ", zooId=" + zooId + "]";
+		return "TrabajadorPostRequest [username=" + username + ", password=" + password + ", zooId=" + zooId
+				+ ", rolId=" + rolId + "]";
 	}
 
 }

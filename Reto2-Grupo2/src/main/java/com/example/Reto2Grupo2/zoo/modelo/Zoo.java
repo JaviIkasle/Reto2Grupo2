@@ -2,8 +2,8 @@ package com.example.Reto2Grupo2.zoo.modelo;
 
 import java.util.List;
 
+import com.example.Reto2Grupo2.auth.persistence.Trabajador;
 import com.example.Reto2Grupo2.evento.modelo.Evento;
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
