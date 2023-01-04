@@ -21,8 +21,9 @@ public class Rol {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	// he tenido que cambiar a "name" porque me daba un error que no encontraba
 	@Column(length = 150)
-	private String tipo;
+	private String name;
 
 	@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
@@ -34,15 +35,8 @@ public class Rol {
 	public Rol(int id, String tipo) {
 		super();
 		this.id = id;
-		this.tipo = tipo;
+		this.name = tipo;
 	}
-//
-//	public Rol(int id, String tipo, List<Trabajador> trabajadores) {
-//		super();
-//		this.id = id;
-//		this.tipo = tipo;
-//		this.trabajadores = trabajadores;
-//	}
 
 	public int getId() {
 		return id;
@@ -52,24 +46,18 @@ public class Rol {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getName() {
+		return name;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setName(String tipo) {
+		this.name = tipo;
 	}
 
-//	public List<Trabajador> getTrabajadores() {
-//		return trabajadores;
-//	}
-//
-//	public void setTrabajadores(List<Trabajador> trabajadores) {
-//		this.trabajadores = trabajadores;
-//	}
-//
-//	@Override
-//	public String toString() {
-//		return "Rol [id=" + id + ", tipo=" + tipo + ", trabajadores=" + trabajadores + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Rol [id=" + id + ", name=" + name + ", trabajadores=" + trabajadores + "]";
+	}
+
+
 }

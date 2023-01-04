@@ -5,9 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.Reto2Grupo2.auth.model.RolEnum;
 import com.example.Reto2Grupo2.auth.persistence.Rol;
 import com.example.Reto2Grupo2.auth.persistence.Trabajador;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
@@ -21,8 +26,8 @@ import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
 
 
-@Service
-public class TrabajadorService implements TrabajadorServiceImpl{
+@Service("userDetailsService")
+public class TrabajadorService implements TrabajadorServiceImpl, UserDetailsService{
 
 	@Autowired
 	private TrabajadorRepository trabajadorRepository;
@@ -81,7 +86,7 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 			Rol rolBD = trabajador.getRol();		
 			rolResponse = new RolServiceModel(
 					rolBD.getId(),
-					rolBD.getTipo(),
+					rolBD.getName(),
 					null);		
 		}	
  		
@@ -177,6 +182,29 @@ public class TrabajadorService implements TrabajadorServiceImpl{
 				rol.getId()); //trampeado, evento.getZooId**Si no sale null); 
 		return trabajadorResponse;
 				
+	}
+
+	@Override
+	public Trabajador signUp(Trabajador trabajador) {
+			
+		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
+		String password = passEncoder.encode(trabajador.getPassword());		
+		trabajador.setPassword(password);
+		
+		Rol trabajadorRol = rolRepository.findByName(RolEnum.USER.name()).get();
+//		List <Rol> roles = new ArrayList<Rol>();
+//		roles.add(trabajadorRol);
+		trabajador.setRol(trabajadorRol);
+		
+		
+		return trabajadorRepository.save(trabajador);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		 return trabajadorRepository.findByUsername(username)
+                 .orElseThrow(
+                         () -> new UsernameNotFoundException("User " + username + " not found"));
 	}
 	
 //	@Override

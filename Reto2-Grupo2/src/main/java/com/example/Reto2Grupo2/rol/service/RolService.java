@@ -25,7 +25,7 @@ public class RolService implements RolServiceImpl{
 			response.add(
 					new RolServiceModel(
 							rol.getId(),
-							rol.getTipo(),
+							rol.getName(),
 							null));
 		}		return response;
 		
