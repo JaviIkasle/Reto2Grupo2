@@ -60,28 +60,15 @@ public class WebSecurityConfig {
 				(authz) ->
 						authz
 						.requestMatchers("api/auth/**").permitAll()
+						.requestMatchers("api/eventos").permitAll()// probando para que no requiera de autentificacion
 						.requestMatchers("api/zoos/**").hasAuthority("ADMIN")//hasAnyAuthority("ADMIN")
 						.requestMatchers("api/eventos/**").permitAll()
 						.anyRequest().authenticated());		
 		
-		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
+		//http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
 		http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 	
-		
-//			.antMatchers("/api/auth/login").permitAll()
-//			.antMatchers("/api/auth/signup").permitAll()
-//			.anyRequest().authenticated(); // las demás requiere autenticacion
-		
-		// control de la excepcion : --> Devolver Unauthorized --> 401
-//		http.exceptionHandling()
-//			.authenticationEntryPoint(
-//				(request, response, ex) -> {
-//					response.sendError(
-//							HttpServletResponse.SC_UNAUTHORIZED,
-//							ex.getMessage()
-//					);
-//				}
-//			);
+
 
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);		
 		return http.build();

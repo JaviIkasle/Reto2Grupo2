@@ -59,6 +59,8 @@ public class AuthController {
 //		return new ResponseEntity<Integer>(trabajadorService.create(trabajadorUser), HttpStatus.CREATED);
 		
 		Trabajador trabajador = new Trabajador(request.getUsername(), request.getPassword());
+		
+		System.out.println(trabajador);
 		trabajadorService.signUp(trabajador);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
