@@ -21,7 +21,6 @@ public class Rol {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	// he tenido que cambiar a "name" porque me daba un error que no encontraba
 	@Column(length = 150)
 	private String name;
 
@@ -54,10 +53,7 @@ public class Rol {
 		this.name = tipo;
 	}
 
-	@Override
-	public String toString() {
-		return "Rol [id=" + id + ", name=" + name + ", trabajadores=" + trabajadores + "]";
-	}
+
 
 
 }

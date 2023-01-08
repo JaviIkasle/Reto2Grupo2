@@ -32,6 +32,8 @@ public class Trabajador implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	//TODO no funciona el unique 
 	@Column(length = 60, unique = true)
 	private String username;
 	@Column(length = 60)
@@ -132,11 +134,11 @@ public class Trabajador implements UserDetails{
 		this.rolId = rolId;
 	}
 
-	@Override
-	public String toString() {
-		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
-				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
+//				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + "]";
+//	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

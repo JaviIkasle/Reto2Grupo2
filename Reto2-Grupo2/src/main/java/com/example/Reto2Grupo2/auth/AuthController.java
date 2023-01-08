@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.auth.model.AuthRequest;
 import com.example.Reto2Grupo2.auth.model.AuthResponse;
 import com.example.Reto2Grupo2.auth.persistence.Trabajador;
 import com.example.Reto2Grupo2.auth.security.JwtTokenUtil;
-import com.example.Reto2Grupo2.trabajador.service.TrabajadorService;
+import com.example.Reto2Grupo2.trabajador.service.TrabajadorServiceImpl;
 
 
 @RestController
@@ -33,16 +34,19 @@ public class AuthController {
 	JwtTokenUtil jwtUtil;
 
 	@Autowired
-	TrabajadorService trabajadorService;
+	TrabajadorServiceImpl trabajadorService;
 
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+		
 		try {
 			Authentication authentication = authManager
 					.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
 			Trabajador trabajadorUser = (Trabajador) authentication.getPrincipal();
+						
 			String accessToken = jwtUtil.generateAccessToken(trabajadorUser);
+						
 			AuthResponse response = new AuthResponse(trabajadorUser.getId(),trabajadorUser.getUsername(), accessToken);
 
 			return ResponseEntity.ok().body(response);
@@ -53,15 +57,21 @@ public class AuthController {
 	}
 
 	@PostMapping("/auth/signup")
-	public ResponseEntity<?> signIn(@RequestBody AuthRequest request) {
-		// TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
+	public ResponseEntity<?> signIn(@RequestBody AuthRequest request){
+// 		 solo esta creado en el caso de que funcione. Si no es posible que de 500
 //		Trabajador trabajadorUser = new Trabajador(request.getEmail(), request.getPassword());
 //		return new ResponseEntity<Integer>(trabajadorService.create(trabajadorUser), HttpStatus.CREATED);
 		
 		Trabajador trabajador = new Trabajador(request.getUsername(), request.getPassword());
 		
+		//TODO si hay toString en Rol y Trabajador, no devuelve UserCantCreateException
 		System.out.println(trabajador);
-		trabajadorService.signUp(trabajador);
+		try {
+			trabajadorService.signUp(trabajador);
+		}catch (UserCantCreateException e) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+			
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

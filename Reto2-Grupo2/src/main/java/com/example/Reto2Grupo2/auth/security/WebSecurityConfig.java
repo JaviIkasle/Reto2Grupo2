@@ -5,6 +5,7 @@ package com.example.Reto2Grupo2.auth.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.example.Reto2Grupo2.auth.model.RolEnum;
 
 
 @Configuration
@@ -46,30 +49,31 @@ public class WebSecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 	
-	// aqui definimos principalmente cuales son las urls van a poder ser accesibles sin identificarse
-	// y cuales seran obligatorias
+	// aqui definimos cuales son las URLs que van a poder ser accesibles sin identificarse
+	// y cuales no
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
+
 		http.authorizeHttpRequests(
+				//TODO decidir quien va a poder hacer que. 
 				(authz) ->
 						authz
-						.requestMatchers("api/auth/**").permitAll()
-						.requestMatchers("api/eventos").permitAll()// probando para que no requiera de autentificacion
-						.requestMatchers("api/zoos/**").hasAuthority("ADMIN")//hasAnyAuthority("ADMIN")
-						.requestMatchers("api/eventos/**").permitAll()
-						.anyRequest().authenticated());		
+						.requestMatchers("/api/auth/signup").permitAll()
+						.requestMatchers("/api/auth/login").permitAll()
+						.requestMatchers("/api/eventos/**").permitAll()
+						.requestMatchers("/api/zoos/**").hasAuthority("EMPLEADO")
+//						.requestMatchers(HttpMethod.POST,"/api/zoos/**").hasAuthority(RolEnum.ADMIN.name())
+						
+						.anyRequest().authenticated()
+						);		
 		
-		//http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
+		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
 		http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 	
-
-
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);		
 		return http.build();
 	}

@@ -21,14 +21,14 @@ import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorExpands;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorPostRequest;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
 import com.example.Reto2Grupo2.trabajador.repository.TrabajadorRepository;
-import com.example.Reto2Grupo2.trabajador.service.TrabajadorServiceImpl;
+import com.example.Reto2Grupo2.trabajador.service.TrabajadorService;
 
 @RestController
 @RequestMapping("api")
 public class TrabajadorController {
 
 	@Autowired
-	private TrabajadorServiceImpl trabajadorService;
+	private TrabajadorService trabajadorService;
 	
 	@Autowired
 	private TrabajadorRepository trabajadorRepository;

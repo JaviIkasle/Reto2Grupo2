@@ -39,6 +39,8 @@ public class JwtTokenUtil {
 	private static final String USER_ID_CLAIM = "trabajadorId";
 	private static final String ROL_CLAIM = "rol";
 	
+	
+	//TODO no funcionan los .claim, deberia
 	public String generateAccessToken(Trabajador trabajador) {
 		// cuando generamos el token podemos meter campos custom que nos puedan ser utiles mas adelante.
 		return Jwts.builder()
@@ -48,8 +50,8 @@ public class JwtTokenUtil {
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
 				// .claim("userId", user.getId()) // podriamos meter datos custom, u objetos custom. ojo con meter "user" por que tiene la password en el modelo 
 				// y passwords no queremos enviar ni devolver
-				.claim(USER_ID_CLAIM, trabajador.getId())
-				.claim(ROL_CLAIM, trabajador.getRol())
+				//.claim(USER_ID_CLAIM, trabajador.getId())
+				//.claim(ROL_CLAIM, trabajador.getRol())
 				.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 				.compact();
 	}
@@ -83,25 +85,27 @@ public class JwtTokenUtil {
 		
 	}
 	
-	public List<Rol> getUserRol(String token){
+	public Rol getUserRol(String token){
 		Claims claims = parseClaims(token);
 		Object jsonObject = claims.get(ROL_CLAIM);
+		Rol rol = (Rol)jsonObject;
 		
-		List <Rol> roles ;	
-		try{
-			roles = jsonArrayToList(jsonObject, Rol.class);
-			return roles;
-		}catch (IOException e) {
-			return new ArrayList<Rol>();
-		}
+		return rol;
+//		List <Rol> roles ;	
+//		try{
+//			roles = jsonArrayToList(jsonObject, Rol.class);
+//			return roles;
+//		}catch (IOException e) {
+//			return new ArrayList<Rol>();
+//		}
 	}
-	
-	public static <T> List<T> jsonArrayToList(Object json, Class<T>elementClass) throws IOException{
-		ObjectMapper objectMapper = new ObjectMapper();
-		String jsonString = objectMapper.writeValueAsString(json);
-		CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
-		return objectMapper.readValue(jsonString, listType);
-	}
+	//TODO no se tendria que hacer esto, ya que no tenemos lista de roles
+//	public static <T> List<T> jsonArrayToList(Object json, Class<T>elementClass) throws IOException{
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String jsonString = objectMapper.writeValueAsString(json);
+//		CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
+//		return objectMapper.readValue(jsonString, listType);
+//	}
 	
 	private Claims parseClaims(String token) {
 		return Jwts.parser()

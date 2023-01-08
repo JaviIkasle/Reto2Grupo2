@@ -7,7 +7,9 @@ import org.springframework.data.repository.CrudRepository;
 import com.example.Reto2Grupo2.auth.persistence.Rol;
 
 public interface RolRepository extends CrudRepository<Rol, Integer>{
-
-	Optional <Rol> findByName (String rol);
+	
+	//TODO Optional <Rol> me da error
+	Rol findByName (String rol);
+	//Optional <Rol> findByName (String rol);
 	
 }

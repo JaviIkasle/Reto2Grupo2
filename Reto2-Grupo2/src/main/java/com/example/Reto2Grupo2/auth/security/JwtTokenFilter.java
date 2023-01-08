@@ -62,6 +62,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 	private void setAuthenticationContext(String token, HttpServletRequest request) {
 		UserDetails userDetails = getUserDetails(token);
+		//UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());//TODO no deja hacer getAuthorities porque no estan los claims, imagino..
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -70,9 +71,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	// genera los detalles del usuario a partir del jwt
 	private UserDetails getUserDetails(String token) {
 		Trabajador userDetails = new Trabajador();
-		String[] jwtSubject = jwtUtil.getSubject(token).split(",");
-		userDetails.setId(Integer.parseInt(jwtSubject[0]));
-		userDetails.setUsername(jwtSubject[1]);
+		userDetails.setId(jwtUtil.getUserId(token));
+		userDetails.setUsername(jwtUtil.getSubject(token));
+		userDetails.setRol(jwtUtil.getUserRol(token));
 		return userDetails;
 	}
 }
