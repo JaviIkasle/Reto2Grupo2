@@ -16,10 +16,6 @@ public class BilleteServiceModel {
 
 	private float importe;
 
-	
-	
-	
-
 
 	public BilleteServiceModel() {
 		super();
