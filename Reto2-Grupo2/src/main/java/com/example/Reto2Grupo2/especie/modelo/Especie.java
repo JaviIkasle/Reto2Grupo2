@@ -21,7 +21,7 @@ public class Especie {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(length = 100)
 	private String nombre;
 	@Column(length = 400)
@@ -34,14 +34,14 @@ public class Especie {
 	
 	public Especie() {}
 
-	public Especie(int id, String nombre, String informacion) {
+	public Especie(Integer id, String nombre, String informacion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
 	}
 
-	public Especie(int id, String nombre, String informacion, List<Animal> animales) {
+	public Especie(Integer id, String nombre, String informacion, List<Animal> animales) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -49,11 +49,11 @@ public class Especie {
 		this.animales = animales;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
