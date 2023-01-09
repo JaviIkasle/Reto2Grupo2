@@ -1,9 +1,7 @@
 package com.example.Reto2Grupo2.animal.modelo;
 
-import java.util.List;
 
 import com.example.Reto2Grupo2.especie.modelo.Especie;
-import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -16,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -26,7 +23,7 @@ public class Animal {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(length = 100)
 	private String nombre;
 	@Column(length = 400)
@@ -42,14 +39,14 @@ public class Animal {
 	private Especie especie;
 	
 	@Column(name="id_especie", insertable=false, updatable=false)
-	private int idEspecie;
+	private Integer idEspecie;
 	
 //	@ManyToMany(mappedBy = "animales")
 //	private List<Zoo> zoos;
 	
 	public Animal() {}
 
-	public Animal(int id, String nombre, String informacion, String foto) {
+	public Animal(Integer id, String nombre, String informacion, String foto) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -69,11 +66,11 @@ public class Animal {
 //		this.zoos = zoos;
 //	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -101,21 +98,13 @@ public class Animal {
 		this.especie = especie;
 	}
 
-	public int getIdEspecie() {
+	public Integer getIdEspecie() {
 		return idEspecie;
 	}
 
-	public void setIdEspecie(int idEspecie) {
+	public void setIdEspecie(Integer idEspecie) {
 		this.idEspecie = idEspecie;
 	}
-
-//	public List<Zoo> getZoos() {
-//		return zoos;
-//	}
-//
-//	public void setZoos(List<Zoo> zoos) {
-//		this.zoos = zoos;
-//	}
 
 	public String getFoto() {
 		return foto;
@@ -124,6 +113,4 @@ public class Animal {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
-
 }
