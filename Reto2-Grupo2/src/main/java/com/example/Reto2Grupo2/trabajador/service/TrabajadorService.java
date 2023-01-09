@@ -3,7 +3,7 @@ package com.example.Reto2Grupo2.trabajador.service;
 import java.util.List;
 
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
-import com.example.Reto2Grupo2.auth.persistence.Trabajador;
+import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorExpands;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorPostRequest;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;

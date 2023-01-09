@@ -15,5 +15,6 @@ public interface RolServiceImpl {
 	RolServiceModel create( RolPostRequest rolPostRequest);
 
 	RolServiceModel updateById(Integer id, RolPostRequest rolPostRequest);
+
 	
 }

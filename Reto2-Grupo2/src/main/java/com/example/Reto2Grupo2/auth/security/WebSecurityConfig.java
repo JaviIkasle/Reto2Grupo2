@@ -59,14 +59,13 @@ public class WebSecurityConfig {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.authorizeHttpRequests(
-				//TODO decidir quien va a poder hacer que. 
 				(authz) ->
-						authz
-						.requestMatchers("/api/auth/signup").permitAll()
+						authz						
+						.requestMatchers("/api/auth/signup").hasAuthority("ADMIN")
 						.requestMatchers("/api/auth/login").permitAll()
-						.requestMatchers("/api/eventos/**").permitAll()
-						.requestMatchers("/api/zoos/**").hasAuthority("EMPLEADO")
-//						.requestMatchers(HttpMethod.POST,"/api/zoos/**").hasAuthority(RolEnum.ADMIN.name())
+						.requestMatchers("/api/roles/**").hasAuthority("ADMIN")
+						.requestMatchers("/api/eventos/**").hasAuthority("EMPLEADO")
+						.requestMatchers(HttpMethod.GET,"/api/zoos/**").hasAuthority(RolEnum.EMPLEADO.name())
 						
 						.anyRequest().authenticated()
 						);		

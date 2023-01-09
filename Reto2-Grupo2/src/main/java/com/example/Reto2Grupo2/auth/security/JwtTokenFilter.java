@@ -9,7 +9,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.example.Reto2Grupo2.auth.persistence.Trabajador;
+
+import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,8 +64,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 	private void setAuthenticationContext(String token, HttpServletRequest request) {
 		UserDetails userDetails = getUserDetails(token);
-		//UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());//TODO no deja hacer getAuthorities porque no estan los claims, imagino..
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());//TODO no deja hacer getAuthorities porque no estan los claims, imagino..
+		// UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
@@ -74,6 +76,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		userDetails.setId(jwtUtil.getUserId(token));
 		userDetails.setUsername(jwtUtil.getSubject(token));
 		userDetails.setRol(jwtUtil.getUserRol(token));
+		
+		// 
+		
 		return userDetails;
 	}
 }

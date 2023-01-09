@@ -1,54 +1,61 @@
 package com.example.Reto2Grupo2.rol.modelo;
 
 import java.util.List;
-
-import com.example.Reto2Grupo2.auth.persistence.Trabajador;
+import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class RolServiceModel {
 
-	private int id;
+	private Integer id;
+	
+	private String name;
 
-	private String tipo;
-
-	private List<Trabajador> trabajadores;
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<TrabajadorServiceModel> trabajadores;
 
 	public RolServiceModel() {
 	}
 
-	public RolServiceModel(int id, String tipo, List<Trabajador> trabajadores) {
+	public RolServiceModel(Integer id, String name) {
 		super();
 		this.id = id;
-		this.tipo = tipo;
+		this.name = name;
+	}
+
+	public RolServiceModel(Integer id, String name, List<TrabajadorServiceModel> trabajadores) {
+		super();
+		this.id = id;
+		this.name = name;
 		this.trabajadores = trabajadores;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getName() {
+		return name;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public List<Trabajador> getTrabajadores() {
+	public List<TrabajadorServiceModel> getTrabajadores() {
 		return trabajadores;
 	}
 
-	public void setTrabajadores(List<Trabajador> trabajadores) {
+	public void setTrabajadores(List<TrabajadorServiceModel> trabajadores) {
 		this.trabajadores = trabajadores;
 	}
 
 	@Override
 	public String toString() {
-		return "RolServiceModel [id=" + id + ", tipo=" + tipo + ", trabajadores=" + trabajadores + "]";
+		return "RolServiceModel [id=" + id + ", name=" + name + ", trabajadores=" + trabajadores + "]";
 	}
 
 }

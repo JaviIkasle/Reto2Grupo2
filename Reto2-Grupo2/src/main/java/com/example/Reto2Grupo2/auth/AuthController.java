@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.auth.model.AuthRequest;
 import com.example.Reto2Grupo2.auth.model.AuthResponse;
-import com.example.Reto2Grupo2.auth.persistence.Trabajador;
 import com.example.Reto2Grupo2.auth.security.JwtTokenUtil;
+import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
 import com.example.Reto2Grupo2.trabajador.service.TrabajadorServiceImpl;
 
 
@@ -64,8 +64,6 @@ public class AuthController {
 		
 		Trabajador trabajador = new Trabajador(request.getUsername(), request.getPassword());
 		
-		//TODO si hay toString en Rol y Trabajador, no devuelve UserCantCreateException
-		System.out.println(trabajador);
 		try {
 			trabajadorService.signUp(trabajador);
 		}catch (UserCantCreateException e) {

@@ -15,10 +15,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.auth.model.RolEnum;
-import com.example.Reto2Grupo2.auth.persistence.Rol;
-import com.example.Reto2Grupo2.auth.persistence.Trabajador;
+import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.rol.repository.RolRepository;
+import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorExpands;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorPostRequest;
 import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
@@ -65,7 +65,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 		
 		ZooServiceModel zooResponse = null;
 		
-		if (expand != null&& expand.indexOf(TrabajadorExpands.ZOO) != -1) {
+		if (expand != null && expand.indexOf (TrabajadorExpands.ZOO) != -1) {
 			
 			Zoo zooBD = trabajador.getZoo();		
 			zooResponse = new ZooServiceModel(
@@ -192,9 +192,8 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
 		String password = passEncoder.encode(trabajador.getPassword());		
 		trabajador.setPassword(password);
-		
-		//Rol trabajadorRol = rolRepository.findByName("EMPLEADO");
-		Rol trabajadorRol = rolRepository.findByName(RolEnum.EMPLEADO.name()); //TODO no funciona, deberia de
+
+		Rol trabajadorRol = rolRepository.findByName(RolEnum.ADMIN.name()); 
 		System.out.println(trabajadorRol);
 		
 		trabajador.setRol(trabajadorRol);

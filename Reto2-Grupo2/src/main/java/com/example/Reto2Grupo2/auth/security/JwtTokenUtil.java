@@ -1,19 +1,15 @@
 package com.example.Reto2Grupo2.auth.security;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.LinkedHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.example.Reto2Grupo2.auth.persistence.Rol;
-import com.example.Reto2Grupo2.auth.persistence.Trabajador;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
+import com.example.Reto2Grupo2.rol.modelo.Rol;
+import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
+import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -43,20 +39,22 @@ public class JwtTokenUtil {
 	//TODO no funcionan los .claim, deberia
 	public String generateAccessToken(Trabajador trabajador) {
 		// cuando generamos el token podemos meter campos custom que nos puedan ser utiles mas adelante.
+		
+		RolServiceModel rol = new RolServiceModel(trabajador.getRol().getId(), trabajador.getRol().getName());
 		return Jwts.builder()
 				.setSubject(String.format("%s",trabajador.getUsername()))
 				.setIssuer("ADTDAM")
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
-				// .claim("userId", user.getId()) // podriamos meter datos custom, u objetos custom. ojo con meter "user" por que tiene la password en el modelo 
-				// y passwords no queremos enviar ni devolver
-				//.claim(USER_ID_CLAIM, trabajador.getId())
-				//.claim(ROL_CLAIM, trabajador.getRol())
+				// .claim("userId", user.getId()) // podriamos meter datos custom 
+				.claim(USER_ID_CLAIM, trabajador.getId())
+				.claim(ROL_CLAIM, rol)
 				.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 				.compact();
 	}
 	
 	public boolean validateAccessToken(String token) {
+		System.out.println("el token es:" + token);
 		try {
 			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
 			return true;
@@ -87,18 +85,57 @@ public class JwtTokenUtil {
 	
 	public Rol getUserRol(String token){
 		Claims claims = parseClaims(token);
-		Object jsonObject = claims.get(ROL_CLAIM);
-		Rol rol = (Rol)jsonObject;
-		
-		return rol;
-//		List <Rol> roles ;	
-//		try{
-//			roles = jsonArrayToList(jsonObject, Rol.class);
-//			return roles;
-//		}catch (IOException e) {
-//			return new ArrayList<Rol>();
+		// Object jsonObject = claims.get(ROL_CLAIM);
+		// Rol rol = (Rol)jsonObject;
+		@SuppressWarnings("unchecked")
+		LinkedHashMap<String, ?> jsonObject = (LinkedHashMap<String, ?>) claims.get(ROL_CLAIM);
+//		RolServiceModel rol = null;
+//		try {
+//			rol = jsonToObject(jsonObject);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
+		
+		Integer id = (Integer) jsonObject.get("id");
+		String name = (String) jsonObject.get("name");
+		System.out.println(id);
+		System.out.println(name);
+		
+		
+		Rol response = new Rol(id,name);
+		
+		return response;
 	}
+	
+//	public static RolServiceModel jsonToObject(Object json) throws IOException{
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String jsonString = objectMapper.writeValueAsString(json);
+//		System.out.println(jsonString);
+//		RolServiceModel rol = objectMapper.readValue(jsonString, RolServiceModel.class);
+//		
+//		
+//		// RolServiceModel rol = new RolServiceModel(1, "EMPLEADO");
+//		System.out.println(1);
+//		System.out.println(rol.toString());
+//		return rol; 
+//		
+//		// CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
+//		// return objectMapper.readValue(jsonString, listType);
+//	}
+
+	
+//	public static <T> T jsonToObject(Object json, Class<T>elementClass) throws IOException{
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String jsonString = objectMapper.writeValueAsString(json);
+//		
+//		T obj = objectMapper.readValue(jsonString, elementClass);
+//		return obj; 
+//		
+//		// CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
+//		// return objectMapper.readValue(jsonString, listType);
+//	}
+	
 	//TODO no se tendria que hacer esto, ya que no tenemos lista de roles
 //	public static <T> List<T> jsonArrayToList(Object json, Class<T>elementClass) throws IOException{
 //		ObjectMapper objectMapper = new ObjectMapper();

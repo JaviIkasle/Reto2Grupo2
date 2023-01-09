@@ -2,7 +2,7 @@ package com.example.Reto2Grupo2.rol.modelo;
 
 public class RolPostRequest {
 
-	private String tipo;
+	private String name;
 
 	public RolPostRequest() {
 	}
@@ -10,20 +10,20 @@ public class RolPostRequest {
 	public RolPostRequest(String tipo) {
 		super();
 
-		this.tipo = tipo;
+		this.name = tipo;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getName() {
+		return name;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setName(String tipo) {
+		this.name = tipo;
 	}
 
 	@Override
 	public String toString() {
-		return "RolPostRequest [tipo=" + tipo + "]";
+		return "RolPostRequest [tipo=" + name + "]";
 	}
 
 }
