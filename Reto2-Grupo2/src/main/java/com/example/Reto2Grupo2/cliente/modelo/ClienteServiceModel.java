@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cliente;
+package com.example.Reto2Grupo2.cliente.modelo;
 
 public class ClienteServiceModel {
 

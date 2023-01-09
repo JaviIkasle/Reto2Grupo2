@@ -2,7 +2,7 @@ package com.example.Reto2Grupo2.billete.modelo;
 
 import java.sql.Date;
 
-import com.example.Reto2Grupo2.cliente.Cliente;
+import com.example.Reto2Grupo2.cliente.modelo.Cliente;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -51,10 +51,29 @@ public class Billete {
 	private int idCliente;
 	
 	public Billete() {}
+	
+	
+	
 
-	public Billete(int id, Date fecha, int cantidad, float importe) {
+	public Billete(Date fecha, int cantidad, float importe, int idZoo, int idCliente) {
 		super();
-		this.id = id;
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.importe = importe;
+		this.idZoo = idZoo;
+		this.idCliente = idCliente;
+	}
+
+
+	public Billete( int id,Date fecha, int cantidad, float importe) {
+		super();
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.importe = importe;
+	}
+	
+	public Billete(Date fecha, int cantidad, float importe) {
+		super();
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;

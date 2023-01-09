@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cliente;
+package com.example.Reto2Grupo2.cliente.modelo;
 
 import java.util.List;
 
@@ -35,15 +35,22 @@ public class Cliente {
 
 
 	public Cliente() {
-		super();
-	}
+			}
 
 	public Cliente(Integer id, String email, String password, List<Billete> billetes) {
-		super();
+		
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.billetes = billetes;
+	}
+	
+	public Cliente( String email, String password) {
+		
+		
+		this.email = email;
+		this.password = password;
+		
 	}
 
 	public Integer getId() {
