@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
+import com.example.Reto2Grupo2.user.modelo.User;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -72,7 +72,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 	// genera los detalles del usuario a partir del jwt
 	private UserDetails getUserDetails(String token) {
-		Trabajador userDetails = new Trabajador();
+		User userDetails = new User();
 		userDetails.setId(jwtUtil.getUserId(token));
 		userDetails.setUsername(jwtUtil.getSubject(token));
 		userDetails.setRol(jwtUtil.getUserRol(token));

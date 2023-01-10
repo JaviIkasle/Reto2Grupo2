@@ -1,7 +1,8 @@
 package com.example.Reto2Grupo2.rol.modelo;
 
 import java.util.List;
-import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
+
+import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class RolServiceModel {
@@ -11,7 +12,7 @@ public class RolServiceModel {
 	private String name;
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<TrabajadorServiceModel> trabajadores;
+	private List<UserServiceModel> trabajadores;
 
 	public RolServiceModel() {
 	}
@@ -22,7 +23,7 @@ public class RolServiceModel {
 		this.name = name;
 	}
 
-	public RolServiceModel(Integer id, String name, List<TrabajadorServiceModel> trabajadores) {
+	public RolServiceModel(Integer id, String name, List<UserServiceModel> trabajadores) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -45,11 +46,11 @@ public class RolServiceModel {
 		this.name = name;
 	}
 
-	public List<TrabajadorServiceModel> getTrabajadores() {
+	public List<UserServiceModel> getTrabajadores() {
 		return trabajadores;
 	}
 
-	public void setTrabajadores(List<TrabajadorServiceModel> trabajadores) {
+	public void setTrabajadores(List<UserServiceModel> trabajadores) {
 		this.trabajadores = trabajadores;
 	}
 

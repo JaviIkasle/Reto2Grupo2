@@ -1,100 +1,55 @@
 package com.example.Reto2Grupo2.trabajador.modelo;
 
-import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
-import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
+import com.example.Reto2Grupo2.user.modelo.User;
 
 public class TrabajadorServiceModel {
 
-	private Integer id;
 
-	private String username;
+	private String especializacion;
 
-	private String password;
+	private String puesto;
 
-	private ZooServiceModel zoo;
-
-	private Integer zooId;
-
-	private RolServiceModel rol;
-
-	private Integer rolId;
+	private User user;
 
 	public TrabajadorServiceModel() {
-
 	}
 
-	public TrabajadorServiceModel(Integer id, String username, String password, ZooServiceModel zoo, Integer zooId,
-			RolServiceModel rol, Integer rolId) {
+	public TrabajadorServiceModel(Integer id, String especializacion, String puesto, User user) {
 		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.zoo = zoo;
-		this.zooId = zooId;
-		this.rol = rol;
-		this.rolId = rolId;
+		this.especializacion = especializacion;
+		this.puesto = puesto;
+		this.user = user;
 	}
 
-	public Integer getId() {
-		return id;
+
+	public String getEspecializacion() {
+		return especializacion;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setEspecializacion(String especializacion) {
+		this.especializacion = especializacion;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getPuesto() {
+		return puesto;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPuesto(String puesto) {
+		this.puesto = puesto;
 	}
 
-	public String getPassword() {
-		return password;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public ZooServiceModel getZoo() {
-		return zoo;
-	}
-
-	public void setZoo(ZooServiceModel zoo) {
-		this.zoo = zoo;
-	}
-
-	public Integer getZooId() {
-		return zooId;
-	}
-
-	public void setZooId(Integer zooId) {
-		this.zooId = zooId;
-	}
-
-	public RolServiceModel getRol() {
-		return rol;
-	}
-
-	public void setRol(RolServiceModel rol) {
-		this.rol = rol;
-	}
-
-	public Integer getRolId() {
-		return rolId;
-	}
-
-	public void setRolId(Integer rolId) {
-		this.rolId = rolId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
-		return "TrabajadorServiceModel [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
-				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + "]";
+		return "TrabajadorServiceModel [especializacion=" + especializacion + ", puesto=" + puesto + ", user=" + user
+				+ "]";
 	}
 
 }

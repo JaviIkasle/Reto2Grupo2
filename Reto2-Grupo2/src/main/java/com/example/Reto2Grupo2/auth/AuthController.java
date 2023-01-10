@@ -1,7 +1,5 @@
 package com.example.Reto2Grupo2.auth;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +17,8 @@ import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.auth.model.AuthRequest;
 import com.example.Reto2Grupo2.auth.model.AuthResponse;
 import com.example.Reto2Grupo2.auth.security.JwtTokenUtil;
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
-import com.example.Reto2Grupo2.trabajador.service.TrabajadorServiceImpl;
-
+import com.example.Reto2Grupo2.user.modelo.User;
+import com.example.Reto2Grupo2.user.service.UserServiceImpl;
 
 @RestController
 @RequestMapping("api")
@@ -34,7 +31,7 @@ public class AuthController {
 	JwtTokenUtil jwtUtil;
 
 	@Autowired
-	TrabajadorServiceImpl trabajadorService;
+	UserServiceImpl trabajadorService;
 
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> login(@RequestBody AuthRequest request) {
@@ -43,7 +40,7 @@ public class AuthController {
 			Authentication authentication = authManager
 					.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-			Trabajador trabajadorUser = (Trabajador) authentication.getPrincipal();
+			User trabajadorUser = (User) authentication.getPrincipal();
 						
 			String accessToken = jwtUtil.generateAccessToken(trabajadorUser);
 						
@@ -56,16 +53,16 @@ public class AuthController {
 		}
 	}
 
-	@PostMapping("/auth/signup")
+	@PostMapping("/auth/signup/user")
 	public ResponseEntity<?> signIn(@RequestBody AuthRequest request){
 // 		 solo esta creado en el caso de que funcione. Si no es posible que de 500
 //		Trabajador trabajadorUser = new Trabajador(request.getEmail(), request.getPassword());
 //		return new ResponseEntity<Integer>(trabajadorService.create(trabajadorUser), HttpStatus.CREATED);
 		
-		Trabajador trabajador = new Trabajador(request.getUsername(), request.getPassword());
+		User user = new User(request.getUsername(), request.getPassword());
 		
 		try {
-			trabajadorService.signUp(trabajador);
+			trabajadorService.signUpUser(user);
 		}catch (UserCantCreateException e) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -81,7 +78,7 @@ public class AuthController {
 	public ResponseEntity<?> getUserInfo(Authentication authentication) {
 		// aqui podemos castearlo a UserDetails o User. El UserDetails es una interfaz,
 		// si lo casteamos a la interfaz no podremos sacar campos como la ID
-		Trabajador trabajadorDetails = (Trabajador) authentication.getPrincipal();
+		User trabajadorDetails = (User) authentication.getPrincipal();
 
 
 		return ResponseEntity.ok().body(trabajadorDetails);
