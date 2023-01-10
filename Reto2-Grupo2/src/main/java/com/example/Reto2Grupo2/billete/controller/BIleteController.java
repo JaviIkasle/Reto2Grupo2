@@ -1,5 +1,7 @@
 package com.example.Reto2Grupo2.billete.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -11,13 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 
 import com.example.Reto2Grupo2.billete.modelo.Billete;
+import com.example.Reto2Grupo2.billete.modelo.BilleteExpands;
 import com.example.Reto2Grupo2.billete.modelo.BilletePostRequest;
+import com.example.Reto2Grupo2.billete.modelo.BilleteServiceModel;
 import com.example.Reto2Grupo2.billete.repository.BilleteRepository;
+import com.example.Reto2Grupo2.billete.service.BilleteServiceImpl;
+import com.example.Reto2Grupo2.evento.modelo.EventoPostRequest;
+import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
+import com.example.Reto2Grupo2.evento.modelo.EventosExpands;
+import com.example.Reto2Grupo2.evento.service.EventoServiceImpl;
 
 @RestController
 @RequestMapping("api")
@@ -25,80 +35,50 @@ public class BIleteController {
 
 	@Autowired
 	private BilleteRepository billeteRepository;
+
+	@Autowired
+	private BilleteServiceImpl  billeteService ;
 	
 	@GetMapping("/Billetes")
-	public ResponseEntity<Iterable<Billete>> getBilletes() {
-		return new ResponseEntity<Iterable<Billete>>(billeteRepository.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<BilleteServiceModel>> getEventos() {
 
+		List<BilleteServiceModel> response = billeteService.getBilletes();
+		return new ResponseEntity<List<BilleteServiceModel>>(response, HttpStatus.OK);
 	}
 	
 
-	@GetMapping("Billete/{id}")
-	public ResponseEntity<Billete> getBilletebyid(@PathVariable("id") Integer id) {
-		
-		Billete billete = billeteRepository.findById(id).orElseThrow(
-				
-				() ->  new ResponseStatusException(HttpStatus.NO_CONTENT,"Billete no encontrado")
-				
-				);
+	@GetMapping("/Billete/{id}")
+	public ResponseEntity<BilleteServiceModel> getBilleteById(@PathVariable("id") Integer id,
+			@RequestParam(required = false) List<BilleteExpands> expand) {
 
-		return new ResponseEntity<Billete>(billete, HttpStatus.OK);
+		BilleteServiceModel response = billeteService.getBilleteById(id, expand);
+		return new ResponseEntity<BilleteServiceModel>(response, HttpStatus.OK);
 	}
-	
-	
-	@PostMapping("/BilleteCreate")
-	public ResponseEntity<?> createBillete(@RequestBody BilletePostRequest billetePostRequest) {
 
-		Billete billete = new Billete(
+	@PostMapping("/Billete")
+	public ResponseEntity<BilleteServiceModel> createBillete(@RequestBody BilletePostRequest billetePostRequest) {
 
-				billetePostRequest.getFecha(), billetePostRequest.getCantidad(), billetePostRequest.getImporte()
-
-		);
-		billete = billeteRepository.save(billete);
-		return new ResponseEntity<Billete>(billete, HttpStatus.CREATED);
-
+		BilleteServiceModel billeteResponse = billeteService.create(billetePostRequest);
+		return new ResponseEntity<BilleteServiceModel>(billeteResponse, HttpStatus.CREATED);
 	}
-	
-	@PutMapping("/BilleteUpdate/{id}")
-	public ResponseEntity<Billete> updateBillete(
 
-			@PathVariable("id") Integer id,
-
+	@PutMapping("/Billete/{id}")
+	public ResponseEntity<BilleteServiceModel> updateBillete(@PathVariable("id") Integer id,
 			@RequestBody BilletePostRequest billetePostRequest) {
 
-
-		Billete billete = billeteRepository.findById(id).orElseThrow(
-
-				() -> new ResponseStatusException(HttpStatus.CONFLICT, "No existe el Billete"));
-
-		if (billetePostRequest.getFecha() != null ) {
-			billete.setFecha(billetePostRequest.getFecha());
-		}
-		if ( billetePostRequest.getCantidad() != 0) {
-			billete.setCantidad(billetePostRequest.getCantidad());
-		}
-		if (billetePostRequest.getImporte() != 0) {
-			billete.setImporte(billetePostRequest.getImporte());
-		}
-		
-		billete = billeteRepository.save(billete);
-		return new ResponseEntity<Billete>(billete, HttpStatus.OK);
-
+		BilleteServiceModel billeteResponse = billeteService.updateById(id, billetePostRequest);
+		return new ResponseEntity<BilleteServiceModel>(billeteResponse, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/BilleteDelete/{id}")
-	public ResponseEntity<Billete> deleteBilleteById(@PathVariable("id") Integer id) {
+	@DeleteMapping("/Billete/{id}")
+	public ResponseEntity<Integer> deleteBilleteById(@PathVariable("id") Integer id) {
+
 		try {
-
 			billeteRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		} catch (EmptyResultDataAccessException e) {
-
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No existe ");
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Billete no encontrado");
 		}
-
 	}
-	
 	
 }

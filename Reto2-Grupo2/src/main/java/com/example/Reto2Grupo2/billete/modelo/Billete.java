@@ -24,62 +24,54 @@ public class Billete {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column
 	private Date fecha;
 	@Column
-	private int cantidad;
+	private Integer cantidad;
 	@Column
 	private float importe;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_zoo", foreignKey=@ForeignKey(name = "FK_id_zooBillete"))
+	@JoinColumn(name = "id_zoo", foreignKey = @ForeignKey(name = "FK_id_zooBillete"))
 	@JsonManagedReference
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Zoo zoo;
-	
-	@Column(name="id_zoo", insertable=false, updatable=false)
-	private int idZoo;
-	
+
+	@Column(name = "id_zoo", insertable = false, updatable = false)
+	private Integer idZoo;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cliente", foreignKey=@ForeignKey(name = "FK_id_zooCliente"))
+	@JoinColumn(name = "id_cliente", foreignKey = @ForeignKey(name = "FK_id_zooCliente"))
 	@JsonManagedReference
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Cliente cliente;
-	
-	@Column(name="id_cliente", insertable=false, updatable=false)
-	private int idCliente;
-	
-	public Billete() {}
-	
-	
-	
 
-	public Billete(Date fecha, int cantidad, float importe, int idZoo, int idCliente) {
+	@Column(name = "id_cliente", insertable = false, updatable = false)
+	private Integer idCliente;
+
+	public Billete() {
+	}
+
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo,Cliente cliente) {
 		super();
+		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
-		this.idZoo = idZoo;
-		this.idCliente = idCliente;
+		this.zoo = zoo;
+		this.cliente=cliente;
+
 	}
 
-
-	public Billete( int id,Date fecha, int cantidad, float importe) {
-		super();
-		this.fecha = fecha;
-		this.cantidad = cantidad;
-		this.importe = importe;
-	}
-	
-	public Billete(Date fecha, int cantidad, float importe) {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe) {
 		super();
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
 	}
 
-	public Billete(int id, Date fecha, int cantidad, float importe, Zoo zoo, int idZoo, Cliente cliente,
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer idZoo, Cliente cliente,
 			int idCliente) {
 		super();
 		this.id = id;
@@ -92,11 +84,22 @@ public class Billete {
 		this.idCliente = idCliente;
 	}
 
-	public int getId() {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer idZoo) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.importe = importe;
+		this.zoo = zoo;
+		this.idZoo = idZoo;
+
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -108,11 +111,11 @@ public class Billete {
 		this.fecha = fecha;
 	}
 
-	public int getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
 
@@ -132,11 +135,11 @@ public class Billete {
 		this.zoo = zoo;
 	}
 
-	public int getIdZoo() {
+	public Integer getIdZoo() {
 		return idZoo;
 	}
 
-	public void setIdZoo(int idZoo) {
+	public void setIdZoo(Integer idZoo) {
 		this.idZoo = idZoo;
 	}
 
@@ -148,11 +151,11 @@ public class Billete {
 		this.cliente = cliente;
 	}
 
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -161,4 +164,5 @@ public class Billete {
 		return "Billete [id=" + id + ", fecha=" + fecha + ", cantidad=" + cantidad + ", importe=" + importe + ", zoo="
 				+ zoo + ", idZoo=" + idZoo + ", cliente=" + cliente + ", idCliente=" + idCliente + "]";
 	}
+
 }
