@@ -16,61 +16,49 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Roles")
+@Table(name = "roles")
 public class Rol {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(length = 150)
-	private String tipo;
-
-//	@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//	@JsonBackReference
-//	private List<Trabajador> trabajadores;
-
+	private String name;
+	
+	@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Trabajador> trabajadores;
+	
 	public Rol() {
 	}
 
-	public Rol(int id, String tipo) {
+	public Rol(Integer id, String name) {
 		super();
 		this.id = id;
-		this.tipo = tipo;
+		this.name = name;
 	}
-//
-//	public Rol(int id, String tipo, List<Trabajador> trabajadores) {
-//		super();
-//		this.id = id;
-//		this.tipo = tipo;
-//		this.trabajadores = trabajadores;
-//	}
+	public Rol( String tipo) {
+		super();
+		this.name = tipo;
+	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getName() {
+		return name;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-//	public List<Trabajador> getTrabajadores() {
-//		return trabajadores;
-//	}
-//
-//	public void setTrabajadores(List<Trabajador> trabajadores) {
-//		this.trabajadores = trabajadores;
-//	}
-//
-//	@Override
-//	public String toString() {
-//		return "Rol [id=" + id + ", tipo=" + tipo + ", trabajadores=" + trabajadores + "]";
-//	}
+
+
+
 }

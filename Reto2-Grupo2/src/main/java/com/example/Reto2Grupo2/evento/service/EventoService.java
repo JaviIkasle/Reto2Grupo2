@@ -119,12 +119,17 @@ public class EventoService  implements EventoServiceImpl{
 				if(eventoPostRequest.getFecha()!=null ) {
 					evento.setFecha(eventoPostRequest.getFecha());
 				}
-				evento = eventoRepository.save(evento);
-				
 				
 				Zoo zoo = zooRepository.findById(eventoPostRequest.getZooId()).orElseThrow(
 						() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 				
+				//modificamos el zoo_id
+				if (zoo != null) {
+				evento.setZoo(zoo);
+				}
+				
+				evento = eventoRepository.save(evento);
+											
 				 EventoServiceModel eventoResponse = new EventoServiceModel(
 							evento.getId(),
 							evento.getNombre(),
