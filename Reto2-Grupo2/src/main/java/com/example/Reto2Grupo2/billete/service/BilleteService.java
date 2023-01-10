@@ -2,20 +2,18 @@ package com.example.Reto2Grupo2.billete.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.billete.modelo.BilleteExpands;
 import com.example.Reto2Grupo2.billete.modelo.BilletePostRequest;
 import com.example.Reto2Grupo2.billete.modelo.BilleteServiceModel;
 import com.example.Reto2Grupo2.billete.repository.BilleteRepository;
-import com.example.Reto2Grupo2.cliente.modelo.Cliente;
-import com.example.Reto2Grupo2.cliente.modelo.ClienteServiceModel;
-import com.example.Reto2Grupo2.cliente.repository.ClienteRepository;
+import com.example.Reto2Grupo2.user.modelo.User;
+import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
+import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
@@ -29,8 +27,9 @@ public class BilleteService implements BilleteServiceImpl {
 	@Autowired
 	private ZooRepository zooRepository;
 
+
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public List<BilleteServiceModel> getBilletes() {
@@ -43,7 +42,7 @@ public class BilleteService implements BilleteServiceImpl {
 					billete.getFecha(),
 					billete.getCantidad(),
 					billete.getIdZoo(), 
-					billete.getIdCliente(),
+					billete.getIdUser(),
 					null
 					));
 		
@@ -74,15 +73,15 @@ public class BilleteService implements BilleteServiceImpl {
 					null, null);
 		}
 
-		ClienteServiceModel ClienteResponse = null;
+		UserServiceModel userResponse = null;
 
 		if (expand != null && expand.indexOf(BilleteExpands.CLIENTE) != -1) {
-			Cliente clienteBD = billete.getCliente();
+			User userBd = billete.getUser();
 
-			ClienteResponse = new ClienteServiceModel(
-					clienteBD.getId(), 
-					clienteBD.getEmail(),
-					clienteBD.getPassword());
+			userResponse = new UserServiceModel(
+					userBd.getId(), 
+					userBd.getUsername(),
+					userBd.getPassword());
 
 		}
 
@@ -93,8 +92,8 @@ public class BilleteService implements BilleteServiceImpl {
 				billete.getImporte(), 
 				zooResponse, 
 				billete.getIdZoo(),
-				ClienteResponse,
-				billete.getIdCliente()
+				userResponse,
+				billete.getIdUser()
 
 		);
 
@@ -106,7 +105,7 @@ public class BilleteService implements BilleteServiceImpl {
 		Zoo zoo = zooRepository.findById(billetePostRequest.getIdZoo())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 
-		Cliente cliente = clienteRepository.findById(billetePostRequest.getIdCliente())
+		User user = userRepository.findById(billetePostRequest.getIdCliente())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente no encontrado"));
 		
 		
@@ -117,7 +116,7 @@ public class BilleteService implements BilleteServiceImpl {
 				billetePostRequest.getCantidad(),
 				billetePostRequest.getImporte(),
 				zoo,
-				cliente);
+				user);
 
 		billete = billeteRepository.save(billete);
 		BilleteServiceModel billeteResponse = new BilleteServiceModel(
@@ -128,7 +127,7 @@ public class BilleteService implements BilleteServiceImpl {
 				null, 
 				zoo.getId(), 
 				null, 
-				cliente.getId());
+				user.getId());
 		
 		return billeteResponse;
 	}
@@ -137,9 +136,7 @@ public class BilleteService implements BilleteServiceImpl {
 	public BilleteServiceModel updateById(Integer id, BilletePostRequest billetePostRequest) {
 		// TODO Auto-generated method stub
 		Billete billete = billeteRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Billete no encontrado"));
-		
-		
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Billete no encontrado"));			
 		
 		if (billetePostRequest.getFecha() != null) {
 			billete.setFecha(billetePostRequest.getFecha());
@@ -154,7 +151,7 @@ public class BilleteService implements BilleteServiceImpl {
 			billete.setIdZoo(billetePostRequest.getIdZoo());
 		}
 		if (billetePostRequest.getIdCliente() != 0) {
-			billete.setIdCliente(billetePostRequest.getIdCliente());
+			billete.setIdUser(billetePostRequest.getIdCliente());
 		}
 
 		billete = billeteRepository.save(billete);
@@ -166,7 +163,7 @@ public class BilleteService implements BilleteServiceImpl {
 				billete.getCantidad(),
 				billete.getImporte(), 
 				billete.getIdZoo(), 
-				billete.getIdCliente()
+				billete.getIdUser()
 				
 				);
 

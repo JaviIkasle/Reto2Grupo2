@@ -1,9 +1,9 @@
-package com.example.Reto2Grupo2.trabajador.modelo;
+package com.example.Reto2Grupo2.user.modelo;
 
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 
-public class TrabajadorServiceModel {
+public class UserServiceModel {
 
 	private Integer id;
 
@@ -19,11 +19,11 @@ public class TrabajadorServiceModel {
 
 	private Integer rolId;
 
-	public TrabajadorServiceModel() {
+	public UserServiceModel() {
 
 	}
 
-	public TrabajadorServiceModel(Integer id, String username, String password, ZooServiceModel zoo, Integer zooId,
+	public UserServiceModel(Integer id, String username, String password, ZooServiceModel zoo, Integer zooId,
 			RolServiceModel rol, Integer rolId) {
 		super();
 		this.id = id;
@@ -34,6 +34,14 @@ public class TrabajadorServiceModel {
 		this.rol = rol;
 		this.rolId = rolId;
 	}
+	
+	public UserServiceModel(Integer id, String username, String password) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+
 
 	public Integer getId() {
 		return id;

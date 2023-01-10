@@ -1,8 +1,7 @@
 package com.example.Reto2Grupo2.billete.modelo;
 
 import java.sql.Date;
-
-import com.example.Reto2Grupo2.cliente.modelo.Cliente;
+import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -38,29 +37,29 @@ public class Billete {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Zoo zoo;
 
-	@Column(name = "id_zoo", insertable = false, updatable = false)
+	@Column(name = "zoo_id", insertable = false, updatable = false)
 	private Integer idZoo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cliente", foreignKey = @ForeignKey(name = "FK_id_zooCliente"))
+	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_id_userBillete"))
 	@JsonManagedReference
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Cliente cliente;
+	private User user;
 
-	@Column(name = "id_cliente", insertable = false, updatable = false)
-	private Integer idCliente;
+	@Column(name = "user_id", insertable = false, updatable = false)
+	private Integer idUser;
 
 	public Billete() {
 	}
 
-	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo,Cliente cliente) {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo,User user) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
 		this.zoo = zoo;
-		this.cliente=cliente;
+		this.user=user;
 
 	}
 
@@ -71,8 +70,8 @@ public class Billete {
 		this.importe = importe;
 	}
 
-	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer idZoo, Cliente cliente,
-			int idCliente) {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer idZoo, User user,
+			Integer idUser) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -80,8 +79,8 @@ public class Billete {
 		this.importe = importe;
 		this.zoo = zoo;
 		this.idZoo = idZoo;
-		this.cliente = cliente;
-		this.idCliente = idCliente;
+		this.user = user;
+		this.idUser = idUser;
 	}
 
 	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer idZoo) {
@@ -143,26 +142,26 @@ public class Billete {
 		this.idZoo = idZoo;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Integer getIdCliente() {
-		return idCliente;
+	public Integer getIdUser() {
+		return idUser;
 	}
 
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
 
 	@Override
 	public String toString() {
 		return "Billete [id=" + id + ", fecha=" + fecha + ", cantidad=" + cantidad + ", importe=" + importe + ", zoo="
-				+ zoo + ", idZoo=" + idZoo + ", cliente=" + cliente + ", idCliente=" + idCliente + "]";
+				+ zoo + ", idZoo=" + idZoo + ", user=" + user + ", idUser=" + idUser + "]";
 	}
 
 }

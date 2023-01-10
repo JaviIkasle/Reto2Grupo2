@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
+import com.example.Reto2Grupo2.user.modelo.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -37,7 +37,7 @@ public class JwtTokenUtil {
 	
 	
 	//TODO no funcionan los .claim, deberia
-	public String generateAccessToken(Trabajador trabajador) {
+	public String generateAccessToken(User trabajador) {
 		// cuando generamos el token podemos meter campos custom que nos puedan ser utiles mas adelante.
 		
 		RolServiceModel rol = new RolServiceModel(trabajador.getRol().getId(), trabajador.getRol().getName());

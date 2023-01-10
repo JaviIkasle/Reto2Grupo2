@@ -2,7 +2,7 @@ package com.example.Reto2Grupo2.rol.modelo;
 
 import java.util.List;
 
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
+import com.example.Reto2Grupo2.user.modelo.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -27,7 +27,7 @@ public class Rol {
 	
 	@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
-	private List<Trabajador> trabajadores;
+	private List<User> trabajadores;
 	
 	public Rol() {
 	}

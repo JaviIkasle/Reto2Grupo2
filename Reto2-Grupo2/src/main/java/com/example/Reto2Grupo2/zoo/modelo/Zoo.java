@@ -3,7 +3,7 @@ package com.example.Reto2Grupo2.zoo.modelo;
 import java.util.List;
 
 import com.example.Reto2Grupo2.evento.modelo.Evento;
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
+import com.example.Reto2Grupo2.user.modelo.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -46,7 +46,7 @@ public class Zoo {
 	
 	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
-	private List<Trabajador> trabajadores;
+	private List<User> trabajadores;
 
 //	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 //	@JsonBackReference

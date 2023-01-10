@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.trabajador.modelo;
+package com.example.Reto2Grupo2.user.modelo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,11 +8,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,11 +25,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "trabajadores")
-public class Trabajador implements UserDetails{
+@Table(name = "users")
+public class User implements UserDetails{
 
 	private static final long serialVersionUID = 1285514705158443296L;
 	
@@ -57,18 +61,22 @@ public class Trabajador implements UserDetails{
 
 	@Column(name = "rol_id", insertable = false, updatable = false)
 	private Integer rolId;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Billete> billetes;
 
-	public Trabajador() {
+	public User() {
 
 	}
 
-	public Trabajador( String username, String password) {
+	public User( String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
 	
-	public Trabajador(Integer id, String username, String password, Zoo zoo, Integer zooId, Rol rol, int rolId) {
+	public User(Integer id, String username, String password, Zoo zoo, Integer zooId, Rol rol, int rolId) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -135,11 +143,6 @@ public class Trabajador implements UserDetails{
 		this.rolId = rolId;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Trabajador [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
-//				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + "]";
-//	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

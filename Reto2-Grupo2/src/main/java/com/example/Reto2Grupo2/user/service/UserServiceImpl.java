@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.trabajador.service;
+package com.example.Reto2Grupo2.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +18,21 @@ import com.example.Reto2Grupo2.auth.model.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.rol.repository.RolRepository;
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
-import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorExpands;
-import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorPostRequest;
-import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
-import com.example.Reto2Grupo2.trabajador.repository.TrabajadorRepository;
+import com.example.Reto2Grupo2.user.modelo.User;
+import com.example.Reto2Grupo2.user.modelo.UserExpands;
+import com.example.Reto2Grupo2.user.modelo.UserPostRequest;
+import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
+import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
 
 
 @Service("userDetailsService")
-public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsService{
+public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Autowired
-	private TrabajadorRepository trabajadorRepository;
+	private UserRepository trabajadorRepository;
 	//TODO podríamos llamar al servicio del Zoo y de ahí al repositorio
 	@Autowired
 	private ZooRepository zooRepository;
@@ -40,12 +40,12 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 	private RolRepository rolRepository;
 	
 	@Override
-	public List<TrabajadorServiceModel> getTrabajadores() {
-		Iterable<Trabajador> trabajadores = trabajadorRepository.findAll();
-		List<TrabajadorServiceModel> response = new ArrayList<TrabajadorServiceModel>();
-		for (Trabajador trabajador : trabajadores) {
+	public List<UserServiceModel> getTrabajadores() {
+		Iterable<User> trabajadores = trabajadorRepository.findAll();
+		List<UserServiceModel> response = new ArrayList<UserServiceModel>();
+		for (User trabajador : trabajadores) {
 			response.add(
-					new TrabajadorServiceModel(
+					new UserServiceModel(
 							trabajador.getId(),
 							trabajador.getUsername(),
 							trabajador.getPassword(),
@@ -57,15 +57,15 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 	}
 
 	@Override
-	public TrabajadorServiceModel getTrabajadorById(Integer id, List<TrabajadorExpands> expand) {
+	public UserServiceModel getTrabajadorById(Integer id, List<UserExpands> expand) {
 		
-		Trabajador trabajador  = trabajadorRepository.findById(id).orElseThrow(
+		User trabajador  = trabajadorRepository.findById(id).orElseThrow(
 
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Trabajador no encontrado"));
 		
 		ZooServiceModel zooResponse = null;
 		
-		if (expand != null && expand.indexOf (TrabajadorExpands.ZOO) != -1) {
+		if (expand != null && expand.indexOf (UserExpands.ZOO) != -1) {
 			
 			Zoo zooBD = trabajador.getZoo();		
 			zooResponse = new ZooServiceModel(
@@ -83,7 +83,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 		}	
 		RolServiceModel rolResponse = null;
 		
-		if (expand != null&& expand.indexOf(TrabajadorExpands.ROL) != -1) {
+		if (expand != null&& expand.indexOf(UserExpands.ROL) != -1) {
 			
 			Rol rolBD = trabajador.getRol();		
 			rolResponse = new RolServiceModel(
@@ -92,7 +92,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 					null);		
 		}	
  		
-		TrabajadorServiceModel response = new TrabajadorServiceModel(
+		UserServiceModel response = new UserServiceModel(
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
@@ -106,7 +106,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 	}
 
 	@Override
-	public TrabajadorServiceModel create(TrabajadorPostRequest trabajadorPostRequest) {
+	public UserServiceModel create(UserPostRequest trabajadorPostRequest) {
 		
 		Zoo zoo = zooRepository.findById(trabajadorPostRequest.getZooId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
@@ -115,7 +115,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
 		
 		
-		Trabajador trabajador = new Trabajador(
+		User trabajador = new User(
 				null,
 				trabajadorPostRequest.getUsername(), 
 				trabajadorPostRequest.getPassword(),
@@ -128,7 +128,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 		trabajador = trabajadorRepository.save(trabajador);
 		
 		
-		TrabajadorServiceModel trabajadorResponse = new TrabajadorServiceModel(
+		UserServiceModel trabajadorResponse = new UserServiceModel(
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
@@ -140,10 +140,10 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 	}
 
 	@Override
-	public TrabajadorServiceModel updateById(Integer id, TrabajadorPostRequest trabajadorPostRequest) {
+	public UserServiceModel updateById(Integer id, UserPostRequest trabajadorPostRequest) {
 		
 		//SI SE MODIFICA UN registro QUE NO EXISTE, PROVOCAMOS ESTE ERROR
-		Trabajador trabajador = trabajadorRepository.findById(id).orElseThrow(
+		User trabajador = trabajadorRepository.findById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Trabajador no encontrado")
 		);
 		
@@ -174,7 +174,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 		}
 			trabajador = trabajadorRepository.save(trabajador);
 			
-		TrabajadorServiceModel trabajadorResponse = new TrabajadorServiceModel(
+		UserServiceModel trabajadorResponse = new UserServiceModel(
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
@@ -187,7 +187,7 @@ public class TrabajadorServiceImpl implements TrabajadorService, UserDetailsServ
 	}
 
 	@Override
-	public Trabajador signUp(Trabajador trabajador) throws UserCantCreateException {
+	public User signUp(User trabajador) throws UserCantCreateException {
 			
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
 		String password = passEncoder.encode(trabajador.getPassword());		

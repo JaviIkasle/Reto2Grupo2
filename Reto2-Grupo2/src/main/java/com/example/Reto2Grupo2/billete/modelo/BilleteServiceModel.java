@@ -1,9 +1,7 @@
 package com.example.Reto2Grupo2.billete.modelo;
 
 import java.sql.Date;
-
-
-import com.example.Reto2Grupo2.cliente.modelo.ClienteServiceModel;
+import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 
 public class BilleteServiceModel {
@@ -14,8 +12,8 @@ public class BilleteServiceModel {
 	private float importe;
 	private ZooServiceModel zoo;
 	private Integer idZoo;
-	private ClienteServiceModel cliente;
-	private Integer idCliente;
+	private UserServiceModel user;
+	private Integer userId;
 
 	public BilleteServiceModel() {
 		super();
@@ -28,21 +26,21 @@ public class BilleteServiceModel {
 		this.cantidad = cantidad;
 		this.importe = importe;
 		this.idZoo = idZoo;
-		this.idCliente = idCliente;
+		this.userId = idCliente;
 	}
 
-	public BilleteServiceModel(int id, Date fecha, int cantidad, float importe, ZooServiceModel zooServiceModel,
-			Integer idZoo, ClienteServiceModel cliente, Integer idCliente) {
+	
+	public BilleteServiceModel(int id, Date fecha, int cantidad, float importe, ZooServiceModel zoo, Integer idZoo,
+			UserServiceModel cliente, Integer idCliente) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
-		this.zoo = zooServiceModel;
+		this.zoo = zoo;
 		this.idZoo = idZoo;
-		this.cliente = cliente;
-		this.idCliente = idCliente;
-
+		this.user = cliente;
+		this.userId = idCliente;
 	}
 
 	public int getId() {
@@ -93,26 +91,26 @@ public class BilleteServiceModel {
 		this.idZoo = idZoo;
 	}
 
-	public ClienteServiceModel getCliente() {
-		return cliente;
+	public UserServiceModel getCliente() {
+		return user;
 	}
 
-	public void setCliente(ClienteServiceModel cliente) {
-		this.cliente = cliente;
+	public void setCliente(UserServiceModel cliente) {
+		this.user = cliente;
 	}
 
 	public Integer getIdCliente() {
-		return idCliente;
+		return userId;
 	}
 
 	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
+		this.userId = idCliente;
 	}
 
 	@Override
 	public String toString() {
 		return "BilleteServiceModel [id=" + id + ", fecha=" + fecha + ", cantidad=" + cantidad + ", importe=" + importe
-				+ ", zoo=" + zoo + ", idZoo=" + idZoo + ", cliente=" + cliente + ", idCliente=" + idCliente + "]";
+				+ ", zoo=" + zoo + ", idZoo=" + idZoo + ", cliente=" + user + ", idCliente=" + userId + "]";
 	}
 
 }

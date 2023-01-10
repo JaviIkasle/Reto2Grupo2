@@ -1,6 +1,6 @@
-package com.example.Reto2Grupo2.trabajador.modelo;
+package com.example.Reto2Grupo2.user.modelo;
 
-public class TrabajadorPostRequest {
+public class UserPostRequest {
 
 	private String username;
 
@@ -10,10 +10,10 @@ public class TrabajadorPostRequest {
 
 	private Integer rolId;
 
-	public TrabajadorPostRequest() {
+	public UserPostRequest() {
 	}
 
-	public TrabajadorPostRequest(String email, String password, Integer zooId, Integer rolId) {
+	public UserPostRequest(String email, String password, Integer zooId, Integer rolId) {
 		super();
 		this.username = email;
 		this.password = password;
