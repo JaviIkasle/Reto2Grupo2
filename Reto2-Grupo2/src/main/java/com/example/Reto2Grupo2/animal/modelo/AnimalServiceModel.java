@@ -1,6 +1,10 @@
 package com.example.Reto2Grupo2.animal.modelo;
 
+import java.util.Set;
+
 import com.example.Reto2Grupo2.especie.modelo.EspecieServiceModel;
+import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
+
 
 public class AnimalServiceModel {
 
@@ -11,19 +15,22 @@ public class AnimalServiceModel {
 	
 	private EspecieServiceModel especie;
 	
-	private Integer idEspecie;
+	private Integer especieId;
+
+	private Set<ZooServiceModel> zoos;
 	
 	public AnimalServiceModel() {}
 
 	public AnimalServiceModel(Integer id, String nombre, String informacion, String foto, EspecieServiceModel especie,
-			Integer idEspecie) {
+			Integer idEspecie, Set<ZooServiceModel> zoos) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
 		this.foto = foto;
 		this.especie = especie;
-		this.idEspecie = idEspecie;
+		this.especieId = idEspecie;
+		this.zoos = zoos;
 	}
 
 	public Integer getId() {
@@ -66,17 +73,25 @@ public class AnimalServiceModel {
 		this.especie = especie;
 	}
 
-	public Integer getIdEspecie() {
-		return idEspecie;
+	public Integer getEspecieId() {
+		return especieId;
 	}
 
-	public void setIdEspecie(Integer idEspecie) {
-		this.idEspecie = idEspecie;
+	public void seEspecieId(Integer idEspecie) {
+		this.especieId = idEspecie;
+	}
+
+	public Set<ZooServiceModel> getZoos() {
+		return zoos;
+	}
+
+	public void setZoos(Set<ZooServiceModel> zoos) {
+		this.zoos = zoos;
 	}
 
 	@Override
 	public String toString() {
 		return "AnimalServiceModel [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", foto=" + foto
-				+ ", especie=" + especie + ", idEspecie=" + idEspecie + "]";
+				+ ", especie=" + especie + ", idEspecie=" + especieId + ", zoos=" + zoos + "]";
 	}
 }

@@ -6,17 +6,18 @@ public class AnimalPostRequest {
 	private String nombre;
 	private String informacion;
 	private String foto;
-
-	private Integer idEspecie;
 	
-	public AnimalPostRequest() {}
+	private Integer especieId;
+	
 
-	public AnimalPostRequest(String nombre, String informacion, String foto, Integer idEspecie) {
+	public AnimalPostRequest() {}
+	
+	public AnimalPostRequest(String nombre, String informacion, String foto, Integer especieId) {
 		super();
 		this.nombre = nombre;
 		this.informacion = informacion;
 		this.foto = foto;
-		this.idEspecie = idEspecie;
+		this.especieId = especieId;
 	}
 
 	public String getNombre() {
@@ -43,17 +44,17 @@ public class AnimalPostRequest {
 		this.foto = foto;
 	}
 
-	public Integer getIdEspecie() {
-		return idEspecie;
+	public Integer getEspecieId() {
+		return especieId;
 	}
 
-	public void setIdEspecie(Integer idEspecie) {
-		this.idEspecie = idEspecie;
+	public void setEspecieId(Integer especieId) {
+		this.especieId = especieId;
 	}
 
 	@Override
 	public String toString() {
 		return "AnimalPostRequest [nombre=" + nombre + ", informacion=" + informacion + ", foto=" + foto
-				+ ", idEspecie=" + idEspecie + "]";
+				+ ", idEspecie=" + especieId + "]";
 	}
 }

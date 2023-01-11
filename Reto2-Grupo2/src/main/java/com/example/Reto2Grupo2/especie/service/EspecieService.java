@@ -106,9 +106,9 @@ public class EspecieService implements EspecieServiceImpl{
 		
 		try {
 			especieRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (EmptyResultDataAccessException e) {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Id de Especie no encontrado");
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Id de Especie no encontrada");
 		}
 	}
 }

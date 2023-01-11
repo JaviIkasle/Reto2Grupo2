@@ -1,9 +1,14 @@
 package com.example.Reto2Grupo2.animal.modelo;
 
 
+import java.util.Set;
+
 import com.example.Reto2Grupo2.especie.modelo.Especie;
+import com.example.Reto2Grupo2.zoo.modelo.Zoo;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,10 +18,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Entity
 @Table(name="animales")
 public class Animal {
@@ -39,10 +47,19 @@ public class Animal {
 	private Especie especie;
 	
 	@Column(name="id_especie", insertable=false, updatable=false)
-	private Integer idEspecie;
+	private Integer especieId;
 	
-//	@ManyToMany(mappedBy = "animales")
-//	private List<Zoo> zoos;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "zoo_has_animal",
+			joinColumns = @JoinColumn(
+					name = "animal_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="FK_animal_id")
+			),
+			inverseJoinColumns = @JoinColumn(
+					name = "zoo_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="FK_zoo_id")
+			)
+	)
+	private Set<Zoo> zoos;
 	
 	public Animal() {}
 
@@ -54,17 +71,17 @@ public class Animal {
 		this.foto = foto;
 	}
 
-//	public Animal(int id, String nombre, String informacion, String foto, Especie especie, int idEspecie,
-//			List<Zoo> zoos) {
-//		super();
-//		this.id = id;
-//		this.nombre = nombre;
-//		this.informacion = informacion;
-//		this.foto = foto;
-//		this.especie = especie;
-//		this.idEspecie = idEspecie;
-//		this.zoos = zoos;
-//	}
+	public Animal(Integer id, String nombre, String informacion, String foto, Especie especie, Integer especieId,
+			Set<Zoo> zoos) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.informacion = informacion;
+		this.foto = foto;
+		this.especie = especie;
+		this.especieId = especieId;
+		this.zoos = zoos;
+	}
 
 	public Integer getId() {
 		return id;
@@ -98,12 +115,12 @@ public class Animal {
 		this.especie = especie;
 	}
 
-	public Integer getIdEspecie() {
-		return idEspecie;
+	public Integer getEspecieId() {
+		return especieId;
 	}
 
-	public void setIdEspecie(Integer idEspecie) {
-		this.idEspecie = idEspecie;
+	public void setEspecieId(Integer especieId) {
+		this.especieId = especieId;
 	}
 
 	public String getFoto() {
@@ -112,5 +129,19 @@ public class Animal {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+	public Set<Zoo> getZoos() {
+		return zoos;
+	}
+
+	public void setZoos(Set<Zoo> zoos) {
+		this.zoos = zoos;
+	}
+
+	@Override
+	public String toString() {
+		return "Animal [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", foto=" + foto
+				+ ", especie=" + especie + ", idEspecie=" + especieId + ", zoos=" + zoos + "]";
 	}
 }
