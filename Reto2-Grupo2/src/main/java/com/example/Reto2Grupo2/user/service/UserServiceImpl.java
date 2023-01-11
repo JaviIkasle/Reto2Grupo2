@@ -49,10 +49,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 							trabajador.getId(),
 							trabajador.getUsername(),
 							trabajador.getPassword(),
+							trabajador.getEmail(),
 							null,
 							trabajador.getZooId(),
 							null,
-							trabajador.getRolId()));
+							trabajador.getRolId(),						
+							null));
 		}		return response;
 	}
 
@@ -96,10 +98,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
+				trabajador.getEmail(),
 				zooResponse,
 				trabajador.getZooId(),
 				rolResponse,
-				trabajador.getRolId()
+				trabajador.getRolId(),
+				null // TODO poner los billetes
 				);
 		
 		return response;
@@ -119,10 +123,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				null,
 				trabajadorPostRequest.getUsername(), 
 				trabajadorPostRequest.getPassword(),
+				trabajadorPostRequest.getEmail(),
 				zoo,
 				trabajadorPostRequest.getZooId(),
 				rol,
-				trabajadorPostRequest.getRolId()
+				trabajadorPostRequest.getRolId(),
+				null // TODO poner los billetes
 				);
 
 		trabajador = trabajadorRepository.save(trabajador);
@@ -132,10 +138,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
+				trabajador.getEmail(),
 				null,
 				zoo.getId(),//trampeado, evento.getZooId**Si no sale null
 				null,
-				rol.getId()); //trampeado, evento.getZooId**Si no sale null
+				rol.getId(),
+				null); //TODO poner los billetes
 		 return trabajadorResponse;			
 	}
 
@@ -178,32 +186,35 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				trabajador.getId(),
 				trabajador.getUsername(),
 				trabajador.getPassword(),
+				trabajador.getEmail(),
 				null,
 				zoo.getId(),//Trampeado, evento.getZooId**, lo trae null......
 				null,
-				rol.getId()); //trampeado, evento.getZooId**Si no sale null); 
+				rol.getId(),
+				null); //TODO poner billete
 		return trabajadorResponse;
 				
 	}
 
 	@Override
-	public User signUp(User trabajador) throws UserCantCreateException {
+	public User signupEmpleado(User trabajador) throws UserCantCreateException {
 			
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
 		String password = passEncoder.encode(trabajador.getPassword());		
 		trabajador.setPassword(password);
 
-		Rol trabajadorRol = rolRepository.findByName(RolEnum.ADMIN.name()); 
-		System.out.println(trabajadorRol);
+		Zoo zoo = zooRepository.findById(trabajador.getZooId()).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
+		trabajador.setZoo(zoo);// esto es lo que hace que se inserte el zooID
 		
+		Rol trabajadorRol = rolRepository.findByName(RolEnum.EMPLEADO.name()); 	
 		trabajador.setRol(trabajadorRol);
-				
+			
 		try{
 			return trabajadorRepository.save(trabajador);
 		}catch (DataAccessException e) {
 			throw new UserCantCreateException(e.getMessage());
-		}
-		
+		}		
 	
 	}
 
@@ -212,6 +223,24 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		 return trabajadorRepository.findByUsername(username)
                  .orElseThrow(
                          () -> new UsernameNotFoundException("User " + username + " not found"));
+	}
+
+
+	@Override
+	public User signupCliente(User cliente) throws UserCantCreateException {
+		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
+		String password = passEncoder.encode(cliente.getPassword());		
+		cliente.setPassword(password);
+
+		
+		Rol trabajadorRol = rolRepository.findByName(RolEnum.CLIENTE.name()); 	
+		cliente.setRol(trabajadorRol);
+			
+		try{
+			return trabajadorRepository.save(cliente);
+		}catch (DataAccessException e) {
+			throw new UserCantCreateException(e.getMessage());
+		}		
 	}
 	
 //	@Override

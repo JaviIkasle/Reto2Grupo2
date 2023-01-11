@@ -1,18 +1,19 @@
 package com.example.Reto2Grupo2.auth.model;
 
-public class AuthRequest {
+public class AuthRequestCliente {
 
 	private String username;
 	private String password;
-	
+	private String email;
 
-	public AuthRequest() {
+	public AuthRequestCliente() {
 	}
 
-	public AuthRequest(String username, String password) {
+	public AuthRequestCliente(String username, String password, String email) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.email = email;
 	}
 
 	public String getUsername() {
@@ -31,9 +32,17 @@ public class AuthRequest {
 		this.password = password;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
-		return "AuthRequest [username=" + username + ", password=" + password + "]";
+		return "AuthRequestCliente [username=" + username + ", password=" + password + ", email=" + email + "]";
 	}
 
 }

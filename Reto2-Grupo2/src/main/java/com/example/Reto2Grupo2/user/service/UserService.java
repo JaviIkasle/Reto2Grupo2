@@ -11,7 +11,9 @@ import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 //TODO invertir nombres de las clases service
 public interface UserService {
 
-	User signUp(User trabajador) throws UserCantCreateException;
+	User signupEmpleado(User trabajador) throws UserCantCreateException;
+	
+	User signupCliente(User cliente) throws UserCantCreateException;
 	
 	List<UserServiceModel> getTrabajadores();
 

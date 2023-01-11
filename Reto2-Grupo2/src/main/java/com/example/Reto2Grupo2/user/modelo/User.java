@@ -43,9 +43,11 @@ public class User implements UserDetails{
 	private String username;
 	@Column(length = 60)
 	private String password;
+	@Column(length = 60)
+	private String email;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_zoo_id_Trab"))
+	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_zoo_id_user"))
 	@JsonManagedReference
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Zoo zoo;
@@ -70,21 +72,34 @@ public class User implements UserDetails{
 
 	}
 
-	public User( String username, String password) {
+	public User( String username, String password, Integer zooId) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.zooId = zooId;
 	}
 	
-	public User(Integer id, String username, String password, Zoo zoo, Integer zooId, Rol rol, int rolId) {
+	public User( String username, String password, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
+	
+
+
+	public User(Integer id, String username, String password, String email, Zoo zoo, Integer zooId, Rol rol,
+			Integer rolId, List<Billete> billetes) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.zoo = zoo;
 		this.zooId = zooId;
 		this.rol = rol;
 		this.rolId = rolId;
+		this.billetes = billetes;
 	}
 
 	public Integer getId() {
@@ -144,35 +159,54 @@ public class User implements UserDetails{
 	}
 
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Billete> getBilletes() {
+		return billetes;
+	}
+
+	public void setBilletes(List<Billete> billetes) {
+		this.billetes = billetes;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", zoo="
+				+ zoo + ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + ", billetes=" + billetes + "]";
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-
 		final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();	
 		authorities.add(new SimpleGrantedAuthority(rol.getName()));		
 		return authorities;
 	}
 
 	@Override
-	public boolean isAccountNonExpired() {
-	
+	public boolean isAccountNonExpired() {	
 		return true;
 	}
 
 	@Override
-	public boolean isAccountNonLocked() {
-	
+	public boolean isAccountNonLocked() {	
 		return true;
 	}
 
 	@Override
-	public boolean isCredentialsNonExpired() {
-	
+	public boolean isCredentialsNonExpired() {	
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

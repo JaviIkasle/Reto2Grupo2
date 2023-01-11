@@ -1,5 +1,8 @@
 package com.example.Reto2Grupo2.user.modelo;
 
+import java.util.List;
+
+import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 
@@ -10,6 +13,8 @@ public class UserServiceModel {
 	private String username;
 
 	private String password;
+	
+	private String email;
 
 	private ZooServiceModel zoo;
 
@@ -19,22 +24,28 @@ public class UserServiceModel {
 
 	private Integer rolId;
 
+	private List<Billete> billetes;
+	
 	public UserServiceModel() {
 
 	}
-
-	public UserServiceModel(Integer id, String username, String password, ZooServiceModel zoo, Integer zooId,
-			RolServiceModel rol, Integer rolId) {
+	
+	public UserServiceModel(Integer id, String username, String password, String email, ZooServiceModel zoo,
+			Integer zooId, RolServiceModel rol, Integer rolId, List<Billete> billetes) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.zoo = zoo;
 		this.zooId = zooId;
 		this.rol = rol;
 		this.rolId = rolId;
+		this.billetes = billetes;
 	}
-	
+
+
+
 	public UserServiceModel(Integer id, String username, String password) {
 		super();
 		this.id = id;
@@ -98,11 +109,29 @@ public class UserServiceModel {
 	public void setRolId(Integer rolId) {
 		this.rolId = rolId;
 	}
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Billete> getBilletes() {
+		return billetes;
+	}
+
+	public void setBilletes(List<Billete> billetes) {
+		this.billetes = billetes;
+	}
 
 	@Override
 	public String toString() {
-		return "TrabajadorServiceModel [id=" + id + ", username=" + username + ", password=" + password + ", zoo=" + zoo
-				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + "]";
+		return "UserServiceModel [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", zoo=" + zoo + ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + ", billetes=" + billetes
+				+ "]";
 	}
 
 }

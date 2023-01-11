@@ -5,6 +5,8 @@ public class UserPostRequest {
 	private String username;
 
 	private String password;
+	
+	private String email;
 
 	private Integer zooId;
 
@@ -13,10 +15,11 @@ public class UserPostRequest {
 	public UserPostRequest() {
 	}
 
-	public UserPostRequest(String email, String password, Integer zooId, Integer rolId) {
+	public UserPostRequest(String username, String password, String email, Integer zooId, Integer rolId) {
 		super();
-		this.username = email;
+		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.zooId = zooId;
 		this.rolId = rolId;
 	}
@@ -52,11 +55,21 @@ public class UserPostRequest {
 	public void setRolId(Integer rolId) {
 		this.rolId = rolId;
 	}
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
-		return "TrabajadorPostRequest [email=" + username + ", password=" + password + ", zooId=" + zooId + ", rolId="
-				+ rolId + "]";
+		return "UserPostRequest [username=" + username + ", password=" + password + ", email=" + email + ", zooId="
+				+ zooId + ", rolId=" + rolId + "]";
 	}
 
 }

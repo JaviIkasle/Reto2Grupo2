@@ -33,13 +33,13 @@ public class UserController {
 	@Autowired
 	private UserRepository trabajadorRepository;
 	
-	@GetMapping("/trabajadores")
+	@GetMapping("/users")
 	public ResponseEntity<List<UserServiceModel>> getTrabajadores() {
 		List<UserServiceModel> response = trabajadorService.getTrabajadores();
 		return new ResponseEntity<List<UserServiceModel>>(response, HttpStatus.OK);
 	}
 	
-	@GetMapping("/trabajadores/{id}")
+	@GetMapping("/users/{id}")
 	public ResponseEntity<UserServiceModel> getTrabajadorById(@PathVariable("id") Integer id,
 			@RequestParam(required = false) List<UserExpands> expand) {
 
@@ -47,14 +47,14 @@ public class UserController {
 		return new ResponseEntity<UserServiceModel>(response, HttpStatus.OK);
 	}
 	
-	@PostMapping("/trabajadores")
+	@PostMapping("/users")
 	public ResponseEntity<UserServiceModel> createTrabajador(@RequestBody UserPostRequest trabajadorPostRequest) {
 
 		UserServiceModel trabajadorResponse = trabajadorService.create(trabajadorPostRequest);
 		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/trabajadores/{id}")
+	@PutMapping("/users/{id}")
 	public ResponseEntity<UserServiceModel> updateTrabajador(@PathVariable("id") Integer id,
 			@RequestBody UserPostRequest trabajadorPostRequest) {
 
@@ -62,7 +62,7 @@ public class UserController {
 		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/trabajadores/{id}")
+	@DeleteMapping("/users/{id}")
 	public ResponseEntity<Integer> deleteTrabajadorById(@PathVariable("id") Integer id) {
 
 		try {
