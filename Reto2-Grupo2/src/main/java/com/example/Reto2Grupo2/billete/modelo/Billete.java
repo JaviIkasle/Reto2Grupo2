@@ -1,8 +1,7 @@
 package com.example.Reto2Grupo2.billete.modelo;
 
 import java.sql.Date;
-
-import com.example.Reto2Grupo2.cliente.Cliente;
+import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -24,60 +23,82 @@ public class Billete {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column
 	private Date fecha;
 	@Column
-	private int cantidad;
+	private Integer cantidad;
 	@Column
 	private float importe;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_zoo", foreignKey=@ForeignKey(name = "FK_id_zooBillete"))
+	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_id_zooBillete"))
 	@JsonManagedReference
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Zoo zoo;
-	
-	@Column(name="id_zoo", insertable=false, updatable=false)
-	private int idZoo;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cliente", foreignKey=@ForeignKey(name = "FK_id_zooCliente"))
-	@JsonManagedReference
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Cliente cliente;
-	
-	@Column(name="id_cliente", insertable=false, updatable=false)
-	private int idCliente;
-	
-	public Billete() {}
 
-	public Billete(int id, Date fecha, int cantidad, float importe) {
-		super();
-		this.id = id;
-		this.fecha = fecha;
-		this.cantidad = cantidad;
-		this.importe = importe;
+	@Column(name = "zoo_id", insertable = false, updatable = false)
+	private Integer zooId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_id_userBillete"))
+	@JsonManagedReference
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private User user;
+
+	@Column(name = "user_id", insertable = false, updatable = false)
+	private Integer userId;
+
+	public Billete() {
 	}
 
-	public Billete(int id, Date fecha, int cantidad, float importe, Zoo zoo, int idZoo, Cliente cliente,
-			int idCliente) {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, User user) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
 		this.zoo = zoo;
-		this.idZoo = idZoo;
-		this.cliente = cliente;
-		this.idCliente = idCliente;
+		this.user = user;
+
 	}
 
-	public int getId() {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe) {
+		super();
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.importe = importe;
+	}
+
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer zooId, User user,
+			Integer idUser) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.importe = importe;
+		this.zoo = zoo;
+		this.zooId = zooId;
+		this.user = user;
+		this.userId = idUser;
+	}
+
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer zooId) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.importe = importe;
+		this.zoo = zoo;
+		this.zooId = zooId;
+
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -89,11 +110,11 @@ public class Billete {
 		this.fecha = fecha;
 	}
 
-	public int getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
 
@@ -113,33 +134,34 @@ public class Billete {
 		this.zoo = zoo;
 	}
 
-	public int getIdZoo() {
-		return idZoo;
+	public Integer getZooId() {
+		return zooId;
 	}
 
-	public void setIdZoo(int idZoo) {
-		this.idZoo = idZoo;
+	public void setZooId(Integer zooId) {
+		this.zooId = zooId;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public int getIdCliente() {
-		return idCliente;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setUserId(Integer idUser) {
+		this.userId = idUser;
 	}
 
 	@Override
 	public String toString() {
 		return "Billete [id=" + id + ", fecha=" + fecha + ", cantidad=" + cantidad + ", importe=" + importe + ", zoo="
-				+ zoo + ", idZoo=" + idZoo + ", cliente=" + cliente + ", idCliente=" + idCliente + "]";
+				+ zoo + ", zooId=" + zooId + ", user=" + user + ", idUser=" + userId + "]";
 	}
+
 }

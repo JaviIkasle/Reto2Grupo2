@@ -2,8 +2,9 @@ package com.example.Reto2Grupo2.zoo.modelo;
 
 import java.util.List;
 
+import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.evento.modelo.Evento;
-import com.example.Reto2Grupo2.trabajador.modelo.Trabajador;
+import com.example.Reto2Grupo2.user.modelo.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -46,20 +47,16 @@ public class Zoo {
 	
 	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
-	private List<Trabajador> trabajadores;
+	private List<User> trabajadores;
 
-//	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//	@JsonBackReference
-//	private List<Billete> billetes;
+	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Billete> billetes;
 
 //	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //	@JoinTable(name = "zoo_has_animales", joinColumns = @JoinColumn(name = "id_zoo"), inverseJoinColumns = @JoinColumn(name = "id_animal"))
 //	private List<Animal> animales;
 
-//	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//	@JsonBackReference
-//	private List<Trabajador> trabajadores;
-//	
 	public Zoo() {
 	}
 
@@ -170,25 +167,12 @@ public class Zoo {
 		this.eventos = eventos;
 	}
 
-//	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
-//			String ciudad, String pais, List<Evento> eventos, List<Billete> billetes, List<Animal> animales,
-//			List<Trabajador> trabajadores) {
-//		super();
-//		this.id = id;
-//		this.nombre = nombre;
-//		this.pvpEntrada = pvpEntrada;
-//		this.web = web;
-//		this.informacion = informacion;
-//		this.latitud = latitud;
-//		this.longitud = longitud;
-//		this.ciudad = ciudad;
-//		this.pais = pais;
-//		this.eventos = eventos;
-//		this.billetes = billetes;
-//		this.animales = animales;
-//		this.trabajadores = trabajadores;
+//	@Override
+//	public String toString() {
+//		return "Zoo [id=" + id + ", nombre=" + nombre + ", pvpEntrada=" + pvpEntrada + ", web=" + web + ", informacion="
+//				+ informacion + ", latitud=" + latitud + ", longitud=" + longitud + ", ciudad=" + ciudad + ", pais="
+//				+ pais + ", eventos=" + eventos + ", trabajadores=" + trabajadores + "]";
 //	}
 
-	
 
 }

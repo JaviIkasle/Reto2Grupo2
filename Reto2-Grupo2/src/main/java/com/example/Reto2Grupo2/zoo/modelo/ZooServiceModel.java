@@ -3,7 +3,7 @@ package com.example.Reto2Grupo2.zoo.modelo;
 import java.util.List;
 
 import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
-import com.example.Reto2Grupo2.trabajador.modelo.TrabajadorServiceModel;
+import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 
 public class ZooServiceModel {
 
@@ -27,14 +27,14 @@ public class ZooServiceModel {
 
 	private List<EventoServiceModel> eventos;
 
-	private List<TrabajadorServiceModel> trabajadores;
+	private List<UserServiceModel> trabajadores;
 
 	public ZooServiceModel() {
 	}
 
 	public ZooServiceModel(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud,
 			float longitud, String ciudad, String pais, List<EventoServiceModel> eventos,
-			List<TrabajadorServiceModel> trabajadores) {
+			List<UserServiceModel> trabajadores) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -129,11 +129,11 @@ public class ZooServiceModel {
 		this.eventos = eventos;
 	}
 
-	public List<TrabajadorServiceModel> getTrabajadores() {
+	public List<UserServiceModel> getTrabajadores() {
 		return trabajadores;
 	}
 
-	public void setTrabajadores(List<TrabajadorServiceModel> trabajadores) {
+	public void setTrabajadores(List<UserServiceModel> trabajadores) {
 		this.trabajadores = trabajadores;
 	}
 

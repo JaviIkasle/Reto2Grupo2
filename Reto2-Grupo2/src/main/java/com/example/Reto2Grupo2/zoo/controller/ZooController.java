@@ -26,7 +26,7 @@ public class ZooController {
 	@Autowired
 	private ZooRepository zooRepository;
 	@Autowired
-	ZooServiceImpl zooService;
+	private ZooServiceImpl zooService;
 	
 	@GetMapping("/zoos")
 	public ResponseEntity<List<ZooServiceModel>> getZoos() {
