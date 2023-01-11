@@ -64,18 +64,19 @@ public class WebSecurityConfig {
 						.requestMatchers("/api/auth/signup/empleados").hasAuthority("ADMIN")
 						.requestMatchers("/api/users/**").hasAuthority("ADMIN")
 						.requestMatchers("/api/roles/**").hasAuthority("ADMIN")
-						.requestMatchers("/api/eventos/**").hasAuthority("EMPLEADO")
-						.requestMatchers(HttpMethod.GET,"/api/zoos/**").hasAuthority(RolEnum.EMPLEADO.name())
-						.requestMatchers(HttpMethod.GET,"/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())
-						.requestMatchers(HttpMethod.GET,"/api/especies/**").hasAuthority(RolEnum.EMPLEADO.name())
-						.requestMatchers(HttpMethod.PUT,"/api/users/**").hasAuthority(RolEnum.EMPLEADO.name())
+						//.requestMatchers("/api/eventos/**").hasAuthority("EMPLEADO")
+//						.requestMatchers(HttpMethod.GET,"/api/zoos").hasAuthority(RolEnum.EMPLEADO.name())
+//						.requestMatchers(HttpMethod.GET,"/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())
+//						.requestMatchers(HttpMethod.GET,"/api/especies/**").hasAuthority(RolEnum.EMPLEADO.name())
+//						.requestMatchers(HttpMethod.PUT,"/api/users/**").hasAuthority(RolEnum.EMPLEADO.name())
+						.requestMatchers("/api/eventos/get").hasAuthority("CLIENTE")// solo puede hacer get
 						.requestMatchers("/api/auth/login").permitAll()		
 						.requestMatchers("/api/auth/signup/clientes").permitAll()	
 						
 						
 						
 						
-						//.anyRequest().authenticated()
+						.anyRequest().authenticated()
 						);		
 		
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());

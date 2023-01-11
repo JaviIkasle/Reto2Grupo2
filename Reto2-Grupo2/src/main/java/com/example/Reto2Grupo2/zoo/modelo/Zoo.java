@@ -53,12 +53,7 @@ public class Zoo {
 	@JsonBackReference
 	private List<Billete> billetes;
 
-//	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//	@JoinTable(name = "zoo_has_animales", joinColumns = @JoinColumn(name = "id_zoo"), inverseJoinColumns = @JoinColumn(name = "id_animal"))
-//	private List<Animal> animales;
-
-	public Zoo() {
-	}
+	public Zoo() {}
 
 	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
 			String ciudad, String pais) {

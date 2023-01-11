@@ -41,12 +41,12 @@ public class Animal {
 	private String foto;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_especie", foreignKey=@ForeignKey(name = "FK_id_especie"))
+	@JoinColumn(name = "especie_id", foreignKey=@ForeignKey(name = "FK_id_especie"))
 	@JsonManagedReference
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Especie especie;
 	
-	@Column(name="id_especie", insertable=false, updatable=false)
+	@Column(name="especie_id", insertable=false, updatable=false)
 	private Integer especieId;
 	
 	@ManyToMany(fetch = FetchType.LAZY)

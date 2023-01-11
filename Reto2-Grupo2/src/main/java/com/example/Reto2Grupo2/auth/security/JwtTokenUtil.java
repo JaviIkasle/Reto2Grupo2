@@ -54,7 +54,8 @@ public class JwtTokenUtil {
 	}
 	
 	public boolean validateAccessToken(String token) {
-		System.out.println("el token es:" + token);
+		System.out.println("TOKEN:"+ token);
+		
 		try {
 			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
 			return true;

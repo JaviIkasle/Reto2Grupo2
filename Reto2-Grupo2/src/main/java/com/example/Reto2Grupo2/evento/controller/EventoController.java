@@ -33,7 +33,7 @@ public class EventoController {
 
 
 
-	@GetMapping("/eventos")
+	@GetMapping("/eventos/get")
 	public ResponseEntity<List<EventoServiceModel>> getEventos() {
 
 		List<EventoServiceModel> response = eventoService.getEventos();
@@ -48,14 +48,14 @@ public class EventoController {
 		return new ResponseEntity<EventoServiceModel>(response, HttpStatus.OK);
 	}
 
-	@PostMapping("/eventos")
+	@PostMapping("/eventos/create")
 	public ResponseEntity<EventoServiceModel> createEvento(@RequestBody EventoPostRequest eventoPostRequest) {
 
 		EventoServiceModel eventoResponse = eventoService.create(eventoPostRequest);
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/eventos/{id}")
+	@PutMapping("/eventos/update/{id}")
 	public ResponseEntity<EventoServiceModel> updateEvento(@PathVariable("id") Integer id,
 			@RequestBody EventoPostRequest eventoPostRequest) {
 
@@ -63,7 +63,7 @@ public class EventoController {
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/eventos/{id}")
+	@DeleteMapping("/eventos/delete/{id}")
 	public ResponseEntity<Integer> deleteEventoById(@PathVariable("id") Integer id) {
 
 		try {

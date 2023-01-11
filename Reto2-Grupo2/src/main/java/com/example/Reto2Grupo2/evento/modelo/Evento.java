@@ -61,22 +61,6 @@ public class Evento {
 	this.zoo = zoo;
 	this.zooId = zooId;
 	}
-	
-//	public Evento(String nombre, String informacion, Date fecha) {
-//		super();
-//		this.nombre = nombre;
-//		this.informacion = informacion;
-//		this.fecha = fecha;
-//	}
-
-
-//	public Evento(Integer id, String nombre, String informacion, Date fecha) {
-//		super();
-//		this.id = id;
-//		this.nombre = nombre;
-//		this.informacion = informacion;
-//		this.fecha = fecha;
-//	}
 
 	public Integer getId() {
 		return id;
