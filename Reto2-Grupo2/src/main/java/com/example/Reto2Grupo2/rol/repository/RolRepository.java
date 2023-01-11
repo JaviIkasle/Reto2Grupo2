@@ -1,6 +1,5 @@
 package com.example.Reto2Grupo2.rol.repository;
 
-import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 

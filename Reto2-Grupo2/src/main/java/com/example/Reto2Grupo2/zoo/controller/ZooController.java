@@ -63,7 +63,7 @@ public class ZooController {
 
 		try {
 			zooRepository.deleteById(id);
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado");
 		}

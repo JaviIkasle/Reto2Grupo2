@@ -20,7 +20,6 @@ import com.example.Reto2Grupo2.rol.modelo.RolPostRequest;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.rol.repository.RolRepository;
 import com.example.Reto2Grupo2.rol.service.RolServiceImpl;
-import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
 
 @RestController
 @RequestMapping("api")

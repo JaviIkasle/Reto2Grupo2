@@ -33,7 +33,7 @@ public class EventoController {
 
 
 
-	@GetMapping("/eventos/get")
+	@GetMapping("/eventos")
 	public ResponseEntity<List<EventoServiceModel>> getEventos() {
 
 		List<EventoServiceModel> response = eventoService.getEventos();
@@ -48,14 +48,14 @@ public class EventoController {
 		return new ResponseEntity<EventoServiceModel>(response, HttpStatus.OK);
 	}
 
-	@PostMapping("/eventos/create")
+	@PostMapping("/eventos")
 	public ResponseEntity<EventoServiceModel> createEvento(@RequestBody EventoPostRequest eventoPostRequest) {
 
 		EventoServiceModel eventoResponse = eventoService.create(eventoPostRequest);
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/eventos/update/{id}")
+	@PutMapping("/eventos/{id}")
 	public ResponseEntity<EventoServiceModel> updateEvento(@PathVariable("id") Integer id,
 			@RequestBody EventoPostRequest eventoPostRequest) {
 
@@ -63,12 +63,12 @@ public class EventoController {
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/eventos/delete/{id}")
+	@DeleteMapping("/eventos/{id}")
 	public ResponseEntity<Integer> deleteEventoById(@PathVariable("id") Integer id) {
 
 		try {
 			eventoRepository.deleteById(id);
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no encontrado");
 		}

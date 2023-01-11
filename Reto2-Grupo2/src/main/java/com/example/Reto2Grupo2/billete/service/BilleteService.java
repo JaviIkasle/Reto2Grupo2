@@ -32,8 +32,10 @@ public class BilleteService implements BilleteServiceImpl {
 	private UserRepository userRepository;
 
 	@Override
-	public List<BilleteServiceModel> getBilletes() {
+	public List<BilleteServiceModel> getBilletes(Integer userId) {
 		Iterable<Billete> billetes = billeteRepository.findAll();
+		//TODO consulta compleja para generar los billetes del usuario registrado
+		
 		List<BilleteServiceModel> response = new ArrayList<BilleteServiceModel>();
 		for (Billete billete : billetes) {
 			
@@ -70,7 +72,8 @@ public class BilleteService implements BilleteServiceImpl {
 					zooBD.getLongitud(), 
 					zooBD.getCiudad(),
 					zooBD.getPais(),
-					null, null);
+					null,
+					null);
 		}
 
 		UserServiceModel userResponse = null;
@@ -101,24 +104,25 @@ public class BilleteService implements BilleteServiceImpl {
 	}
 
 	@Override
-	public BilleteServiceModel create(BilletePostRequest billetePostRequest) {
+	public BilleteServiceModel create(BilletePostRequest billetePostRequest, Integer userId) {
 		Zoo zoo = zooRepository.findById(billetePostRequest.getIdZoo())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 
-		User user = userRepository.findById(billetePostRequest.getIdCliente())
+		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente no encontrado"));
 		
-		
+		float importeTotal = billetePostRequest.getCantidad() * zoo.getPvpEntrada();
 
 		Billete billete = new Billete(
 				null, 
 				billetePostRequest.getFecha(),
 				billetePostRequest.getCantidad(),
-				billetePostRequest.getImporte(),
+				importeTotal,
 				zoo,
 				user);
 
 		billete = billeteRepository.save(billete);
+		
 		BilleteServiceModel billeteResponse = new BilleteServiceModel(
 				billete.getId(), 
 				billete.getFecha(),

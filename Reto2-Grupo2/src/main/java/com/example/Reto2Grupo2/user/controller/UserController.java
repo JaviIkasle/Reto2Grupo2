@@ -67,7 +67,7 @@ public class UserController {
 
 		try {
 			trabajadorRepository.deleteById(id);
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Trabajador no encontrado");
 		}

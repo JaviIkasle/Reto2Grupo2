@@ -8,11 +8,11 @@ import com.example.Reto2Grupo2.billete.modelo.BilleteServiceModel;
 
 public interface BilleteServiceImpl {
 	
-	List<BilleteServiceModel>getBilletes();
+	List<BilleteServiceModel>getBilletes(Integer integer);
 	
 	BilleteServiceModel getBilleteById(Integer id, List<BilleteExpands> expand);
 	
-	BilleteServiceModel create(BilletePostRequest billetePostRequest);
+	BilleteServiceModel create(BilletePostRequest billetePostRequest, Integer integer);
 	
 	BilleteServiceModel updateById(Integer id , BilletePostRequest billetePostRequest);
 	
