@@ -32,13 +32,13 @@ public class Billete {
 	private float importe;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_zoo", foreignKey = @ForeignKey(name = "FK_id_zooBillete"))
+	@JoinColumn(name = "zoo_id", foreignKey = @ForeignKey(name = "FK_id_zooBillete"))
 	@JsonManagedReference
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Zoo zoo;
 
 	@Column(name = "zoo_id", insertable = false, updatable = false)
-	private Integer idZoo;
+	private Integer zooId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_id_userBillete"))
@@ -47,19 +47,19 @@ public class Billete {
 	private User user;
 
 	@Column(name = "user_id", insertable = false, updatable = false)
-	private Integer idUser;
+	private Integer userId;
 
 	public Billete() {
 	}
 
-	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo,User user) {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, User user) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
 		this.zoo = zoo;
-		this.user=user;
+		this.user = user;
 
 	}
 
@@ -70,7 +70,7 @@ public class Billete {
 		this.importe = importe;
 	}
 
-	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer idZoo, User user,
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer zooId, User user,
 			Integer idUser) {
 		super();
 		this.id = id;
@@ -78,19 +78,19 @@ public class Billete {
 		this.cantidad = cantidad;
 		this.importe = importe;
 		this.zoo = zoo;
-		this.idZoo = idZoo;
+		this.zooId = zooId;
 		this.user = user;
-		this.idUser = idUser;
+		this.userId = idUser;
 	}
 
-	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer idZoo) {
+	public Billete(Integer id, Date fecha, Integer cantidad, float importe, Zoo zoo, Integer zooId) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.importe = importe;
 		this.zoo = zoo;
-		this.idZoo = idZoo;
+		this.zooId = zooId;
 
 	}
 
@@ -134,12 +134,12 @@ public class Billete {
 		this.zoo = zoo;
 	}
 
-	public Integer getIdZoo() {
-		return idZoo;
+	public Integer getZooId() {
+		return zooId;
 	}
 
-	public void setIdZoo(Integer idZoo) {
-		this.idZoo = idZoo;
+	public void setZooId(Integer zooId) {
+		this.zooId = zooId;
 	}
 
 	public User getUser() {
@@ -150,18 +150,18 @@ public class Billete {
 		this.user = user;
 	}
 
-	public Integer getIdUser() {
-		return idUser;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
+	public void setUserId(Integer idUser) {
+		this.userId = idUser;
 	}
 
 	@Override
 	public String toString() {
 		return "Billete [id=" + id + ", fecha=" + fecha + ", cantidad=" + cantidad + ", importe=" + importe + ", zoo="
-				+ zoo + ", idZoo=" + idZoo + ", user=" + user + ", idUser=" + idUser + "]";
+				+ zoo + ", zooId=" + zooId + ", user=" + user + ", idUser=" + userId + "]";
 	}
 
 }

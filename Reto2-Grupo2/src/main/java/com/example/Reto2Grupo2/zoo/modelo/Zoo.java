@@ -2,6 +2,7 @@ package com.example.Reto2Grupo2.zoo.modelo;
 
 import java.util.List;
 
+import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.evento.modelo.Evento;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -48,9 +49,9 @@ public class Zoo {
 	@JsonBackReference
 	private List<User> trabajadores;
 
-//	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//	@JsonBackReference
-//	private List<Billete> billetes;
+	@OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Billete> billetes;
 
 //	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //	@JoinTable(name = "zoo_has_animales", joinColumns = @JoinColumn(name = "id_zoo"), inverseJoinColumns = @JoinColumn(name = "id_animal"))

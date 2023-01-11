@@ -41,8 +41,8 @@ public class BilleteService implements BilleteServiceImpl {
 					billete.getId(), 
 					billete.getFecha(),
 					billete.getCantidad(),
-					billete.getIdZoo(), 
-					billete.getIdUser(),
+					billete.getZooId(), 
+					billete.getUserId(),
 					null
 					));
 		
@@ -91,9 +91,9 @@ public class BilleteService implements BilleteServiceImpl {
 				billete.getCantidad(),
 				billete.getImporte(), 
 				zooResponse, 
-				billete.getIdZoo(),
+				billete.getZooId(),
 				userResponse,
-				billete.getIdUser()
+				billete.getUserId()
 
 		);
 
@@ -148,10 +148,10 @@ public class BilleteService implements BilleteServiceImpl {
 			billete.setImporte(billetePostRequest.getImporte());
 		}
 		if (billetePostRequest.getIdZoo() != 0) {
-			billete.setIdZoo(billetePostRequest.getIdZoo());
+			billete.setZooId(billetePostRequest.getIdZoo());
 		}
 		if (billetePostRequest.getIdCliente() != 0) {
-			billete.setIdUser(billetePostRequest.getIdCliente());
+			billete.setUserId(billetePostRequest.getIdCliente());
 		}
 
 		billete = billeteRepository.save(billete);
@@ -162,8 +162,8 @@ public class BilleteService implements BilleteServiceImpl {
 				billete.getFecha(),
 				billete.getCantidad(),
 				billete.getImporte(), 
-				billete.getIdZoo(), 
-				billete.getIdUser()
+				billete.getZooId(), 
+				billete.getUserId()
 				
 				);
 
