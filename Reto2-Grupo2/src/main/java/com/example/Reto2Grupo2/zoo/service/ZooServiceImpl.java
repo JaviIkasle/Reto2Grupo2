@@ -6,7 +6,7 @@ import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 
 public interface ZooServiceImpl {
 	
-	List<ZooServiceModel> getZoos();
+	List<ZooServiceModel> getZoos(Integer userId);
 
 	ZooServiceModel getZoosById(Integer id);
 

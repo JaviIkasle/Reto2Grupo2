@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.Reto2Grupo2.user.modelo.User;
+import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooPostRequest;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
@@ -17,26 +19,57 @@ import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
 public class ZooService implements ZooServiceImpl{
 	@Autowired
 	private ZooRepository zooRepository;
+	@Autowired
+	UserRepository userRepository ;	
 	
 	@Override
-	public List<ZooServiceModel> getZoos() {
+	public List<ZooServiceModel> getZoos(Integer userId) {
 		Iterable<Zoo> zoos = zooRepository.findAll();
+		
+		User trabajador  = userRepository.findById(userId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User no encontrado"));
+			
 		List<ZooServiceModel> response = new ArrayList<ZooServiceModel>();
-		for (Zoo zoo : zoos) {
-			response.add(
-					new ZooServiceModel(
-							zoo.getId(),
-							zoo.getNombre(), 
-							zoo.getPvpEntrada(),
-							zoo.getWeb(),
-							zoo.getInformacion(),
-							zoo.getLatitud(),
-							zoo.getLongitud(),
-							zoo.getCiudad(),
-							zoo.getPais(),
-							null,
-							null));
-		}		return response;
+		
+		if (trabajador.getZooId() != null){
+			
+			for (Zoo zoo : zoos) {
+				if (zoo.getId() == trabajador.getZooId()) {
+					response.add(
+							new ZooServiceModel(
+									zoo.getId(),
+									zoo.getNombre(), 
+									zoo.getPvpEntrada(),
+									zoo.getWeb(),
+									zoo.getInformacion(),
+									zoo.getLatitud(),
+									zoo.getLongitud(),
+									zoo.getCiudad(),
+									zoo.getPais(),
+									null,
+									null));
+				}
+			}
+			
+		}else {
+			for (Zoo zoo : zoos) {
+				response.add(
+						new ZooServiceModel(
+								zoo.getId(),
+								zoo.getNombre(), 
+								zoo.getPvpEntrada(),
+								zoo.getWeb(),
+								zoo.getInformacion(),
+								zoo.getLatitud(),
+								zoo.getLongitud(),
+								zoo.getCiudad(),
+								zoo.getPais(),
+								null,
+								null));
+			}	
+		}
+	
+		return response;
 	}
 
 	@Override

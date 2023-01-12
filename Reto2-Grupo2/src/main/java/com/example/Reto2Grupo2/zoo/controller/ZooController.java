@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.zoo.modelo.ZooPostRequest;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
@@ -29,9 +32,11 @@ public class ZooController {
 	private ZooServiceImpl zooService;
 	
 	@GetMapping("/zoos")
-	public ResponseEntity<List<ZooServiceModel>> getZoos() {
+	public ResponseEntity<List<ZooServiceModel>> getZoos(Authentication authentication) {
 		
-		List<ZooServiceModel> response =zooService.getZoos();
+		User userDetails = (User) authentication.getPrincipal();
+		
+		List<ZooServiceModel> response =zooService.getZoos(userDetails.getId());
 		return new ResponseEntity<List<ZooServiceModel>>(response, HttpStatus.OK);
 	}
 	

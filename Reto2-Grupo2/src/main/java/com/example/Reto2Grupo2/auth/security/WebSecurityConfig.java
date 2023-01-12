@@ -62,18 +62,21 @@ public class WebSecurityConfig {
 				(authz) ->
 						authz						
 						.requestMatchers("/api/auth/signup/empleados").hasAuthority(RolEnum.ADMIN.name())
-						.requestMatchers(HttpMethod.GET, "/api/eventos").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())// solo puede hacer get
-						.requestMatchers(HttpMethod.GET, "/api/zoos").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
+						.requestMatchers(HttpMethod.GET, "/api/eventos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())// solo puede hacer get
+						.requestMatchers(HttpMethod.GET, "/api/zoos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers(HttpMethod.GET, "/api/animales").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers(HttpMethod.GET, "/api/especies").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers(HttpMethod.POST, "/api/billetes").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers("/api/users/**").hasAuthority(RolEnum.ADMIN.name())
 						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())
 						.requestMatchers("/api/eventos/**").hasAuthority(RolEnum.EMPLEADO.name())
+						.requestMatchers("/api/zoos/**").denyAll()
+						.requestMatchers("/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())
 						
 						
 						
-						//.requestMatchers(HttpMethod.GET, "/api/billetes").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name()) //EN PRINCIPIO NADIE PUEDE VER BILLETES
+						
+						.requestMatchers( "/api/billetes").denyAll() //EN PRINCIPIO NADIE PUEDE VER BILLETES
 //						.requestMatchers(HttpMethod.GET,"/api/zoos").hasAuthority(RolEnum.EMPLEADO.name())
 //						.requestMatchers(HttpMethod.GET,"/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())
 //						.requestMatchers(HttpMethod.GET,"/api/especies/**").hasAuthority(RolEnum.EMPLEADO.name())
