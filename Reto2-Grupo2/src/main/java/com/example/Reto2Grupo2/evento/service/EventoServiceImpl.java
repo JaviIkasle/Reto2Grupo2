@@ -8,11 +8,11 @@ import com.example.Reto2Grupo2.evento.modelo.EventosExpands;
 
 public interface EventoServiceImpl {
 
-	List<EventoServiceModel> getEventos();
+	List<EventoServiceModel> getEventos(Integer userId);
 
 	EventoServiceModel getEventoById(Integer id, List<EventosExpands> expand );
 
-	EventoServiceModel create( EventoPostRequest eventoPostRequest);
+	EventoServiceModel create( EventoPostRequest eventoPostRequest, Integer userId);
 
 	EventoServiceModel updateById(Integer id, EventoPostRequest eventoPostRequest);
 

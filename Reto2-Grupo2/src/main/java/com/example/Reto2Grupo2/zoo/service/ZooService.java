@@ -20,21 +20,22 @@ public class ZooService implements ZooServiceImpl{
 	@Autowired
 	private ZooRepository zooRepository;
 	@Autowired
-	UserRepository userRepository ;	
+	private UserRepository userRepository ;	
 	
 	@Override
 	public List<ZooServiceModel> getZoos(Integer userId) {
 		Iterable<Zoo> zoos = zooRepository.findAll();
 		
-		User trabajador  = userRepository.findById(userId).orElseThrow(
+		User user  = userRepository.findById(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User no encontrado"));
 			
 		List<ZooServiceModel> response = new ArrayList<ZooServiceModel>();
 		
-		if (trabajador.getZooId() != null){
+		// si es un empleado, devuelve unicamente el zoo del empleado
+		if (user.getZooId() != null){
 			
 			for (Zoo zoo : zoos) {
-				if (zoo.getId() == trabajador.getZooId()) {
+				if (zoo.getId() == user.getZooId()) {
 					response.add(
 							new ZooServiceModel(
 									zoo.getId(),

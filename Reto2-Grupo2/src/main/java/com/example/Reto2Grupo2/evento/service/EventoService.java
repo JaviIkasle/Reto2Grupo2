@@ -11,6 +11,8 @@ import com.example.Reto2Grupo2.evento.modelo.EventoPostRequest;
 import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
 import com.example.Reto2Grupo2.evento.modelo.EventosExpands;
 import com.example.Reto2Grupo2.evento.repository.EventoRepository;
+import com.example.Reto2Grupo2.user.modelo.User;
+import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
@@ -24,21 +26,53 @@ public class EventoService  implements EventoServiceImpl{
 	@Autowired
 	private ZooRepository zooRepository;
 	
+	@Autowired
+	private UserRepository userRepository ;	
+	
 	@Override
-	public List<EventoServiceModel> getEventos() {
+	public List<EventoServiceModel> getEventos(Integer userId) {
 		Iterable<Evento> eventos = eventoRepository.findAll();
+		
+		User user = getUsuarioLogueado(userId);
+			
 		List<EventoServiceModel> response = new ArrayList<EventoServiceModel>();
-		for (Evento evento : eventos) {
-			response.add(
-					new EventoServiceModel(
-							evento.getId(),
-							evento.getNombre(),
-							evento.getInformacion(),
-							evento.getFecha(),
-							null,
-							evento.getZooId()));
-		}		return response;
+		
+		// si es un empleado, devuelve unicamente los eventos del zoo del empleado
+		if (user.getZooId() != null) {
+			
+			for (Evento evento: eventos) {
+				
+				if(evento.getZooId() == user.getZooId()) {
+					
+					response.add(
+							new EventoServiceModel(
+									evento.getId(),
+									evento.getNombre(),
+									evento.getInformacion(),
+									evento.getFecha(),
+									null,
+									evento.getZooId()));
+				}
+							
+			}
+		}else {
+			
+			for (Evento evento : eventos) {
+				response.add(
+						new EventoServiceModel(
+								evento.getId(),
+								evento.getNombre(),
+								evento.getInformacion(),
+								evento.getFecha(),
+								null,
+								evento.getZooId()));
+			}
+		}
+		
+			return response;
 	}
+
+
 
 	@Override
 	public EventoServiceModel getEventoById(Integer id, List<EventosExpands> expand ) {
@@ -77,12 +111,13 @@ public class EventoService  implements EventoServiceImpl{
 	}
 
 	@Override
-	public EventoServiceModel create(EventoPostRequest eventoPostRequest) {
+	public EventoServiceModel create(EventoPostRequest eventoPostRequest, Integer userId) {
 
-		Zoo zoo = zooRepository.findById(eventoPostRequest.getZooId()).orElseThrow(
+		User user = getUsuarioLogueado(userId);
+		
+		Zoo zoo = zooRepository.findById(user.getZooId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
-		
-		
+				
 		Evento evento = new Evento(
 				null,
 				eventoPostRequest.getNombre(), 
@@ -100,15 +135,19 @@ public class EventoService  implements EventoServiceImpl{
 				 										null,
 				 										zoo.getId()); //trampeado, evento.getZooId**
 		 return eventoResponse;
+	
 	}
 
 	@Override
 	public EventoServiceModel updateById(Integer id, EventoPostRequest eventoPostRequest) {
 
+		// TODO solo puede updatear el evento del zoo del empleado
 		//SI SE MODIFICA UN registro QUE NO EXISTE, PROVOCAMOS ESTE ERROR
 				Evento evento = eventoRepository.findById(id).orElseThrow(
 						() -> new ResponseStatusException(HttpStatus.CONFLICT, "Evento no encontrado")
 				);
+				
+					
 				
 				if(eventoPostRequest.getNombre()!=null && eventoPostRequest.getNombre()!= "") {
 					evento.setNombre(eventoPostRequest.getNombre());
@@ -138,6 +177,13 @@ public class EventoService  implements EventoServiceImpl{
 							null,
 							zoo.getId()); //Trampeado, evento.getZooId**, lo trae null......
 		return eventoResponse;
+	}
+	
+	
+	private User getUsuarioLogueado(Integer userId) {
+		User user  = userRepository.findById(userId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User no encontrado"));
+		return user;
 	}
 
 //	@Override

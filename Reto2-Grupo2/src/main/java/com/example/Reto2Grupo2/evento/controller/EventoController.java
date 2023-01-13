@@ -1,10 +1,13 @@
 package com.example.Reto2Grupo2.evento.controller;
 
 import java.util.List;
+
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,7 @@ import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
 import com.example.Reto2Grupo2.evento.modelo.EventosExpands;
 import com.example.Reto2Grupo2.evento.repository.EventoRepository;
 import com.example.Reto2Grupo2.evento.service.EventoServiceImpl;
+import com.example.Reto2Grupo2.user.modelo.User;
 
 @RestController
 @RequestMapping("api")
@@ -32,14 +36,17 @@ public class EventoController {
 	private EventoServiceImpl eventoService;
 
 
-
 	@GetMapping("/eventos")
-	public ResponseEntity<List<EventoServiceModel>> getEventos() {
+	public ResponseEntity<List<EventoServiceModel>> getEventos(Authentication authentication) {
+		
+		User userDetails = (User) authentication.getPrincipal();
 
-		List<EventoServiceModel> response = eventoService.getEventos();
+		List<EventoServiceModel> response = eventoService.getEventos(userDetails.getId());
 		return new ResponseEntity<List<EventoServiceModel>>(response, HttpStatus.OK);
 	}
 
+	//TODO controlar getEvento unicamente del zoo del empleado
+	//TODO comprobar expands, necesarios? hacerlo sieso
 	@GetMapping("/eventos/{id}")
 	public ResponseEntity<EventoServiceModel> getEventoById(@PathVariable("id") Integer id,
 			@RequestParam(required = false) List<EventosExpands> expand) {
@@ -48,10 +55,13 @@ public class EventoController {
 		return new ResponseEntity<EventoServiceModel>(response, HttpStatus.OK);
 	}
 
+	
 	@PostMapping("/eventos")
-	public ResponseEntity<EventoServiceModel> createEvento(@RequestBody EventoPostRequest eventoPostRequest) {
+	public ResponseEntity<EventoServiceModel> createEvento(@RequestBody EventoPostRequest eventoPostRequest, Authentication authentication) {
 
-		EventoServiceModel eventoResponse = eventoService.create(eventoPostRequest);
+		User userDetails = (User) authentication.getPrincipal();
+		
+		EventoServiceModel eventoResponse = eventoService.create(eventoPostRequest, userDetails.getId());
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.CREATED);
 	}
 
