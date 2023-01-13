@@ -1,10 +1,7 @@
 package com.example.Reto2Grupo2.evento.controller;
 
 import java.util.List;
-
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,20 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.evento.modelo.EventoPostRequest;
 import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
 import com.example.Reto2Grupo2.evento.modelo.EventosExpands;
-import com.example.Reto2Grupo2.evento.repository.EventoRepository;
 import com.example.Reto2Grupo2.evento.service.EventoServiceImpl;
 import com.example.Reto2Grupo2.user.modelo.User;
 
 @RestController
 @RequestMapping("api")
 public class EventoController {
-
-	@Autowired
-	private EventoRepository eventoRepository;
 
 	@Autowired
 	private EventoServiceImpl eventoService;
@@ -45,13 +37,15 @@ public class EventoController {
 		return new ResponseEntity<List<EventoServiceModel>>(response, HttpStatus.OK);
 	}
 
-	//TODO controlar getEvento unicamente del zoo del empleado
+
 	//TODO comprobar expands, necesarios? hacerlo sieso
 	@GetMapping("/eventos/{id}")
 	public ResponseEntity<EventoServiceModel> getEventoById(@PathVariable("id") Integer id,
-			@RequestParam(required = false) List<EventosExpands> expand) {
+			@RequestParam(required = false) List<EventosExpands> expand,Authentication authentication ) {
 
-		EventoServiceModel response = eventoService.getEventoById(id, expand);
+		User userDetails = (User) authentication.getPrincipal();
+		
+		EventoServiceModel response = eventoService.getEventoById(id, expand, userDetails.getId());
 		return new ResponseEntity<EventoServiceModel>(response, HttpStatus.OK);
 	}
 
@@ -67,21 +61,26 @@ public class EventoController {
 
 	@PutMapping("/eventos/{id}")
 	public ResponseEntity<EventoServiceModel> updateEvento(@PathVariable("id") Integer id,
-			@RequestBody EventoPostRequest eventoPostRequest) {
+			@RequestBody EventoPostRequest eventoPostRequest, Authentication authentication) {
 
-		EventoServiceModel eventoResponse = eventoService.updateById(id, eventoPostRequest);
+		User userDetails = (User) authentication.getPrincipal();
+		
+		EventoServiceModel eventoResponse = eventoService.updateById(id, eventoPostRequest, userDetails.getId());
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/eventos/{id}")
-	public ResponseEntity<Integer> deleteEventoById(@PathVariable("id") Integer id) {
-
-		try {
-			eventoRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no encontrado");
-		}
+	public void deleteEventoById(@PathVariable("id") Integer id, Authentication authentication ) {
+		User userDetails = (User) authentication.getPrincipal();
+		eventoService.deleteById(id, userDetails.getId());
+		
+		
+//		try {
+//			eventoRepository.deleteById(id);
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//		} catch (EmptyResultDataAccessException e) {
+//			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no encontrado");
+//		}
 	}
 
 }
