@@ -8,7 +8,7 @@ public interface ZooServiceImpl {
 	
 	List<ZooServiceModel> getZoos(Integer userId);
 
-	ZooServiceModel getZoosById(Integer id);
+	ZooServiceModel getZoosById(Integer id, Integer userId);
 
 	ZooServiceModel create( ZooPostRequest zooPostRequest);
 

@@ -41,9 +41,11 @@ public class ZooController {
 	}
 	
 	@GetMapping("/zoos/{id}")
-	public ResponseEntity<ZooServiceModel> getZooById(@PathVariable("id") Integer id) {
+	public ResponseEntity<ZooServiceModel> getZooById(@PathVariable("id") Integer id, Authentication authentication) {
 		
-		ZooServiceModel response=	zooService.getZoosById(id);	
+		User userDetails = (User) authentication.getPrincipal();
+		
+		ZooServiceModel response=	zooService.getZoosById(id, userDetails.getId());	
 		return new ResponseEntity<ZooServiceModel>(response, HttpStatus.OK);
 	}
 	

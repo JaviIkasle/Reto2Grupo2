@@ -67,8 +67,9 @@ public class WebSecurityConfig {
 						.requestMatchers(HttpMethod.GET, "/api/eventos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers("/api/eventos/**").hasAuthority(RolEnum.EMPLEADO.name())
 						
-						.requestMatchers(HttpMethod.GET, "/api/zoos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
-						.requestMatchers("/api/zoos/**").denyAll()
+						.requestMatchers(HttpMethod.GET, "/api/zoos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name(), RolEnum.ADMIN.name())
+						.requestMatchers("/api/zoos/**").hasAnyAuthority(RolEnum.ADMIN.name())
+						//.requestMatchers("/api/zoos/**").denyAll()
 						
 						.requestMatchers(HttpMethod.GET, "/api/animales").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers("/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())	

@@ -74,25 +74,49 @@ public class ZooService implements ZooServiceImpl{
 	}
 
 	@Override
-	public ZooServiceModel getZoosById(Integer id) {
+	public ZooServiceModel getZoosById(Integer id, Integer userId) {
 
+		User user = getUsuarioLogueado(userId);
+		
 		Zoo zoo = zooRepository.findById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 		
 		//List<Evento> eventos = zoo.getEventos();
+		ZooServiceModel response;
 	
-		ZooServiceModel response = new ZooServiceModel(
-				zoo.getId(),
-				zoo.getNombre(), 
-				zoo.getPvpEntrada(),
-				zoo.getWeb(),
-				zoo.getInformacion(),
-				zoo.getLatitud(),
-				zoo.getLongitud(),
-				zoo.getCiudad(),
-				zoo.getPais(),
-				null,
-				null);
+		if (user.getZooId() != null) {
+			
+			if (zoo.getId() == user.getZooId()) {
+				response = new ZooServiceModel(
+						zoo.getId(),
+						zoo.getNombre(), 
+						zoo.getPvpEntrada(),
+						zoo.getWeb(),
+						zoo.getInformacion(),
+						zoo.getLatitud(),
+						zoo.getLongitud(),
+						zoo.getCiudad(),
+						zoo.getPais(),
+						null,
+						null);
+				} else {
+					throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No trabajas en el Zoo buscado");
+				}
+		} else {
+			response = new ZooServiceModel(
+					zoo.getId(),
+					zoo.getNombre(), 
+					zoo.getPvpEntrada(),
+					zoo.getWeb(),
+					zoo.getInformacion(),
+					zoo.getLatitud(),
+					zoo.getLongitud(),
+					zoo.getCiudad(),
+					zoo.getPais(),
+					null,
+					null);
+		}
+		
 	
 		return response;
 	}
@@ -177,6 +201,12 @@ public class ZooService implements ZooServiceImpl{
 							null);  
 		
 		return zooResponse;
+	}
+	
+	private User getUsuarioLogueado(Integer userId) {
+		User user  = userRepository.findById(userId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User no encontrado"));
+		return user;
 	}
 
 }

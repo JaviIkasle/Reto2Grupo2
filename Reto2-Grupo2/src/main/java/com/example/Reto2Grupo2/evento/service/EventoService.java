@@ -218,11 +218,7 @@ public class EventoService  implements EventoServiceImpl{
 	}
 	
 	
-	private User getUsuarioLogueado(Integer userId) {
-		User user  = userRepository.findById(userId).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User no encontrado"));
-		return user;
-	}
+	
 
 	@Override
 	public ResponseEntity<EventoServiceModel> deleteById(Integer id, Integer userId) {	
@@ -242,5 +238,11 @@ public class EventoService  implements EventoServiceImpl{
 		}else {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no pertenece a tu zoo");
 		}		
+	}
+	
+	private User getUsuarioLogueado(Integer userId) {
+		User user  = userRepository.findById(userId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User no encontrado"));
+		return user;
 	}
 }
