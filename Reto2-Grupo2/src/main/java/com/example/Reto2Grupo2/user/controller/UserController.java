@@ -73,5 +73,14 @@ public class UserController {
 		}
 	}
 	
+	//TODO update pass
+	@PutMapping("/users/updatePassCliente")
+	public ResponseEntity<UserServiceModel> updateUserLog(@PathVariable("id") Integer id,
+			@RequestBody UserPostRequest trabajadorPostRequest) {
+
+		UserServiceModel trabajadorResponse = trabajadorService.updateById(id, trabajadorPostRequest);
+		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.OK);
+	}
+	
 	
 }

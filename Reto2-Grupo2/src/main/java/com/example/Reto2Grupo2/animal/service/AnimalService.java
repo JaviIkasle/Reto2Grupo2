@@ -100,7 +100,7 @@ public class AnimalService implements AnimalServiceImpl{
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Especie no encontrada"));
 		//SI SE MODIFICA UN ID QUE NO EXISTE, POROVOCAMOS ESTE ERROR
 		Animal animal = animalRepository.findById(id).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Animal no encontrado")
+				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Animal no encontrado")
 		);
 		
 		if (animalPostRequest.getNombre() != null && animalPostRequest.getNombre() != "") {

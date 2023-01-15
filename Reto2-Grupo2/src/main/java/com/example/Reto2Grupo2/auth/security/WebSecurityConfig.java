@@ -63,6 +63,8 @@ public class WebSecurityConfig {
 						authz								
 						
 						.requestMatchers("/api/auth/signup/empleados").hasAuthority(RolEnum.ADMIN.name())
+						.requestMatchers("/api/auth/signup/clientes").permitAll()					
+						.requestMatchers("/api/auth/login").permitAll()	
 						
 						.requestMatchers(HttpMethod.GET, "/api/eventos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers("/api/eventos/**").hasAuthority(RolEnum.EMPLEADO.name())
@@ -71,24 +73,19 @@ public class WebSecurityConfig {
 						.requestMatchers("/api/zoos/**").hasAnyAuthority(RolEnum.ADMIN.name())
 						//.requestMatchers("/api/zoos/**").denyAll()
 						
-						.requestMatchers(HttpMethod.GET, "/api/animales").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
+						.requestMatchers(HttpMethod.GET, "/api/animales/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers("/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())	
 						
-						
-						.requestMatchers(HttpMethod.GET, "/api/especies").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
+						.requestMatchers(HttpMethod.GET, "/api/especies/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
+						.requestMatchers("/api/especies/**").hasAuthority(RolEnum.EMPLEADO.name())	
+									
 						.requestMatchers(HttpMethod.POST, "/api/billetes").hasAuthority(RolEnum.CLIENTE.name())
+						.requestMatchers( "/api/billetes").denyAll() 											
+						
+						//.requestMatchers(HttpMethod.PUT, "/api/users").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers("/api/users/**").hasAuthority(RolEnum.ADMIN.name())
-						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())
-																															
-						
-						.requestMatchers( "/api/billetes").denyAll() //EN PRINCIPIO NADIE PUEDE hacer GET, PUT o DELETE BILLETES
-//						.requestMatchers(HttpMethod.GET,"/api/zoos").hasAuthority(RolEnum.EMPLEADO.name())
-//						.requestMatchers(HttpMethod.GET,"/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())
-//						.requestMatchers(HttpMethod.GET,"/api/especies/**").hasAuthority(RolEnum.EMPLEADO.name())
-//						.requestMatchers(HttpMethod.PUT,"/api/users/**").hasAuthority(RolEnum.EMPLEADO.name())
-						.requestMatchers("/api/auth/login").permitAll()		
-						.requestMatchers("/api/auth/signup/clientes").permitAll()					
-						
+						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																														
+
 						.anyRequest().authenticated()
 						);		
 		

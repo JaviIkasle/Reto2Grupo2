@@ -231,7 +231,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
 		String password = passEncoder.encode(cliente.getPassword());		
 		cliente.setPassword(password);
-
 		
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.CLIENTE.name()); 	
 		cliente.setRol(trabajadorRol);
