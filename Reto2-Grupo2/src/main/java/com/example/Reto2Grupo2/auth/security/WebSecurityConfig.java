@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.example.Reto2Grupo2.auth.model.RolEnum;
+import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 
 
 @Configuration
@@ -50,8 +50,6 @@ public class WebSecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	// aqui definimos cuales son las URLs que van a poder ser accesibles sin identificarse
-	// y cuales no
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
@@ -82,7 +80,7 @@ public class WebSecurityConfig {
 						.requestMatchers(HttpMethod.POST, "/api/billetes").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers( "/api/billetes").denyAll() 											
 						
-						//.requestMatchers(HttpMethod.PUT, "/api/users").hasAuthority(RolEnum.CLIENTE.name())
+						.requestMatchers("/api/users/cliente").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers("/api/users/**").hasAuthority(RolEnum.ADMIN.name())
 						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																														
 

@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.auth;
+package com.example.Reto2Grupo2.auth.controller;
 
 
 
@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
-import com.example.Reto2Grupo2.auth.model.AuthRequestCliente;
-import com.example.Reto2Grupo2.auth.model.AuthRequestEmple;
 import com.example.Reto2Grupo2.auth.model.AuthResponse;
 import com.example.Reto2Grupo2.auth.security.JwtTokenUtil;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.service.UserServiceImpl;
 
@@ -56,42 +53,7 @@ public class AuthController {
 		}
 	}
 
-	@PostMapping("/auth/signup/empleados")
-	public ResponseEntity<?> signupEmpleado(@RequestBody AuthRequestEmple request){
-// 		 solo esta creado en el caso de que funcione. Si no es posible que de 500
-//		Trabajador trabajadorUser = new Trabajador(request.getEmail(), request.getPassword());
-//		return new ResponseEntity<Integer>(trabajadorService.create(trabajadorUser), HttpStatus.CREATED);
-		User empleado = new User(request.getUsername(), request.getPassword(), request.getZooId());
-		
-		try {
-			userService.signupEmpleado(empleado);
-		}catch (UserCantCreateException e) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-			// TODO que devuelva los datos del usuario creado ???
-		return new ResponseEntity<>(HttpStatus.CREATED);
-	}
-	
-	@PostMapping("/auth/signup/clientes")
-	public ResponseEntity<?> signupCliente(@RequestBody AuthRequestCliente request){
-// 		 solo esta creado en el caso de que funcione. Si no es posible que de 500
-//		Trabajador trabajadorUser = new Trabajador(request.getEmail(), request.getPassword());
-//		return new ResponseEntity<Integer>(trabajadorService.create(trabajadorUser), HttpStatus.CREATED);
-		User cliente = new User(request.getUsername(), request.getPassword(), request.getEmail());
-		
-		try {
-			userService.signupCliente(cliente);
-		}catch (UserCantCreateException e) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-			// TODO que devuelva los datos del usuario creado ???
-		return new ResponseEntity<>(HttpStatus.CREATED);
-	}
-	
-	
-	
 
-//	// utilizamos el /me por que vamos a coger el nuestro
 //	@GetMapping("/auth/me")
 //	public ResponseEntity<?> getUserInfo(Authentication authentication) {
 //		// aqui podemos castearlo a UserDetails o User. El UserDetails es una interfaz,

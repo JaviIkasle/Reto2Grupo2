@@ -27,34 +27,33 @@ public class EventoController {
 	@Autowired
 	private EventoServiceImpl eventoService;
 
-
 	@GetMapping("/eventos")
 	public ResponseEntity<List<EventoServiceModel>> getEventos(Authentication authentication) {
-		
-		User userDetails = (User) authentication.getPrincipal();
 
+		User userDetails = (User) authentication.getPrincipal();
+		// TODO userDetails.getRol().getName() ;
+		
 		List<EventoServiceModel> response = eventoService.getEventos(userDetails.getId());
 		return new ResponseEntity<List<EventoServiceModel>>(response, HttpStatus.OK);
 	}
 
-
-	//TODO comprobar expands, necesarios? hacerlo sieso
+	// TODO comprobar expands, necesarios? hacerlo sieso
 	@GetMapping("/eventos/{id}")
 	public ResponseEntity<EventoServiceModel> getEventoById(@PathVariable("id") Integer id,
-			@RequestParam(required = false) List<EventosExpands> expand,Authentication authentication ) {
+			@RequestParam(required = false) List<EventosExpands> expand, Authentication authentication) {
 
 		User userDetails = (User) authentication.getPrincipal();
-		
+
 		EventoServiceModel response = eventoService.getEventoById(id, expand, userDetails.getId());
 		return new ResponseEntity<EventoServiceModel>(response, HttpStatus.OK);
 	}
 
-	
 	@PostMapping("/eventos")
-	public ResponseEntity<EventoServiceModel> createEvento(@RequestBody EventoPostRequest eventoPostRequest, Authentication authentication) {
+	public ResponseEntity<EventoServiceModel> createEvento(@RequestBody EventoPostRequest eventoPostRequest,
+			Authentication authentication) {
 
 		User userDetails = (User) authentication.getPrincipal();
-		
+
 		EventoServiceModel eventoResponse = eventoService.create(eventoPostRequest, userDetails.getId());
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.CREATED);
 	}
@@ -64,23 +63,16 @@ public class EventoController {
 			@RequestBody EventoPostRequest eventoPostRequest, Authentication authentication) {
 
 		User userDetails = (User) authentication.getPrincipal();
-		
+
 		EventoServiceModel eventoResponse = eventoService.updateById(id, eventoPostRequest, userDetails.getId());
 		return new ResponseEntity<EventoServiceModel>(eventoResponse, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/eventos/{id}")
-	public void deleteEventoById(@PathVariable("id") Integer id, Authentication authentication ) {
+	public void deleteEventoById(@PathVariable("id") Integer id, Authentication authentication) {
 		User userDetails = (User) authentication.getPrincipal();
 		eventoService.deleteById(id, userDetails.getId());
-		
-		
-//		try {
-//			eventoRepository.deleteById(id);
-//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//		} catch (EmptyResultDataAccessException e) {
-//			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no encontrado");
-//		}
+
 	}
 
 }

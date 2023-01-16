@@ -1,6 +1,6 @@
 package com.example.Reto2Grupo2.user.modelo;
 
-public class UpdateUserPostRequest {
+public class ClienteUpdateRequest {
 
 	private String username;
 
@@ -8,14 +8,17 @@ public class UpdateUserPostRequest {
 
 	private String newPassword;
 
-	public UpdateUserPostRequest() {
+	private String email;
+
+	public ClienteUpdateRequest() {
 	}
 
-	public UpdateUserPostRequest(String username, String oldPassword, String newPassword) {
+	public ClienteUpdateRequest(String username, String oldPassword, String newPassword, String email) {
 		super();
 		this.username = username;
 		this.oldPassword = oldPassword;
 		this.newPassword = newPassword;
+		this.email = email;
 	}
 
 	public String getUsername() {
@@ -42,10 +45,18 @@ public class UpdateUserPostRequest {
 		this.newPassword = newPassword;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
-		return "UpdateUserPostRequest [username=" + username + ", oldPassword=" + oldPassword + ", newPassword="
-				+ newPassword + "]";
+		return "ClienteUpdateRequest [username=" + username + ", oldPassword=" + oldPassword + ", newPassword="
+				+ newPassword + ", email=" + email + "]";
 	}
 
 }

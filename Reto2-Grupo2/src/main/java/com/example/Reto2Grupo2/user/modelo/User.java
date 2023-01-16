@@ -30,15 +30,15 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
+public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1285514705158443296L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	//TODO no funciona el unique 
+
+	// TODO no funciona el unique
 	@Column(length = 60, unique = true)
 	private String username;
 	@Column(length = 60)
@@ -63,30 +63,31 @@ public class User implements UserDetails{
 
 	@Column(name = "rol_id", insertable = false, updatable = false)
 	private Integer rolId;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonBackReference
-    private List<Billete> billetes;
+	@JsonBackReference
+	private List<Billete> billetes;
 
 	public User() {
 
 	}
 
-	public User( String username, String password, Integer zooId) {
+	// Para un empleado
+	public User(String username, String password, String email, Integer zooId) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.zooId = zooId;
 	}
-	
-	public User( String username, String password, String email) {
+
+	// Para un cliente
+	public User(String username, String password, String email) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
 	}
-	
-
 
 	public User(Integer id, String username, String password, String email, Zoo zoo, Integer zooId, Rol rol,
 			Integer rolId, List<Billete> billetes) {
@@ -158,7 +159,6 @@ public class User implements UserDetails{
 		this.rolId = rolId;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
@@ -174,8 +174,6 @@ public class User implements UserDetails{
 	public void setBilletes(List<Billete> billetes) {
 		this.billetes = billetes;
 	}
-	
-	
 
 	@Override
 	public String toString() {
@@ -185,23 +183,23 @@ public class User implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();	
-		authorities.add(new SimpleGrantedAuthority(rol.getName()));		
+		final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(rol.getName()));
 		return authorities;
 	}
 
 	@Override
-	public boolean isAccountNonExpired() {	
+	public boolean isAccountNonExpired() {
 		return true;
 	}
 
 	@Override
-	public boolean isAccountNonLocked() {	
+	public boolean isAccountNonLocked() {
 		return true;
 	}
 
 	@Override
-	public boolean isCredentialsNonExpired() {	
+	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 

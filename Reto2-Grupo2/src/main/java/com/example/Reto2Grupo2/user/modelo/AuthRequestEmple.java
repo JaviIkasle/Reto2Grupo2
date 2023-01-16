@@ -1,19 +1,21 @@
-package com.example.Reto2Grupo2.auth.model;
+package com.example.Reto2Grupo2.user.modelo;
 
-public class AuthRequestCliente {
+public class AuthRequestEmple {
 
 	private String username;
 	private String password;
 	private String email;
+	private Integer zooId;
 
-	public AuthRequestCliente() {
+	public AuthRequestEmple() {
 	}
 
-	public AuthRequestCliente(String username, String password, String email) {
+	public AuthRequestEmple(String username, String password, String email, Integer zooId) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.zooId = zooId;
 	}
 
 	public String getUsername() {
@@ -40,9 +42,18 @@ public class AuthRequestCliente {
 		this.email = email;
 	}
 
+	public Integer getZooId() {
+		return zooId;
+	}
+
+	public void setZooId(Integer zooId) {
+		this.zooId = zooId;
+	}
+
 	@Override
 	public String toString() {
-		return "AuthRequestCliente [username=" + username + ", password=" + password + ", email=" + email + "]";
+		return "AuthRequestEmple [username=" + username + ", password=" + password + ", email=" + email + ", zooId="
+				+ zooId + "]";
 	}
 
 }

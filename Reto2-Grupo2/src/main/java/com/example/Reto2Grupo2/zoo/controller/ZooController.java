@@ -43,6 +43,7 @@ public class ZooController {
 	@GetMapping("/zoos/{id}")
 	public ResponseEntity<ZooServiceModel> getZooById(@PathVariable("id") Integer id, Authentication authentication) {
 		
+		//TODO comprobar si se puede hacer con getRol
 		User userDetails = (User) authentication.getPrincipal();
 		
 		ZooServiceModel response=	zooService.getZoosById(id, userDetails.getId());	

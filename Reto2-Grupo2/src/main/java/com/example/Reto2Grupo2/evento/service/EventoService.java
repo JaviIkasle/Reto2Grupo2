@@ -208,8 +208,6 @@ public class EventoService  implements EventoServiceImpl{
 						
 					// si el evento a modificar no pertenece a tu Zoo	
 					}else {												
-//						//TODO en vez de devolver esto, deberia de devolver un "Evento no pertenece a tu zoo" o lo que sea
-//						eventoResponse = new EventoServiceModel();
 						throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no pertenece a tu zoo");
 					}
 			 
@@ -217,9 +215,6 @@ public class EventoService  implements EventoServiceImpl{
 		return eventoResponse;
 	}
 	
-	
-	
-
 	@Override
 	public ResponseEntity<EventoServiceModel> deleteById(Integer id, Integer userId) {	
 		User user = getUsuarioLogueado(userId);

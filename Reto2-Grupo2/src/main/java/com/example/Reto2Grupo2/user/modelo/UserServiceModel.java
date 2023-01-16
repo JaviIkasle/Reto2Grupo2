@@ -44,6 +44,13 @@ public class UserServiceModel {
 		this.billetes = billetes;
 	}
 
+	public UserServiceModel(Integer id, String username, String password, String email) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
 
 
 	public UserServiceModel(Integer id, String username, String password) {
