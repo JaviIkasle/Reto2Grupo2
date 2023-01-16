@@ -248,6 +248,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 	}
 	
+	// carga los detalles de usuario.
+	// la validez de la contraseña es automatica. Si es incorrecta no se loguea y devuelve 401
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		 return userRepository.findByUsername(username)
