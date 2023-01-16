@@ -2,7 +2,6 @@ package com.example.Reto2Grupo2.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,21 +13,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.rol.repository.RolRepository;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
-import com.example.Reto2Grupo2.user.modelo.UserPostRequest;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
+import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
+
+import jakarta.validation.Valid;
 
 
 @Service("userDetailsService")
@@ -110,76 +112,159 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 		return response;
 	}
+	@Override
+	public UserServiceModel updateClienteByAdmin(Integer id, @Valid ClienteUpdateByAdminRequest clienteUpdateByAdmin ) {
+		//SI SE MODIFICA UN registro QUE NO EXISTE, PROVOCAMOS ESTE ERROR
+				User user = userRepository.findById(id).orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.CONFLICT, "User no encontrado")
+				);	
+				
+				if(user.getRol().getName().equalsIgnoreCase("CLIENTE")) {
+								
+					
+					Rol rolOld = rolRepository.findById(user.getRolId()).orElseThrow(
+							() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+					
+					if ( clienteUpdateByAdmin.getUsername()!=null && clienteUpdateByAdmin.getUsername()!= "") {
+						user.setUsername(clienteUpdateByAdmin.getUsername());
+					}	
+					if ( clienteUpdateByAdmin.getPassword()!=null && clienteUpdateByAdmin.getPassword()!= "") {
+						BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+						user.setPassword(passwordEncoder.encode(clienteUpdateByAdmin.getPassword()));
+					}
+					if ( clienteUpdateByAdmin.getEmail()!=null && clienteUpdateByAdmin.getEmail()!= "") {
+						user.setEmail(clienteUpdateByAdmin.getEmail());
+					}	
+																
+					if ( clienteUpdateByAdmin.getRolId()!=null ) {			
+						Rol rolNew = rolRepository.findById(clienteUpdateByAdmin.getRolId()).orElseThrow(
+								() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+						user.setRol(rolNew);
+						user.setRolId(clienteUpdateByAdmin.getRolId());
+					}else {			
+						user.setRol(rolOld);
+					}
+															
+						user = userRepository.save(user);
+					
+						UserServiceModel trabajadorResponse = new UserServiceModel(
+								user.getId(),
+								user.getUsername(),
+								user.getPassword(),
+								user.getEmail(),
+								null,
+								user.getZooId(),
+								null,
+								user.getRolId(),
+								null); //billete
+						
+						return trabajadorResponse;
+				}else{
+					throw new ResponseStatusException(HttpStatus.CONFLICT, "No es un cliente");
+				}
+	}
 
 
 	@Override
-	public UserServiceModel updateById(Integer id, UserPostRequest userPostRequest) {
-		
+	public UserServiceModel updateEmpleByAdmin(Integer id, EmpleUpdateByAdminRequest userUpdateRequest) {
+
+
 		//SI SE MODIFICA UN registro QUE NO EXISTE, PROVOCAMOS ESTE ERROR
 		User user = userRepository.findById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "User no encontrado")
-		);
+		);	
 		
-		if ( userPostRequest.getUsername()!=null && userPostRequest.getUsername()!= "") {
-			user.setUsername(userPostRequest.getUsername());
-		}	
-		if ( userPostRequest.getPassword()!=null && userPostRequest.getPassword()!= "") {
-			user.setPassword(userPostRequest.getPassword());
-		}
-		if ( userPostRequest.getEmail()!=null && userPostRequest.getEmail()!= "") {
-			user.setEmail(userPostRequest.getEmail());
-		}
-		if ( userPostRequest.getZooId()!= null ) {
-			user.setZooId(userPostRequest.getZooId());
-		}
-		if ( userPostRequest.getRolId()!=null ) {
-			user.setRolId(userPostRequest.getRolId());
-		}
-				
-		Zoo zoo = zooRepository.findById(userPostRequest.getZooId()).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
-		
-		Rol rol = rolRepository.findById(userPostRequest.getRolId()).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
-		
-		if (zoo != null) {
-			user.setZoo(zoo);
-		}
-		if (rol != null) {
-			user.setRol(rol);
-		}
-			user = userRepository.save(user);
+		if(user.getRol().getName().equalsIgnoreCase("EMPLEADO")) {
 			
-		UserServiceModel trabajadorResponse = new UserServiceModel(
-				user.getId(),
-				user.getUsername(),
-				user.getPassword(),
-				user.getEmail(),
-				null,
-				zoo.getId(),
-				null,
-				rol.getId(),
-				null); //billete
-		return trabajadorResponse;
+			Zoo zooOld = zooRepository.findById(user.getZooId()).orElseThrow(
+					() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
+			
+			
+			Rol rolOld = rolRepository.findById(user.getRolId()).orElseThrow(
+					() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+			
+			if ( userUpdateRequest.getUsername()!=null && userUpdateRequest.getUsername()!= "") {
+				user.setUsername(userUpdateRequest.getUsername());
+			}	
+			if ( userUpdateRequest.getPassword()!=null && userUpdateRequest.getPassword()!= "") {
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				user.setPassword(passwordEncoder.encode(userUpdateRequest.getPassword()));
+			}
+			if ( userUpdateRequest.getEmail()!=null && userUpdateRequest.getEmail()!= "") {
+				user.setEmail(userUpdateRequest.getEmail());
+			}	
+					
 				
+			if ( userUpdateRequest.getZooId()!= null ) {
+				Zoo zooNew = zooRepository.findById(userUpdateRequest.getZooId()).orElseThrow(
+							() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
+				user.setZooId(userUpdateRequest.getZooId());
+				user.setZoo(zooNew);
+			}else {										
+				user.setZoo(zooOld);									
+			}
+			
+			
+			if ( userUpdateRequest.getRolId()!=null ) {			
+				Rol rolNew = rolRepository.findById(userUpdateRequest.getRolId()).orElseThrow(
+						() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+				user.setRol(rolNew);
+				user.setRolId(userUpdateRequest.getRolId());
+			}else {			
+				user.setRol(rolOld);
+			}
+													
+				user = userRepository.save(user);
+			
+				UserServiceModel trabajadorResponse = new UserServiceModel(
+						user.getId(),
+						user.getUsername(),
+						user.getPassword(),
+						user.getEmail(),
+						null,
+						user.getZooId(),
+						null,
+						user.getRolId(),
+						null); //billete
+				
+				return trabajadorResponse;
+		}else{
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "No es un empleado");
+		}
+			
 	}
 
 	@Override
-	public User signupEmpleado(User trabajador) throws UserCantCreateException {
+	public User signupEmpleado(AuthRequestEmple requestEmple) throws UserCantCreateException {
 			
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
-		String password = passEncoder.encode(trabajador.getPassword());		
-		trabajador.setPassword(password);
+		String password = passEncoder.encode(requestEmple.getPassword());		
+		requestEmple.setPassword(password);
 
-		Zoo zoo = zooRepository.findById(trabajador.getZooId()).orElseThrow(
+		
+		
+		Zoo zoo = zooRepository.findById(requestEmple.getZooId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
-		trabajador.setZoo(zoo);// esto es lo que hace que se inserte el zooID
+		
 		
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.EMPLEADO.name()); 	
-		trabajador.setRol(trabajadorRol);
+		
+		
+		
+		User empleado = new User(
+		null,
+		requestEmple.getUsername(), 
+		requestEmple.getPassword(),
+		requestEmple.getEmail(),
+		zoo,
+		zoo.getId(),
+		trabajadorRol,
+		trabajadorRol.getId(),
+		null //billete
+		);
 			
 		try{
-			return userRepository.save(trabajador);
+			return userRepository.save(empleado);
 		}catch (DataAccessException e) {
 			throw new UserCantCreateException(e.getMessage());
 		}		
@@ -206,6 +291,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public UserServiceModel updateCliente(ClienteUpdateRequest clienteUpdateRequest, Integer userId) {
 
+		System.out.println("eeeeeeeee " + userId);
+		
 		User cliente = userRepository.findById(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Cliente no encontrado")
 		);
@@ -228,7 +315,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 							cliente.setPassword(passwordEncoder.encode(newPass));
 							
 							} else {
-								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Billete no encontrado");		
+								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Contraseña incorrecta");		
 							}																													
 								
 				}
@@ -279,6 +366,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		}		
 				
 	}
+
+
 	
 	
 

@@ -72,21 +72,21 @@ public class User implements UserDetails {
 
 	}
 
-	// Para un empleado
-	public User(String username, String password, String email, Integer zooId) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.zooId = zooId;
-	}
-
-	// Para un cliente
+	// Para un cliente 
 	public User(String username, String password, String email) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
+
+	}
+
+	public User(String username, String password, String email, Integer rolId) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.rolId = rolId;
 	}
 
 	public User(Integer id, String username, String password, String email, Zoo zoo, Integer zooId, Rol rol,

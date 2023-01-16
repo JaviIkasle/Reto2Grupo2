@@ -1,16 +1,36 @@
 package com.example.Reto2Grupo2.user.modelo;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class AuthRequestEmple {
 
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede estar vacio")
+	@NotBlank(message = "No puede estar en blanco")
 	private String username;
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede estar vacio")
+	@NotBlank(message = "No puede estar en blanco")
 	private String password;
+	@NotNull(message = "No puede ser nulo")
+	@NotEmpty(message = "No puede estar vacio")
+	@NotBlank(message = "No puede estar en blanco")
+	@Email(message = "Email incorrecto")
 	private String email;
+	@NotNull(message = "No puede ser nulo")
 	private Integer zooId;
 
 	public AuthRequestEmple() {
 	}
 
-	public AuthRequestEmple(String username, String password, String email, Integer zooId) {
+	public AuthRequestEmple(
+			@NotNull(message = "No puede ser nulo") @NotEmpty(message = "No puede estar vacio") @NotBlank(message = "No puede estar en blanco") String username,
+			@NotNull(message = "No puede ser nulo") @NotEmpty(message = "No puede estar vacio") @NotBlank(message = "No puede estar en blanco") String password,
+			@NotNull(message = "No puede ser nulo") @NotEmpty(message = "No puede estar vacio") @NotBlank(message = "No puede estar en blanco") @Email(message = "Email incorrecto") String email,
+			@NotNull(message = "No puede ser nulo") Integer zooId) {
 		super();
 		this.username = username;
 		this.password = password;

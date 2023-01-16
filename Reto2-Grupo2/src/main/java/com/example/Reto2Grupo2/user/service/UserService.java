@@ -4,16 +4,20 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
-import com.example.Reto2Grupo2.user.modelo.UserPostRequest;
+import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
+
+import jakarta.validation.Valid;
 
 //TODO invertir nombres de las clases service
 public interface UserService {
 
-	User signupEmpleado(User empleado) throws UserCantCreateException;
+	User signupEmpleado(AuthRequestEmple empleado) throws UserCantCreateException;
 	
 	User signupCliente(User cliente) throws UserCantCreateException;
 	
@@ -21,13 +25,15 @@ public interface UserService {
 
 	UserServiceModel getUserById(Integer id, List<UserExpands> expand );
 
-	UserServiceModel updateById(Integer id, UserPostRequest userPostRequest);
+	UserServiceModel updateEmpleByAdmin(Integer id, EmpleUpdateByAdminRequest userPostRequest);
 
 	UserServiceModel updateCliente(ClienteUpdateRequest clienteUpdateRequest, Integer userId);
 	
 	ResponseEntity<UserServiceModel>  deleteById(Integer id);
 
 	ResponseEntity<UserServiceModel> deleteCliente(Integer id);
+
+	UserServiceModel updateClienteByAdmin(Integer id, ClienteUpdateByAdminRequest clienteUpdateByAdmin  );
 	
 //	UserServiceModel create( UserPostRequest trabajadorPostRequest);//lo hacen los signups
 	

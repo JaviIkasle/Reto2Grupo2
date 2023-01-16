@@ -62,8 +62,11 @@ public class WebSecurityConfig {
 						.requestMatchers(HttpMethod.POST, "/api/billetes").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers( "/api/billetes").denyAll() 											
 						
+						//.requestMatchers(HttpMethod.PUT, "/api/users/cliente").hasAuthority(RolEnum.CLIENTE.name())// VAMOS A VERRRR
+						
 						.requestMatchers("/api/users/cliente").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers("/api/users/**").hasAuthority(RolEnum.ADMIN.name())
+						
 						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																														
 
 						.anyRequest().authenticated()

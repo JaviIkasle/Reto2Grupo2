@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
-import com.example.Reto2Grupo2.user.modelo.UserPostRequest;
+import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 import com.example.Reto2Grupo2.user.service.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api")
@@ -41,28 +45,27 @@ public class UserController {
 	@GetMapping("/users/{id}")
 	public ResponseEntity<UserServiceModel> getTrabajadorById(@PathVariable("id") Integer id,
 			@RequestParam(required = false) List<UserExpands> expand) {
-
+		System.out.println("id"+id);
 		UserServiceModel response = userService.getUserById(id, expand);
 		return new ResponseEntity<UserServiceModel>(response, HttpStatus.OK);
 	}
 
 	@PostMapping("/auth/signup/empleados")
-	public ResponseEntity<?> signupEmpleado(@RequestBody AuthRequestEmple request) {
+	public ResponseEntity<?> signupEmpleado(@Valid @RequestBody AuthRequestEmple requestEmple) {
 
-		User empleado = new User(request.getUsername(), request.getPassword(), request.getEmail(), request.getZooId());
-
+	
+		
 		try {
-			userService.signupEmpleado(empleado);
+			userService.signupEmpleado(requestEmple);
 		} catch (UserCantCreateException e) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		// TODO que devuelva los datos del usuario creado ???
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@PostMapping("/auth/signup/clientes")
 	public ResponseEntity<?> signupCliente(@RequestBody AuthRequestCliente request) {
-
+		//TODO pasar a service
 		User cliente = new User(request.getUsername(), request.getPassword(), request.getEmail());
 
 		try {
@@ -74,18 +77,26 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	@PutMapping("/users/{id}")
-	public ResponseEntity<UserServiceModel> updateUser(@PathVariable("id") Integer id,
-			@RequestBody UserPostRequest userPostRequest) {
+	@PutMapping("/users/empleados/{id}")
+	public ResponseEntity<UserServiceModel> updateEmpleByAdmin(@PathVariable("id") Integer id,
+			@Valid @RequestBody EmpleUpdateByAdminRequest userPostRequest) {
 
-		UserServiceModel trabajadorResponse = userService.updateById(id, userPostRequest);
+		UserServiceModel trabajadorResponse = userService.updateEmpleByAdmin(id, userPostRequest);
+		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.OK);
+	}
+	@PutMapping("/users/clientes/{id}")
+	public ResponseEntity<UserServiceModel> updateClienteByAdmin(@PathVariable("id") Integer id,
+			@Valid @RequestBody ClienteUpdateByAdminRequest clienteUpdateByAdmin) {
+
+		UserServiceModel trabajadorResponse = userService.updateClienteByAdmin(id, clienteUpdateByAdmin);
 		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.OK);
 	}
 
 	@PutMapping("/users/cliente")
-	public ResponseEntity<UserServiceModel> updateCliente(@RequestBody ClienteUpdateRequest clienteUpdateRequest,
+	public ResponseEntity<UserServiceModel> updateCliente(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest,
 			Authentication authentication) {
 
+		
 		User userDetails = (User) authentication.getPrincipal();
 
 		UserServiceModel userResponse = userService.updateCliente(clienteUpdateRequest, userDetails.getId());
@@ -98,12 +109,12 @@ public class UserController {
 
 	}
 
+	
 	@DeleteMapping("/users/cliente")
 	public void deleteCliente(Authentication authentication) {
 
 		User userDetails = (User) authentication.getPrincipal();
 		userService.deleteCliente(userDetails.getId());
-
 	}
 
 	// YA LO HACE EL SIGNUP

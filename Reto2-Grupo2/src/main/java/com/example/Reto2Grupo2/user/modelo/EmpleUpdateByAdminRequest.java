@@ -1,21 +1,25 @@
 package com.example.Reto2Grupo2.user.modelo;
 
-public class UserPostRequest {
+import jakarta.validation.constraints.Email;
+
+public class EmpleUpdateByAdminRequest {
 
 	private String username;
 
 	private String password;
-	
+
+	@Email(message = "Email incorrecto")
 	private String email;
 
 	private Integer zooId;
 
 	private Integer rolId;
 
-	public UserPostRequest() {
+	public EmpleUpdateByAdminRequest() {
 	}
 
-	public UserPostRequest(String username, String password, String email, Integer zooId, Integer rolId) {
+	public EmpleUpdateByAdminRequest(String username, String password, @Email(message = "Email incorrecto") String email,
+			Integer zooId, Integer rolId) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -28,8 +32,8 @@ public class UserPostRequest {
 		return username;
 	}
 
-	public void setUsername(String email) {
-		this.username = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -38,6 +42,14 @@ public class UserPostRequest {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Integer getZooId() {
@@ -54,16 +66,6 @@ public class UserPostRequest {
 
 	public void setRolId(Integer rolId) {
 		this.rolId = rolId;
-	}
-	
-	
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	@Override

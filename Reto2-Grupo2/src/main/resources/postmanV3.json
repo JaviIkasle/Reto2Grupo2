@@ -1,0 +1,1448 @@
+{
+	"info": {
+		"_postman_id": "8245323a-6c5b-443c-913d-fb7a6ab19f26",
+		"name": "RETO2GRUPO2 Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Eventos",
+			"item": [
+				{
+					"name": "GetEventos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXplIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczNDU5NzcxLCJleHAiOjE2NzM1NDYxNzEsInRyYWJhamFkb3JJZCI6MjcsInJvbCI6eyJpZCI6MywibmFtZSI6IkNMSUVOVEUifX0.kMZeTvwVIFrJQV85CEKJkIToN8RgXvrjo16gG4dpNV-ZDpT4_Mtn70KzP4p6oOO8u4ck32ZXhiPqaC4A3oU59g",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URI}}/eventos/get",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"eventos",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetEventosById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyLGluYWtpLnJpb2phbmVAZWxvcnJpZXRhLWVycmVrYW1hcmdkuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTg3MjE3LCJleHAiOjE2NjYxODcyNjJ9.nnq_Zdt-9VDoc71izuGywiaxdcmIm989Na93XzztOfiMc42psq8J1T5uKIcDTtOX0w9qpnLs_0H_xpOqi3T3grw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URI}}/eventos/1",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"eventos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetEventosByIdExpands",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyLGluYWtpLnJpb2phbmVAZWxvcnJpZXRhLWVycmVrYW1hcmdkuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTg3MjE3LCJleHAiOjE2NjYxODcyNjJ9.nnq_Zdt-9VDoc71izuGywiaxdcmIm989Na93XzztOfiMc42psq8J1T5uKIcDTtOX0w9qpnLs_0H_xpOqi3T3grw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URI}}/eventos/3?expand=ZOO",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"eventos",
+								"3"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "ZOO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateEventos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"ññññññññññññññññññññññññññññ\",\r\n    \"informacion\": \"Cocodrilos vs anacondas\",\r\n    \"fecha\": \"2023-24-12\",\r\n    \"zooId\":\"1\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/eventos",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"eventos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutEventoById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"ggggggggggggggggggggggggggg\",\r\n    \"informacion\": \"Cocodrilos vs anacondas\",\r\n    \"fecha\": \"2023-24-12\",\r\n    \"zooId\": \"2\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/eventos/1",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"eventos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEventoById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"nombre\": \"Jardim zoologico\",\r\n        \"pvpEntrada\": 58.8,\r\n        \"web\": \"https://www.moz.life/https-www-moz-life-mozbox-profile-mozbox-4/\",\r\n        \"informacion\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has s...\",\r\n        \"latitud\": -25.9432,\r\n        \"longitud\": 32.0292,\r\n        \"ciudad\": \"\",\r\n        \"pais\": \"Mozambique\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/eventos/10",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"eventos",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Otros",
+					"item": [
+						{
+							"name": "GetTrabajadorByIdExpands",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "default"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+										"type": "default",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+										"type": "default",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyLGluYWtpLnJpb2phbmVAZWxvcnJpZXRhLWVycmVrYW1hcmdkuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTg3MjE3LCJleHAiOjE2NjYxODcyNjJ9.nnq_Zdt-9VDoc71izuGywiaxdcmIm989Na93XzztOfiMc42psq8J1T5uKIcDTtOX0w9qpnLs_0H_xpOqi3T3grw",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{API_URI}}/trabajadores/4?expand=ZOO,ROL",
+									"host": [
+										"{{API_URI}}"
+									],
+									"path": [
+										"trabajadores",
+										"4"
+									],
+									"query": [
+										{
+											"key": "expand",
+											"value": "ZOO,ROL"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateTrabajador",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"eeeeeeeeeeeeeeeee\",\r\n    \"password\": \"Cocodrilos vs anacondas\"\r\n}"
+								},
+								"url": {
+									"raw": "{{API_URI}}/trabajadores",
+									"host": [
+										"{{API_URI}}"
+									],
+									"path": [
+										"trabajadores"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6IkFEVERBTSIsImlhdCI6MTY3Mzg3ODIwMCwiZXhwIjoxNjczOTY0NjAwLCJ0cmFiYWphZG9ySWQiOjI4LCJyb2wiOnsiaWQiOjEsIm5hbWUiOiJBRE1JTiJ9fQ.Xng4jXyLjLbdMI_5V1Ri_qwYzv75AKo75UD3KjDJHpwJgU_cwE3rFxuccQh1epPJbop5bmZ5KkbvqS75mUB_zQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URI}}/users",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsersById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6IkFEVERBTSIsImlhdCI6MTY3Mzg3ODIwMCwiZXhwIjoxNjczOTY0NjAwLCJ0cmFiYWphZG9ySWQiOjI4LCJyb2wiOnsiaWQiOjEsIm5hbWUiOiJBRE1JTiJ9fQ.Xng4jXyLjLbdMI_5V1Ri_qwYzv75AKo75UD3KjDJHpwJgU_cwE3rFxuccQh1epPJbop5bmZ5KkbvqS75mUB_zQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URI}}/users/38",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"users",
+								"38"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutEmpleByAdmin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6IkFEVERBTSIsImlhdCI6MTY3Mzg3ODU1NywiZXhwIjoxNjczOTY0OTU3LCJ0cmFiYWphZG9ySWQiOjI4LCJyb2wiOnsiaWQiOjEsIm5hbWUiOiJBRE1JTiJ9fQ.HRbIpcVYgxFbq5_ON1U5956ecePNTGREBJpnpxX_NLjMnoCYD8nY5xv0G_cpKHCK-gW7k8ELDOxyTKE0wz_wfQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"hijo\",\r\n    \"password\":\"hijo\",\r\n    \"email\":\"hijo@hijo.com\",\r\n    \"zooId\":\"3\",\r\n    \"rolId\":\"3\"\r\n    \r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/users/empleado/29",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"users",
+								"empleado",
+								"29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutClienteByAdmin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6IkFEVERBTSIsImlhdCI6MTY3Mzg3ODU1NywiZXhwIjoxNjczOTY0OTU3LCJ0cmFiYWphZG9ySWQiOjI4LCJyb2wiOnsiaWQiOjEsIm5hbWUiOiJBRE1JTiJ9fQ.HRbIpcVYgxFbq5_ON1U5956ecePNTGREBJpnpxX_NLjMnoCYD8nY5xv0G_cpKHCK-gW7k8ELDOxyTKE0wz_wfQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"clientassooPAPA\",\r\n    \"password\":\"clientassooPAPA\",\r\n    \"email\":\"clientassoo@clientassoo.com\",\r\n    \"rolId\":\"1\"\r\n    \r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/users/cliente/27",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"users",
+								"cliente",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutClienteByCliente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6IkFEVERBTSIsImlhdCI6MTY3Mzg5MTQ2MywiZXhwIjoxNjczOTc3ODYzLCJ0cmFiYWphZG9ySWQiOjI4LCJyb2wiOnsiaWQiOjEsIm5hbWUiOiJBRE1JTiJ9fQ.Mh2hEy-BM-JlFCOb6xNUA6eHhnbRQL0zstNd6JhHyDFiq3UOF961LB8vwhOjruPh1slCLv7NYfhjFkYZUCvD6w",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"\",\r\n    \"oldPassword\": \"cliente1\",\r\n    \"newPassword\":\"cliente2\",\r\n    \"email\":\"cliente1@cliente1.com\"\r\n    \r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/users/cliente",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"users",
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUserById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjbGllbnRhc3NvbyIsImlzcyI6IkFEVERBTSIsImlhdCI6MTY3Mzg4ODAxMywiZXhwIjoxNjczOTc0NDEzLCJ0cmFiYWphZG9ySWQiOjI5LCJyb2wiOnsiaWQiOjMsIm5hbWUiOiJDTElFTlRFIn19.WuEWLNib5UE3NDsK2_SFKbV5eWvFY1DZ_mdvX96o-5qLCVjIElFMT1Ut5SQlnmMuV5Yl8U_PXq2vA1nnhReY6g",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/users/5",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteClienteByCliente",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6IkFEVERBTSIsImlhdCI6MTY3Mzg5MTQ2MywiZXhwIjoxNjczOTc3ODYzLCJ0cmFiYWphZG9ySWQiOjI4LCJyb2wiOnsiaWQiOjEsIm5hbWUiOiJBRE1JTiJ9fQ.Mh2hEy-BM-JlFCOb6xNUA6eHhnbRQL0zstNd6JhHyDFiq3UOF961LB8vwhOjruPh1slCLv7NYfhjFkYZUCvD6w",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/users/cliente",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"users",
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Zoos",
+			"item": [
+				{
+					"name": "GetZoos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbXBsZWFkbzEiLCJpc3MiOiJBRFREQU0iLCJpYXQiOjE2NzM0NTU1ODgsImV4cCI6MTY3MzU0MTk4OCwidHJhYmFqYWRvcklkIjoyMSwicm9sIjp7ImlkIjoyLCJuYW1lIjoiRU1QTEVBRE8ifX0.avE4py5LLDVJ1Bdr9hM709WGn4Q2pUZ1pbTHBvoMBsSCLAHTtM3CxeFISa2FmZ6g2U1GMfqhjsQqig48RxjWFw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"JAVIERBDP\",\r\n    \"position\": \"uuuu\",\r\n    \"salary\": \"15000\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/zoos",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"zoos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetZoosById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbXBsZWFkbzEiLCJpc3MiOiJBRFREQU0iLCJpYXQiOjE2NzM0NTU1ODgsImV4cCI6MTY3MzU0MTk4OCwidHJhYmFqYWRvcklkIjoyMSwicm9sIjp7ImlkIjoyLCJuYW1lIjoiRU1QTEVBRE8ifX0.avE4py5LLDVJ1Bdr9hM709WGn4Q2pUZ1pbTHBvoMBsSCLAHTtM3CxeFISa2FmZ6g2U1GMfqhjsQqig48RxjWFw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URI}}/zoos/2",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"zoos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateZoo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbXBsZWFkbzEiLCJpc3MiOiJBRFREQU0iLCJpYXQiOjE2NzM0NTU1ODgsImV4cCI6MTY3MzU0MTk4OCwidHJhYmFqYWRvcklkIjoyMSwicm9sIjp7ImlkIjoyLCJuYW1lIjoiRU1QTEVBRE8ifX0.avE4py5LLDVJ1Bdr9hM709WGn4Q2pUZ1pbTHBvoMBsSCLAHTtM3CxeFISa2FmZ6g2U1GMfqhjsQqig48RxjWFw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"nombre\": \"PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAS\",\r\n        \"pvpEntrada\": 67.0,\r\n        \"web\": \"https://www.curraghswildlifepark.im/\",\r\n        \"informacion\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has s...\",\r\n        \"latitud\": 54.3211,\r\n        \"longitud\": -4.51292,\r\n        \"ciudad\": \"BALI\",\r\n        \"pais\": \"iNDONESIQ\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/zoos",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"zoos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutZooById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"nombre\": \"rrrrrrrrrrrrrrrrr\",\r\n        \"pvpEntrada\": 58.8,\r\n        \"web\": \"https://www.moz.life/https-www-moz-life-mozbox-profile-mozbox-4/\",\r\n        \"informacion\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has s...\",\r\n        \"latitud\": -25.9432,\r\n        \"longitud\": 32.0292,\r\n        \"ciudad\": \"\",\r\n        \"pais\": \"Mozambique\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/zoos/11",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"zoos",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteZooById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/zoos/567",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"zoos",
+								"567"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "GetRoles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyLGluYWtpLnJpb2phbmVAZWxvcnJpZXRhLWVycmVrYW1hcmdkuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTg3MjE3LCJleHAiOjE2NjYxODcyNjJ9.nnq_Zdt-9VDoc71izuGywiaxdcmIm989Na93XzztOfiMc42psq8J1T5uKIcDTtOX0w9qpnLs_0H_xpOqi3T3grw",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"JAVIERBDP\",\r\n    \"position\": \"uuuu\",\r\n    \"salary\": \"15000\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/roles",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRolesById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJudWxsLGFiY0BkZWYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTA5MjU0LCJleHAiOjE2NjYxOTU2NTR9.HGyCbpPIcRTqyyo1QEci_1-RMDQbSS7m27AKnYVHYtQUs63azgp4eSsixCOcLh6yn2psrIX5foUx0fVJaPFnHQ",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyLGluYWtpLnJpb2phbmVAZWxvcnJpZXRhLWVycmVrYW1hcmdkuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY2MTg3MjE3LCJleHAiOjE2NjYxODcyNjJ9.nnq_Zdt-9VDoc71izuGywiaxdcmIm989Na93XzztOfiMc42psq8J1T5uKIcDTtOX0w9qpnLs_0H_xpOqi3T3grw",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"JAVIERBDP\",\r\n    \"position\": \"uuuu\",\r\n    \"salary\": \"15000\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/roles/1",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateRol",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"233333333333333333333333333\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/roles",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutRolById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Jardim zoologicobasuraaa\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/roles/3",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"roles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteRolById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/roles/2",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "SignupEmpleado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbXBsZWFkbzEiLCJpc3MiOiJBRFREQU0iLCJpYXQiOjE2NzM4OTI0OTksImV4cCI6MTY3Mzk3ODg5OSwidHJhYmFqYWRvcklkIjoyMSwicm9sIjp7ImlkIjoyLCJuYW1lIjoiRU1QTEVBRE8ifX0.0oi3YCBY2nMb64fDPN6g93AUk21e1JgCZzHVLnGCBmtpBfxzx3FHthZ4oPdEyOTrhPA0Nudtwu4muaNM_16syQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"username\": \"empleado69\",\r\n        \"password\": \"empleado67\",\r\n        \"email\":\"empleado4@empleado4.com\",\r\n        \"zooId\": \"3\"\r\n        \r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/auth/signup/empleados",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"auth",
+								"signup",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignupCliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"username\": \"cliente56\",\r\n        \"password\": \"cliente56\",\r\n        \"email\": \"cliente@cliente.com\"\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/auth/signup/clientes",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"auth",
+								"signup",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNSxnYW5la29AZ21haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjY4OTY4NzY0LCJleHAiOjE2NjkwMDAzMDB9.0s4v2Lfl-evGoHufRf5f1SV-LViyn39AYCyOow2xEf-XU5RIvi2As4QzwNzaKC7c-uUIZorVjh-5RkjavZdyNw",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"username\": \"empleado1\",\r\n        \"password\": \"empleado1\"\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/auth/login",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Billetes",
+			"item": [
+				{
+					"name": "GetBilletes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URI}}/Billetes",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"Billetes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBillete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/Billete/3?expand=ZOO",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"Billete",
+								"3"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "ZOO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateBillete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \r\n  \r\n    \"fecha\": \"2023-12-12\",\r\n    \"cantidad\": 41244113,\r\n    \"importe\": 1232512.0,\r\n    \"zoo\": null,\r\n    \"idZoo\": 2,\r\n    \"cliente\": null,\r\n    \"idCliente\": 3\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URI}}/Billete",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"Billete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBillete",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteBillete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/BilleteDelete/6",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"BilleteDelete",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBilleteExpandZOO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/Billete/4?expand=ZOO",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"Billete",
+								"4"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "ZOO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBilleteExpandCLIENTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/Billete/10?expand=CLIENTE",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"Billete",
+								"10"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "CLIENTE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Animales",
+			"item": [
+				{
+					"name": "GetAllAnimales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAnimalById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/animales/2",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"animales",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateAnimal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"PRUEBAPOST\",\r\n    \"informacion\":\"JAJAJAJAJAJAJAAJAJAJAJAJAJAJAJAJJA\",\r\n    \"foto\":\"https://pestcontrol-uc1.azureedge.net/-/media/Images/Project/RaidSite/Bugs/BugDetails/Spiders/Spiders-Hero-1_2X.jpg?la=es-US&mw=600\",\r\n    \"idEspecie\":1\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/animales",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"animales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAnimalById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"ToStringUPDATE\",\r\n    \"informacion\":\"UPDATE DE MODELO\",\r\n    \"foto\":\"https://pestcontrol-uc1.azureedge.net/-/media/Images/Project/RaidSite/Bugs/BugDetails/Spiders/Spiders-Hero-1_2X.jpg?la=es-US&mw=600\",\r\n    \"especieId\":\"1\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/animales/151",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"animales",
+								"151"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAnimalById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Especies",
+			"item": [
+				{
+					"name": "GetAllEspecies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/especies",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"especies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetEspecieById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/especies/6",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"especies",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateEspecie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"informacion\":\"LoremIpsumLel\",\r\n    \"nombre\":\"DDDdDDDDddDDDd\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/especies",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"especies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEspecieById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"informacion\":\"IPSUMEFLUERAE\",\r\n    \"nombre\":\"FFFFFFfffffffFFFFfFFFffffFFFF\"\r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/especies/7",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"especies",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEspecieById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/especies/7",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"especies",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URI",
+			"value": "http://localhost:3100/api",
+			"type": "default"
+		}
+	]
+}
