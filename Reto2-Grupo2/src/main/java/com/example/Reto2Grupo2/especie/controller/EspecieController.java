@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.Reto2Grupo2.especie.modelo.EspeciePostRequest;
 import com.example.Reto2Grupo2.especie.modelo.EspecieServiceModel;
-import com.example.Reto2Grupo2.especie.service.EspecieServiceImpl;
+import com.example.Reto2Grupo2.especie.service.EspecieService;
 
 @RestController
 @RequestMapping("api")
 public class EspecieController {
 
 	@Autowired
-	private EspecieServiceImpl especieService;
+	private EspecieService especieService;
 	
 	
 	@GetMapping("/especies")

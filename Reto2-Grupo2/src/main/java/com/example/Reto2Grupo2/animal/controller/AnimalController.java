@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Reto2Grupo2.animal.modelo.AnimalPostRequest;
 import com.example.Reto2Grupo2.animal.modelo.AnimalServiceModel;
-import com.example.Reto2Grupo2.animal.service.AnimalServiceImpl;
+import com.example.Reto2Grupo2.animal.service.AnimalService;
 
 @RestController
 @RequestMapping("api")
 public class AnimalController {
 
 	@Autowired
-	private AnimalServiceImpl animalService;
+	private AnimalService animalService;
 	
 	@GetMapping("/animales")
 	public ResponseEntity<List<AnimalServiceModel>> getAnimales() {

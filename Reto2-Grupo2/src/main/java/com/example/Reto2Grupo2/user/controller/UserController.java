@@ -37,24 +37,21 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/users")
-	public ResponseEntity<List<UserServiceModel>> getTrabajadores() {
+	public ResponseEntity<List<UserServiceModel>> getUsers() {
 		List<UserServiceModel> response = userService.getUsers();
 		return new ResponseEntity<List<UserServiceModel>>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/users/{id}")
-	public ResponseEntity<UserServiceModel> getTrabajadorById(@PathVariable("id") Integer id,
+	public ResponseEntity<UserServiceModel> getUserById(@PathVariable("id") Integer id,
 			@RequestParam(required = false) List<UserExpands> expand) {
-		System.out.println("id"+id);
 		UserServiceModel response = userService.getUserById(id, expand);
 		return new ResponseEntity<UserServiceModel>(response, HttpStatus.OK);
 	}
 
 	@PostMapping("/auth/signup/empleados")
 	public ResponseEntity<?> signupEmpleado(@Valid @RequestBody AuthRequestEmple requestEmple) {
-
 	
-		
 		try {
 			userService.signupEmpleado(requestEmple);
 		} catch (UserCantCreateException e) {
@@ -81,22 +78,21 @@ public class UserController {
 	public ResponseEntity<UserServiceModel> updateEmpleByAdmin(@PathVariable("id") Integer id,
 			@Valid @RequestBody EmpleUpdateByAdminRequest userPostRequest) {
 
-		UserServiceModel trabajadorResponse = userService.updateEmpleByAdmin(id, userPostRequest);
-		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.OK);
+		UserServiceModel userResponse = userService.updateEmpleByAdmin(id, userPostRequest);
+		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
 	@PutMapping("/users/clientes/{id}")
 	public ResponseEntity<UserServiceModel> updateClienteByAdmin(@PathVariable("id") Integer id,
 			@Valid @RequestBody ClienteUpdateByAdminRequest clienteUpdateByAdmin) {
 
-		UserServiceModel trabajadorResponse = userService.updateClienteByAdmin(id, clienteUpdateByAdmin);
-		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.OK);
+		UserServiceModel userResponse = userService.updateClienteByAdmin(id, clienteUpdateByAdmin);
+		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
 
 	@PutMapping("/users/cliente")
 	public ResponseEntity<UserServiceModel> updateCliente(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest,
 			Authentication authentication) {
-
-		
+	
 		User userDetails = (User) authentication.getPrincipal();
 
 		UserServiceModel userResponse = userService.updateCliente(clienteUpdateRequest, userDetails.getId());

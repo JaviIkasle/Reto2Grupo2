@@ -45,19 +45,19 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	
 	@Override
 	public List<UserServiceModel> getUsers() {
-		Iterable<User> trabajadores = userRepository.findAll();
+		Iterable<User> users = userRepository.findAll();
 		List<UserServiceModel> response = new ArrayList<UserServiceModel>();
-		for (User trabajador : trabajadores) {
+		for (User user : users) {
 			response.add(
 					new UserServiceModel(
-							trabajador.getId(),
-							trabajador.getUsername(),
-							trabajador.getPassword(),
-							trabajador.getEmail(),
+							user.getId(),
+							user.getUsername(),
+							user.getPassword(),
+							user.getEmail(),
 							null,
-							trabajador.getZooId(),
+							user.getZooId(),
 							null,
-							trabajador.getRolId(),						
+							user.getRolId(),						
 							null));
 		}		return response;
 	}
@@ -65,15 +65,15 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public UserServiceModel getUserById(Integer id, List<UserExpands> expand) {
 		
-		User trabajador  = userRepository.findById(id).orElseThrow(
+		User user  = userRepository.findById(id).orElseThrow(
 
-				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Trabajador no encontrado"));
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User no encontrado"));
 		
 		ZooServiceModel zooResponse = null;
 		
 		if (expand != null && expand.indexOf (UserExpands.ZOO) != -1) {
 			
-			Zoo zooBD = trabajador.getZoo();		
+			Zoo zooBD = user.getZoo();		
 			zooResponse = new ZooServiceModel(
 					zooBD.getId(),
 					zooBD.getNombre(),
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 		if (expand != null&& expand.indexOf(UserExpands.ROL) != -1) {
 			
-			Rol rolBD = trabajador.getRol();		
+			Rol rolBD = user.getRol();		
 			rolResponse = new RolServiceModel(
 					rolBD.getId(),
 					rolBD.getName(),
@@ -99,19 +99,20 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		}	
  		
 		UserServiceModel response = new UserServiceModel(
-				trabajador.getId(),
-				trabajador.getUsername(),
-				trabajador.getPassword(),
-				trabajador.getEmail(),
+				user.getId(),
+				user.getUsername(),
+				user.getPassword(),
+				user.getEmail(),
 				zooResponse,
-				trabajador.getZooId(),
+				user.getZooId(),
 				rolResponse,
-				trabajador.getRolId(),
+				user.getRolId(),
 				null // TODO poner los billetes
 				);
 		
 		return response;
 	}
+	
 	@Override
 	public UserServiceModel updateClienteByAdmin(Integer id, @Valid ClienteUpdateByAdminRequest clienteUpdateByAdmin ) {
 		//SI SE MODIFICA UN registro QUE NO EXISTE, PROVOCAMOS ESTE ERROR
@@ -147,7 +148,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 															
 						user = userRepository.save(user);
 					
-						UserServiceModel trabajadorResponse = new UserServiceModel(
+						UserServiceModel userResponse = new UserServiceModel(
 								user.getId(),
 								user.getUsername(),
 								user.getPassword(),
@@ -158,7 +159,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 								user.getRolId(),
 								null); //billete
 						
-						return trabajadorResponse;
+						return userResponse;
 				}else{
 					throw new ResponseStatusException(HttpStatus.CONFLICT, "No es un cliente");
 				}
@@ -193,8 +194,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 			if ( userUpdateRequest.getEmail()!=null && userUpdateRequest.getEmail()!= "") {
 				user.setEmail(userUpdateRequest.getEmail());
 			}	
-					
-				
+							
 			if ( userUpdateRequest.getZooId()!= null ) {
 				Zoo zooNew = zooRepository.findById(userUpdateRequest.getZooId()).orElseThrow(
 							() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
@@ -203,8 +203,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 			}else {										
 				user.setZoo(zooOld);									
 			}
-			
-			
+						
 			if ( userUpdateRequest.getRolId()!=null ) {			
 				Rol rolNew = rolRepository.findById(userUpdateRequest.getRolId()).orElseThrow(
 						() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
@@ -216,7 +215,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 													
 				user = userRepository.save(user);
 			
-				UserServiceModel trabajadorResponse = new UserServiceModel(
+				UserServiceModel userResponse = new UserServiceModel(
 						user.getId(),
 						user.getUsername(),
 						user.getPassword(),
@@ -227,7 +226,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						user.getRolId(),
 						null); //billete
 				
-				return trabajadorResponse;
+				return userResponse;
 		}else{
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "No es un empleado");
 		}
@@ -240,17 +239,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
 		String password = passEncoder.encode(requestEmple.getPassword());		
 		requestEmple.setPassword(password);
-
-		
-		
+	
 		Zoo zoo = zooRepository.findById(requestEmple.getZooId()).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
-		
+				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));		
 		
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.EMPLEADO.name()); 	
-		
-		
-		
+	
 		User empleado = new User(
 		null,
 		requestEmple.getUsername(), 
@@ -298,13 +292,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		);
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 				
 				if ( clienteUpdateRequest.getUsername()!=null && clienteUpdateRequest.getUsername()!= "") {
 					cliente.setUsername(clienteUpdateRequest.getUsername());
 				}	
-				
-				
+								
 				if ( clienteUpdateRequest.getOldPassword()!=null && clienteUpdateRequest.getOldPassword()!= "" 
 							&& clienteUpdateRequest.getNewPassword() != null && clienteUpdateRequest.getNewPassword() != "") {
 						
@@ -317,7 +309,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 							} else {
 								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Contraseña incorrecta");		
 							}																													
-								
 				}
 
 				if ( clienteUpdateRequest.getEmail()!=null && clienteUpdateRequest.getEmail()!= "") {

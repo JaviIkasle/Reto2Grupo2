@@ -20,7 +20,7 @@ import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.zoo.modelo.ZooPostRequest;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
-import com.example.Reto2Grupo2.zoo.service.ZooServiceImpl;
+import com.example.Reto2Grupo2.zoo.service.ZooService;
 
 @RestController
 @RequestMapping("api")
@@ -29,7 +29,7 @@ public class ZooController {
 	@Autowired
 	private ZooRepository zooRepository;
 	@Autowired
-	private ZooServiceImpl zooService;
+	private ZooService zooService;
 	
 	@GetMapping("/zoos")
 	public ResponseEntity<List<ZooServiceModel>> getZoos(Authentication authentication) {

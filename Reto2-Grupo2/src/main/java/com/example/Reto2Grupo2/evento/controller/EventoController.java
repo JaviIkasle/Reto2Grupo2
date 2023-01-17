@@ -1,6 +1,7 @@
 package com.example.Reto2Grupo2.evento.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +15,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.Reto2Grupo2.evento.modelo.EventoPostRequest;
 import com.example.Reto2Grupo2.evento.modelo.EventoServiceModel;
 import com.example.Reto2Grupo2.evento.modelo.EventosExpands;
-import com.example.Reto2Grupo2.evento.service.EventoServiceImpl;
+import com.example.Reto2Grupo2.evento.service.EventoService;
 import com.example.Reto2Grupo2.user.modelo.User;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api")
 public class EventoController {
 
 	@Autowired
-	private EventoServiceImpl eventoService;
+	private EventoService eventoService;
 
 	@GetMapping("/eventos")
 	public ResponseEntity<List<EventoServiceModel>> getEventos(Authentication authentication) {
@@ -49,7 +53,7 @@ public class EventoController {
 	}
 
 	@PostMapping("/eventos")
-	public ResponseEntity<EventoServiceModel> createEvento(@RequestBody EventoPostRequest eventoPostRequest,
+	public ResponseEntity<EventoServiceModel> createEvento(@Valid @RequestBody EventoPostRequest eventoPostRequest,
 			Authentication authentication) {
 
 		User userDetails = (User) authentication.getPrincipal();
