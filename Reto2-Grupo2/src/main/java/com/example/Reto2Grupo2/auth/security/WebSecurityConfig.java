@@ -64,8 +64,8 @@ public class WebSecurityConfig {
 						
 						.requestMatchers("/api/users/cliente").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers("/api/users/**").hasAuthority(RolEnum.ADMIN.name())
-						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																														
-
+						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																																	
+						
 						.anyRequest().authenticated()
 						);		
 		

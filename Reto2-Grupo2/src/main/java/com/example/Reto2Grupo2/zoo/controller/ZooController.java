@@ -1,6 +1,7 @@
 package com.example.Reto2Grupo2.zoo.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.Reto2Grupo2.animal.modelo.AnimalServiceModel;
+import com.example.Reto2Grupo2.animal.service.AnimalServiceImpl;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.zoo.modelo.ZooPostRequest;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
@@ -26,6 +29,8 @@ import com.example.Reto2Grupo2.zoo.service.ZooServiceImpl;
 @RequestMapping("api")
 public class ZooController {
 
+	@Autowired
+	private AnimalServiceImpl animalService;
 	@Autowired
 	private ZooRepository zooRepository;
 	@Autowired
@@ -75,6 +80,14 @@ public class ZooController {
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado");
 		}
+	}
+	
+	@GetMapping("/zoos/{id}/animal")
+	public ResponseEntity<List<AnimalServiceModel>> getAnimalByZooId(@PathVariable("id") Integer id) {
+		
+		List<AnimalServiceModel> response = animalService.getZooAnimals(id);
+
+		return new ResponseEntity<List<AnimalServiceModel>>(response, HttpStatus.OK);
 	}
 	
 }

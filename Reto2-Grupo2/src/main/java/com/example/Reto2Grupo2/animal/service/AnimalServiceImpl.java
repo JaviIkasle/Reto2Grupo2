@@ -19,4 +19,6 @@ public interface AnimalServiceImpl {
 
 	ResponseEntity<AnimalServiceModel> deleteById(Integer id);
 
+	List<AnimalServiceModel> getZooAnimals(Integer id);
+
 }

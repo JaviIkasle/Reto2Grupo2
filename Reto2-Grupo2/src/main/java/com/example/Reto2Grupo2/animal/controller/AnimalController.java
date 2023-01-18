@@ -59,4 +59,12 @@ public class AnimalController {
 	public void deleteAnimalById(@PathVariable("id") Integer id) {
 		animalService.deleteById(id);
 	}
+	
+	@GetMapping("/animalesInformation/{id}")
+	public ResponseEntity<List<AnimalServiceModel>> getAnimalesWithInformation(@PathVariable("id") Integer id) {
+		
+		List<AnimalServiceModel> response = animalService.getZooAnimals(id);
+		
+		return new ResponseEntity<List<AnimalServiceModel>>(response, HttpStatus.OK);
+	}
 }
