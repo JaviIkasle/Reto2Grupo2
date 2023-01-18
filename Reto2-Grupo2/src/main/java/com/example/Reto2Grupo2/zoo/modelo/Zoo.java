@@ -1,7 +1,9 @@
 package com.example.Reto2Grupo2.zoo.modelo;
 
 import java.util.List;
+import java.util.Set;
 
+import com.example.Reto2Grupo2.animal.modelo.Animal;
 import com.example.Reto2Grupo2.billete.modelo.Billete;
 import com.example.Reto2Grupo2.evento.modelo.Evento;
 import com.example.Reto2Grupo2.user.modelo.User;
@@ -14,6 +16,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -53,6 +56,9 @@ public class Zoo {
 	@JsonBackReference
 	private List<Billete> billetes;
 
+	@ManyToMany(mappedBy = "zoos", cascade = CascadeType.ALL)
+	private Set<Animal> animales;
+	
 	public Zoo() {}
 
 	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
@@ -69,7 +75,7 @@ public class Zoo {
 		this.pais = pais;
 	}
 	
-	public Zoo( String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
+	public Zoo(String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
 			String ciudad, String pais) {
 		super();
 		this.nombre = nombre;
@@ -80,6 +86,25 @@ public class Zoo {
 		this.longitud = longitud;
 		this.ciudad = ciudad;
 		this.pais = pais;
+	}
+
+	public Zoo(int id, String nombre, float pvpEntrada, String web, String informacion, float latitud, float longitud,
+			String ciudad, String pais, List<Evento> eventos, List<User> trabajadores, List<Billete> billetes,
+			Set<Animal> animales) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.pvpEntrada = pvpEntrada;
+		this.web = web;
+		this.informacion = informacion;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.ciudad = ciudad;
+		this.pais = pais;
+		this.eventos = eventos;
+		this.trabajadores = trabajadores;
+		this.billetes = billetes;
+		this.animales = animales;
 	}
 
 	public int getId() {
@@ -160,6 +185,30 @@ public class Zoo {
 
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
+	}
+
+	public List<User> getTrabajadores() {
+		return trabajadores;
+	}
+
+	public void setTrabajadores(List<User> trabajadores) {
+		this.trabajadores = trabajadores;
+	}
+
+	public List<Billete> getBilletes() {
+		return billetes;
+	}
+
+	public void setBilletes(List<Billete> billetes) {
+		this.billetes = billetes;
+	}
+
+	public Set<Animal> getAnimales() {
+		return animales;
+	}
+
+	public void setAnimales(Set<Animal> animales) {
+		this.animales = animales;
 	}
 
 //	@Override

@@ -15,6 +15,7 @@ import com.example.Reto2Grupo2.animal.modelo.AnimalPostRequest;
 import com.example.Reto2Grupo2.animal.modelo.AnimalServiceModel;
 import com.example.Reto2Grupo2.animal.repository.AnimalRepository;
 import com.example.Reto2Grupo2.especie.modelo.Especie;
+import com.example.Reto2Grupo2.especie.modelo.EspecieServiceModel;
 import com.example.Reto2Grupo2.especie.repository.EspecieRepository;
 
 @Service
@@ -143,5 +144,39 @@ public class AnimalServiceImpl implements AnimalService{
 		}
 		
 	}
+
+	@Override
+	public List<AnimalServiceModel> getZooAnimals(Integer id) {
+		// TODO Auto-generated method stub
+		Iterable<Animal> animales = animalRepository.findAnimalByZoosId(id);
+
+		List<AnimalServiceModel> response = new ArrayList<AnimalServiceModel>();
+		EspecieServiceModel especieSacada;
+		
+		for (Animal animal : animales) {
+			Especie especie= especieRepository.findById(animal.getEspecieId()).orElseThrow(
+					() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Especie no encontrada"));
+			
+			
+			especieSacada = new EspecieServiceModel(
+					especie.getId(),
+					especie.getInformacion(),
+					especie.getNombre(),
+					null
+			);
+				
+			response.add(new AnimalServiceModel(
+					animal.getId(),
+					animal.getNombre(),
+					animal.getInformacion(),
+					animal.getFoto(),
+					especieSacada,
+					animal.getEspecieId(),
+					null)
+			);
+		}
+		return response;
+	}
+
 
 }

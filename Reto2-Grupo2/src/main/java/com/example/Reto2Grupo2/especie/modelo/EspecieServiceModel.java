@@ -14,6 +14,13 @@ public class EspecieServiceModel {
 
 	public EspecieServiceModel() {}
 	
+	public EspecieServiceModel(Integer id, String nombre, String informacion) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.informacion = informacion;
+	}
+	
 	public EspecieServiceModel(Integer id, String nombre, String informacion, List<Animal> animales) {
 		super();
 		this.id = id;

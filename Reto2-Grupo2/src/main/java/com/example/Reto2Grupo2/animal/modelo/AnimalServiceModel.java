@@ -20,6 +20,17 @@ public class AnimalServiceModel {
 	private Set<ZooServiceModel> zoos;
 	
 	public AnimalServiceModel() {}
+	
+	public AnimalServiceModel(Integer id, String nombre, String informacion, String foto, EspecieServiceModel especie,
+			Integer idEspecie) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.informacion = informacion;
+		this.foto = foto;
+		this.especie = especie;
+		this.especieId = idEspecie;
+	}
 
 	public AnimalServiceModel(Integer id, String nombre, String informacion, String foto, EspecieServiceModel especie,
 			Integer idEspecie, Set<ZooServiceModel> zoos) {
