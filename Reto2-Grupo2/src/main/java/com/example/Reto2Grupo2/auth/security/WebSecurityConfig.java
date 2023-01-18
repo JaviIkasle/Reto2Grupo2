@@ -43,6 +43,7 @@ public class WebSecurityConfig {
 						authz								
 						
 						.requestMatchers("/api/auth/signup/empleados").hasAuthority(RolEnum.ADMIN.name())
+						.requestMatchers("/api/auth/signup/admin").hasAuthority(RolEnum.ADMIN.name())
 						.requestMatchers("/api/auth/signup/clientes").permitAll()					
 						.requestMatchers("/api/auth/login").permitAll()	
 						

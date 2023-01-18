@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
@@ -18,7 +20,7 @@ public interface UserService {
 
 	User signupEmpleado(AuthRequestEmple empleado) throws UserCantCreateException;
 	
-	User signupCliente(User cliente) throws UserCantCreateException;
+	User signupCliente(AuthRequestCliente cliente) throws UserCantCreateException;
 	
 	List<UserServiceModel> getUsers();
 
@@ -33,6 +35,8 @@ public interface UserService {
 	ResponseEntity<UserServiceModel> deleteCliente(Integer id);
 
 	UserServiceModel updateClienteByAdmin(Integer id, ClienteUpdateByAdminRequest clienteUpdateByAdmin  );
+
+	User signUpAdmin(AuthRequestAdmin request) throws UserCantCreateException;
 	
 //	UserServiceModel create( UserPostRequest trabajadorPostRequest);//lo hacen los signups
 	

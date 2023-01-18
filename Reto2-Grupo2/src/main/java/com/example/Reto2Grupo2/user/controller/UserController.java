@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
+import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
-import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 import com.example.Reto2Grupo2.user.service.UserService;
 
@@ -63,14 +64,24 @@ public class UserController {
 	@PostMapping("/auth/signup/clientes")
 	public ResponseEntity<?> signupCliente(@RequestBody AuthRequestCliente request) {
 		//TODO pasar a service
-		User cliente = new User(request.getUsername(), request.getPassword(), request.getEmail());
 
 		try {
-			userService.signupCliente(cliente);
+			userService.signupCliente(request);
 		} catch (UserCantCreateException e) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		// TODO que devuelva los datos del usuario creado ???
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/auth/signup/admin")
+	public ResponseEntity<?> signupAdmin(@RequestBody AuthRequestAdmin request) {
+		
+		try {
+			userService.signUpAdmin(request);
+		} catch (UserCantCreateException e) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 

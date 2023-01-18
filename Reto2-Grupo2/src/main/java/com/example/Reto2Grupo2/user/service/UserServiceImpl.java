@@ -18,6 +18,8 @@ import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.rol.repository.RolRepository;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
+import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
@@ -246,15 +248,15 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.EMPLEADO.name()); 	
 	
 		User empleado = new User(
-		null,
-		requestEmple.getUsername(), 
-		requestEmple.getPassword(),
-		requestEmple.getEmail(),
-		zoo,
-		zoo.getId(),
-		trabajadorRol,
-		trabajadorRol.getId(),
-		null //billete
+				null,
+				requestEmple.getUsername(), 
+				requestEmple.getPassword(),
+				requestEmple.getEmail(),
+				zoo,
+				zoo.getId(),
+				trabajadorRol,
+				trabajadorRol.getId(),
+				null //billete
 		);
 			
 		try{
@@ -267,7 +269,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 
 	@Override
-	public User signupCliente(User cliente) throws UserCantCreateException {
+	public User signupCliente(AuthRequestCliente request) throws UserCantCreateException {
+		
+		User cliente = new User(request.getUsername(), request.getPassword(), request.getEmail());
+		
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
 		String password = passEncoder.encode(cliente.getPassword());		
 		cliente.setPassword(password);
@@ -356,6 +361,34 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Id del Cliente no encontrada");
 		}		
 				
+	}
+
+	@Override
+	public User signUpAdmin(AuthRequestAdmin request) throws UserCantCreateException {
+
+		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
+		String password = passEncoder.encode(request.getPassword());		
+		request.setPassword(password);
+		
+		Rol rolAdmin = rolRepository.findByName(RolEnum.ADMIN.name());
+		
+		User admin = new User(
+				null,
+				request.getUsername(), 
+				request.getPassword(),
+				request.getEmail(),
+				null,
+				null,
+				rolAdmin,
+				rolAdmin.getId(),
+				null
+				);
+		
+		try{
+			return userRepository.save(admin);
+		}catch (DataAccessException e) {
+			throw new UserCantCreateException(e.getMessage());
+		}		
 	}
 
 
