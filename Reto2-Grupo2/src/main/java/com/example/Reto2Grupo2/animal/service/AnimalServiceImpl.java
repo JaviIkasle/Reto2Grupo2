@@ -36,7 +36,6 @@ public class AnimalServiceImpl implements AnimalService{
 					animal.getId(),
 					animal.getNombre(),
 					animal.getInformacion(),
-					animal.getFoto(),
 					null,
 					animal.getEspecieId(),
 					null)
@@ -55,7 +54,6 @@ public class AnimalServiceImpl implements AnimalService{
 				animal.getId(),
 				animal.getNombre(),
 				animal.getInformacion(),
-				animal.getFoto(),
 				null,
 				animal.getEspecieId(),
 				null
@@ -74,7 +72,6 @@ public class AnimalServiceImpl implements AnimalService{
 				null,
 				animalPostRequest.getNombre(),
 				animalPostRequest.getInformacion(),
-				animalPostRequest.getFoto(),
 				especie,
 				animalPostRequest.getEspecieId(),
 				null
@@ -86,7 +83,6 @@ public class AnimalServiceImpl implements AnimalService{
 				animal.getId(),
 				animal.getNombre(),
 				animal.getInformacion(),
-				animal.getFoto(),
 				null,
 				animal.getEspecieId(),
 				null
@@ -110,9 +106,6 @@ public class AnimalServiceImpl implements AnimalService{
 		if (animalPostRequest.getInformacion() != null && animalPostRequest.getInformacion() != "") {
 			animal.setInformacion(animalPostRequest.getInformacion());
 		}
-		if (animalPostRequest.getFoto() != null & !animalPostRequest.getFoto().equals("")) {
-			animal.setFoto(animalPostRequest.getFoto());
-		}
 		if (animalPostRequest.getEspecieId() != null && animalPostRequest.getEspecieId() > 0) {
 			animal.setEspecie(especie);
 			animal.setEspecieId(especie.getId());
@@ -124,7 +117,6 @@ public class AnimalServiceImpl implements AnimalService{
 				animal.getId(),
 				animal.getNombre(),
 				animal.getInformacion(),
-				animal.getFoto(),
 				null,
 				animal.getEspecieId(),
 				null	
@@ -169,7 +161,6 @@ public class AnimalServiceImpl implements AnimalService{
 					animal.getId(),
 					animal.getNombre(),
 					animal.getInformacion(),
-					animal.getFoto(),
 					especieSacada,
 					animal.getEspecieId(),
 					null)

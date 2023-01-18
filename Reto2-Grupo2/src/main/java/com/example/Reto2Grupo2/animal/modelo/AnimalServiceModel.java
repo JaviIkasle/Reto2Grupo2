@@ -11,7 +11,6 @@ public class AnimalServiceModel {
 	private Integer id;
 	private String nombre;
 	private String informacion;
-	private String foto;
 	
 	private EspecieServiceModel especie;
 	
@@ -21,24 +20,22 @@ public class AnimalServiceModel {
 	
 	public AnimalServiceModel() {}
 	
-	public AnimalServiceModel(Integer id, String nombre, String informacion, String foto, EspecieServiceModel especie,
+	public AnimalServiceModel(Integer id, String nombre, String informacion, EspecieServiceModel especie,
 			Integer idEspecie) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
-		this.foto = foto;
 		this.especie = especie;
 		this.especieId = idEspecie;
 	}
 
-	public AnimalServiceModel(Integer id, String nombre, String informacion, String foto, EspecieServiceModel especie,
+	public AnimalServiceModel(Integer id, String nombre, String informacion, EspecieServiceModel especie,
 			Integer idEspecie, Set<ZooServiceModel> zoos) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
-		this.foto = foto;
 		this.especie = especie;
 		this.especieId = idEspecie;
 		this.zoos = zoos;
@@ -68,14 +65,6 @@ public class AnimalServiceModel {
 		this.informacion = informacion;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
 	public EspecieServiceModel getEspecie() {
 		return especie;
 	}
@@ -102,7 +91,6 @@ public class AnimalServiceModel {
 
 	@Override
 	public String toString() {
-		return "AnimalServiceModel [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", foto=" + foto
-				+ ", especie=" + especie + ", idEspecie=" + especieId + ", zoos=" + zoos + "]";
+		return "AnimalServiceModel [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", especie=" + especie + ", idEspecie=" + especieId + ", zoos=" + zoos + "]";
 	}
 }

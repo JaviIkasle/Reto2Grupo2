@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,9 +37,6 @@ public class Animal {
 	private String nombre;
 	@Column(length = 400)
 	private String informacion;
-	@Lob
-	@Column(columnDefinition="MEDIUMBLOB")
-	private String foto;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "especie_id", foreignKey=@ForeignKey(name = "FK_id_especie"))
@@ -49,7 +47,7 @@ public class Animal {
 	@Column(name="especie_id", insertable=false, updatable=false)
 	private Integer especieId;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "zoo_has_animal",
 			joinColumns = @JoinColumn(
@@ -64,21 +62,19 @@ public class Animal {
 	
 	public Animal() {}
 
-	public Animal(Integer id, String nombre, String informacion, String foto) {
+	public Animal(Integer id, String nombre, String informacion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
-		this.foto = foto;
 	}
 
-	public Animal(Integer id, String nombre, String informacion, String foto, Especie especie, Integer especieId,
+	public Animal(Integer id, String nombre, String informacion, Especie especie, Integer especieId,
 			Set<Zoo> zoos) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.informacion = informacion;
-		this.foto = foto;
 		this.especie = especie;
 		this.especieId = especieId;
 		this.zoos = zoos;
@@ -124,14 +120,6 @@ public class Animal {
 		this.especieId = especieId;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
 	public Set<Zoo> getZoos() {
 		return zoos;
 	}
@@ -142,7 +130,6 @@ public class Animal {
 
 	@Override
 	public String toString() {
-		return "Animal [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", foto=" + foto
-				+ ", especie=" + especie + ", idEspecie=" + especieId + ", zoos=" + zoos + "]";
+		return "Animal [id=" + id + ", nombre=" + nombre + ", informacion=" + informacion + ", especie=" + especie + ", idEspecie=" + especieId + ", zoos=" + zoos + "]";
 	}
 }
