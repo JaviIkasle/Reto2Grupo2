@@ -23,6 +23,7 @@ import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
+import com.example.Reto2Grupo2.user.modelo.EmailService;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
@@ -31,6 +32,7 @@ import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
+
 
 import jakarta.validation.Valid;
 
@@ -321,6 +323,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				}	
 						
 				cliente = userRepository.save(cliente);
+				
+//				String passParaMail = cliente.getPassword();
+//				String correoDeCliente = cliente.getEmail();
+//				
+				//enviarMail(passParaMail, correoDeCliente);
 					
 				UserServiceModel clienteResponse = new UserServiceModel(
 						cliente.getId(),
@@ -331,6 +338,24 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 	}
 	
+//	private void enviarMail(String passParaMail, String correoDeCliente) {
+//		
+//		String user = "javier.bazdepa@elorrieta-errekamari.com";
+//		String pass = "abrjelxkmhtxpjey";
+//		String to = correoDeCliente;
+//		String subject = "Cambio de contraseña";
+//		String message = "Le enviamos este mail para notificar de la nueva contraseña vinculada a su cuenta: \n" + passParaMail;
+//	
+//		EmailService emailService = new EmailService(user, pass, "smtp.gmail.com", 465);
+//		try {
+//			emailService.sendMail(to, subject, message);
+//			System.out.println("Ok, mail sent!");
+//		} catch (MessagingException e) {
+//			System.out.println("Doh! " + e.getMessage());
+//		}
+//		
+//	}
+
 	// carga los detalles de usuario.
 	// la validez de la contraseña es automatica. Si es incorrecta no se loguea y devuelve 401
 	@Override
