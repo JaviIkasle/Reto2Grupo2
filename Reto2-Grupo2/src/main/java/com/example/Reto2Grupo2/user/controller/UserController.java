@@ -63,7 +63,6 @@ public class UserController {
 
 	@PostMapping("/auth/signup/clientes")
 	public ResponseEntity<?> signupCliente(@RequestBody AuthRequestCliente request) {
-		//TODO pasar a service
 
 		try {
 			userService.signupCliente(request);

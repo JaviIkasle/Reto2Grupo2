@@ -38,7 +38,6 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	// TODO no funciona el unique
 	@Column(length = 60, unique = true)
 	private String username;
 	@Column(length = 60)

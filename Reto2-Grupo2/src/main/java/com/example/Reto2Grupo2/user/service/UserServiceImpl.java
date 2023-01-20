@@ -18,6 +18,7 @@ import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
 import com.example.Reto2Grupo2.rol.repository.RolRepository;
+import com.example.Reto2Grupo2.rol.service.RolService;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
@@ -39,11 +40,13 @@ import jakarta.validation.Valid;
 public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Autowired
+	RolService rolService ;
+	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private ZooRepository zooRepository;
+	private ZooRepository zooRepository; //TODO llamar al service zoo y de ahi a su repositorio
 	@Autowired
-	private RolRepository rolRepository;
+	private RolRepository rolRepository;//TODO llamar al service rol y de ahi a su repositorio
 	
 	@Override
 	public List<UserServiceModel> getUsers() {
@@ -123,10 +126,14 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				);	
 				
 				if(user.getRol().getName().equalsIgnoreCase("CLIENTE")) {
-								
+													
+				RolServiceModel rolServiceModel =rolService.getRolesById(user.getRolId());
+				
+				Rol rolOld = new Rol(
+								rolServiceModel.getId(),
+								rolServiceModel.getName(),
+								null);
 					
-					Rol rolOld = rolRepository.findById(user.getRolId()).orElseThrow(
-							() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
 					
 					if ( clienteUpdateByAdmin.getUsername()!=null && clienteUpdateByAdmin.getUsername()!= "") {
 						user.setUsername(clienteUpdateByAdmin.getUsername());
@@ -139,10 +146,17 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						user.setEmail(clienteUpdateByAdmin.getEmail());
 					}	
 																
-					if ( clienteUpdateByAdmin.getRolId()!=null ) {			
-						Rol rolNew = rolRepository.findById(clienteUpdateByAdmin.getRolId()).orElseThrow(
-								() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+					if ( clienteUpdateByAdmin.getRolId()!=null ) {		
+						
+						 rolServiceModel =rolService.getRolesById(clienteUpdateByAdmin.getRolId());
+						
+						Rol rolNew = new Rol(
+										rolServiceModel.getId(),
+										rolServiceModel.getName(),
+										null);
+						
 						user.setRol(rolNew);
+						
 						user.setRolId(clienteUpdateByAdmin.getRolId());
 					}else {			
 						user.setRol(rolOld);
@@ -169,7 +183,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 
 	@Override
-	public UserServiceModel updateEmpleByAdmin(Integer id, EmpleUpdateByAdminRequest userUpdateRequest) {
+	public UserServiceModel updateEmpleByAdmin(Integer id, EmpleUpdateByAdminRequest empleUpdateRequest) {
 
 
 		//SI SE MODIFICA UN registro QUE NO EXISTE, PROVOCAMOS ESTE ERROR
@@ -178,39 +192,51 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		);	
 		
 		if(user.getRol().getName().equalsIgnoreCase("EMPLEADO")) {
-			
+								
 			Zoo zooOld = zooRepository.findById(user.getZooId()).orElseThrow(
 					() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
 			
 			
-			Rol rolOld = rolRepository.findById(user.getRolId()).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+			RolServiceModel rolServiceModel =rolService.getRolesById(user.getRolId());
 			
-			if ( userUpdateRequest.getUsername()!=null && userUpdateRequest.getUsername()!= "") {
-				user.setUsername(userUpdateRequest.getUsername());
+			Rol rolOld = new Rol(
+							rolServiceModel.getId(),
+							rolServiceModel.getName(),
+							null);
+						
+			
+			if ( empleUpdateRequest.getUsername()!=null && empleUpdateRequest.getUsername()!= "") {
+				user.setUsername(empleUpdateRequest.getUsername());
 			}	
-			if ( userUpdateRequest.getPassword()!=null && userUpdateRequest.getPassword()!= "") {
+			if ( empleUpdateRequest.getPassword()!=null && empleUpdateRequest.getPassword()!= "") {
 				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-				user.setPassword(passwordEncoder.encode(userUpdateRequest.getPassword()));
+				user.setPassword(passwordEncoder.encode(empleUpdateRequest.getPassword()));
 			}
-			if ( userUpdateRequest.getEmail()!=null && userUpdateRequest.getEmail()!= "") {
-				user.setEmail(userUpdateRequest.getEmail());
+			if ( empleUpdateRequest.getEmail()!=null && empleUpdateRequest.getEmail()!= "") {
+				user.setEmail(empleUpdateRequest.getEmail());
 			}	
 							
-			if ( userUpdateRequest.getZooId()!= null ) {
-				Zoo zooNew = zooRepository.findById(userUpdateRequest.getZooId()).orElseThrow(
+			if ( empleUpdateRequest.getZooId()!= null ) {
+				Zoo zooNew = zooRepository.findById(empleUpdateRequest.getZooId()).orElseThrow(
 							() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
-				user.setZooId(userUpdateRequest.getZooId());
+				user.setZooId(empleUpdateRequest.getZooId());
 				user.setZoo(zooNew);
 			}else {										
 				user.setZoo(zooOld);									
 			}
 						
-			if ( userUpdateRequest.getRolId()!=null ) {			
-				Rol rolNew = rolRepository.findById(userUpdateRequest.getRolId()).orElseThrow(
-						() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
+			if ( empleUpdateRequest.getRolId()!=null ) {	
+				
+							
+				rolServiceModel =rolService.getRolesById(empleUpdateRequest.getRolId());
+				
+				Rol rolNew = new Rol(
+								rolServiceModel.getId(),
+								rolServiceModel.getName(),
+								null);
+
 				user.setRol(rolNew);
-				user.setRolId(userUpdateRequest.getRolId());
+				user.setRolId(empleUpdateRequest.getRolId());
 			}else {			
 				user.setRol(rolOld);
 			}
@@ -244,6 +270,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	
 		Zoo zoo = zooRepository.findById(requestEmple.getZooId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));		
+		
+		
 		
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.EMPLEADO.name()); 	
 	

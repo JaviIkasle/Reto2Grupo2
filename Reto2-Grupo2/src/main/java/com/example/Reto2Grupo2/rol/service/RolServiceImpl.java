@@ -35,7 +35,7 @@ public class RolServiceImpl implements RolService{
 
 	@Override
 	public RolServiceModel getRolesById(Integer id) {
-		
+						
 		Rol rol = rolRepository.findById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
 	

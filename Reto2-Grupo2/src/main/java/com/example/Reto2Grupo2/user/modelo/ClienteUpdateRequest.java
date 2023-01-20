@@ -1,5 +1,7 @@
 package com.example.Reto2Grupo2.user.modelo;
 
+import jakarta.validation.constraints.Email;
+
 public class ClienteUpdateRequest {
 
 	private String username;
@@ -8,12 +10,14 @@ public class ClienteUpdateRequest {
 
 	private String newPassword;
 
+	@Email(message = "Email incorrecto")
 	private String email;
 
 	public ClienteUpdateRequest() {
 	}
 
-	public ClienteUpdateRequest(String username, String oldPassword, String newPassword, String email) {
+	public ClienteUpdateRequest(String username, String oldPassword, String newPassword,
+			@Email(message = "Email incorrecto") String email) {
 		super();
 		this.username = username;
 		this.oldPassword = oldPassword;
