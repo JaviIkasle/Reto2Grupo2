@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 					new UserServiceModel(
 							user.getId(),
 							user.getUsername(),
-							user.getPassword(),
 							user.getEmail(),
 							null,
 							user.getZooId(),
@@ -106,7 +105,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		UserServiceModel response = new UserServiceModel(
 				user.getId(),
 				user.getUsername(),
-				user.getPassword(),
+
 				user.getEmail(),
 				zooResponse,
 				user.getZooId(),
@@ -167,7 +166,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						UserServiceModel userResponse = new UserServiceModel(
 								user.getId(),
 								user.getUsername(),
-								user.getPassword(),
+
 								user.getEmail(),
 								null,
 								user.getZooId(),
@@ -246,7 +245,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				UserServiceModel userResponse = new UserServiceModel(
 						user.getId(),
 						user.getUsername(),
-						user.getPassword(),
+
 						user.getEmail(),
 						null,
 						user.getZooId(),
@@ -353,7 +352,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				UserServiceModel clienteResponse = new UserServiceModel(
 						cliente.getId(),
 						cliente.getUsername(),
-						cliente.getPassword(),
+
 						cliente.getEmail());
 				return clienteResponse;
 		

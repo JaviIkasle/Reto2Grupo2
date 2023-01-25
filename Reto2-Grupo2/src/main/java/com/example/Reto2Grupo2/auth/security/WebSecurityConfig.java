@@ -45,7 +45,8 @@ public class WebSecurityConfig {
 						.requestMatchers("/api/auth/signup/empleados").hasAuthority(RolEnum.ADMIN.name())
 						.requestMatchers("/api/auth/signup/admin").hasAuthority(RolEnum.ADMIN.name())
 						.requestMatchers("/api/auth/signup/clientes").permitAll()					
-						.requestMatchers("/api/auth/login").permitAll()	
+						.requestMatchers("/api/auth/login").permitAll()
+						
 						
 						.requestMatchers(HttpMethod.GET, "/api/eventos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
 						.requestMatchers("/api/eventos/**").hasAuthority(RolEnum.EMPLEADO.name())

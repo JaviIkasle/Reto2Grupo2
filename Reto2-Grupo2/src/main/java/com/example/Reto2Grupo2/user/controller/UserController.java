@@ -114,7 +114,6 @@ public class UserController {
 		userService.deleteById(id);
 
 	}
-
 	
 	@DeleteMapping("/users/cliente")
 	public void deleteCliente(Authentication authentication) {
@@ -122,13 +121,5 @@ public class UserController {
 		User userDetails = (User) authentication.getPrincipal();
 		userService.deleteCliente(userDetails.getId());
 	}
-
-	// YA LO HACE EL SIGNUP
-//	@PostMapping("/users")
-//	public ResponseEntity<UserServiceModel> createTrabajador(@RequestBody UserPostRequest trabajadorPostRequest) {
-//
-//		UserServiceModel trabajadorResponse = trabajadorService.create(trabajadorPostRequest);
-//		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.CREATED);
-//	}
 
 }

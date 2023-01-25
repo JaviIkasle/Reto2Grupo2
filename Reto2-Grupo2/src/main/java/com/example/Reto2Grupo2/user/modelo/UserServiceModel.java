@@ -12,7 +12,7 @@ public class UserServiceModel {
 
 	private String username;
 
-	private String password;
+	//private String password;
 	
 	private String email;
 
@@ -30,12 +30,12 @@ public class UserServiceModel {
 
 	}
 	
-	public UserServiceModel(Integer id, String username, String password, String email, ZooServiceModel zoo,
+	public UserServiceModel(Integer id, String username, String email, ZooServiceModel zoo,
 			Integer zooId, RolServiceModel rol, Integer rolId, List<Billete> billetes) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.password = password;
+	//	this.password = password;
 		this.email = email;
 		this.zoo = zoo;
 		this.zooId = zooId;
@@ -44,20 +44,20 @@ public class UserServiceModel {
 		this.billetes = billetes;
 	}
 
-	public UserServiceModel(Integer id, String username, String password, String email) {
+	public UserServiceModel(Integer id, String username,  String email) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
-		this.password = password;
+	
 	}
 
 
-	public UserServiceModel(Integer id, String username, String password) {
+	public UserServiceModel(Integer id, String username) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.password = password;
+	
 	}
 
 
@@ -77,13 +77,6 @@ public class UserServiceModel {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public ZooServiceModel getZoo() {
 		return zoo;
@@ -136,9 +129,8 @@ public class UserServiceModel {
 
 	@Override
 	public String toString() {
-		return "UserServiceModel [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", zoo=" + zoo + ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + ", billetes=" + billetes
-				+ "]";
+		return "UserServiceModel [id=" + id + ", username=" + username + ", email=" + email + ", zoo=" + zoo
+				+ ", zooId=" + zooId + ", rol=" + rol + ", rolId=" + rolId + ", billetes=" + billetes + "]";
 	}
 
 }
