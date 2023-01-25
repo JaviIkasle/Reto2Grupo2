@@ -152,8 +152,8 @@ public class AnimalServiceImpl implements AnimalService{
 			
 			especieSacada = new EspecieServiceModel(
 					especie.getId(),
-					especie.getInformacion(),
 					especie.getNombre(),
+					especie.getInformacion(),
 					null
 			);
 				

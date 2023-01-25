@@ -26,7 +26,6 @@ import com.example.Reto2Grupo2.billete.repository.BilleteRepository;
 import com.example.Reto2Grupo2.billete.service.BilleteService;
 import com.example.Reto2Grupo2.user.modelo.User;
 
-
 @RestController
 @RequestMapping("api")
 public class BIleteController {
@@ -35,7 +34,7 @@ public class BIleteController {
 	private BilleteRepository billeteRepository;
 
 	@Autowired
-	private BilleteService  billeteService ;
+	private BilleteService  billeteService;
 	
 	@GetMapping("/billetes")
 	public ResponseEntity<List<BilleteServiceModel>> getEventos(Authentication authentication) {
