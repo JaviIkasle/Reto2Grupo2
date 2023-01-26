@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.cifrado.OurPassEncoder;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
@@ -300,9 +301,9 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 		User cliente = new User(request.getUsername(), request.getPassword(), request.getEmail());
 		
-		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
-		String password = passEncoder.encode(cliente.getPassword());		
-		cliente.setPassword(password);
+		
+		OurPassEncoder encoder = new OurPassEncoder();	
+		cliente.setPassword(encoder.encode(cliente.getPassword()));
 		
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.CLIENTE.name()); 	
 		cliente.setRol(trabajadorRol);
@@ -317,13 +318,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public UserServiceModel updateCliente(ClienteUpdateRequest clienteUpdateRequest, Integer userId) {
 
-		System.out.println("eeeeeeeee " + userId);
 		
 		User cliente = userRepository.findById(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Cliente no encontrado")
 		);
 		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				
 				if ( clienteUpdateRequest.getUsername()!=null && clienteUpdateRequest.getUsername()!= "") {
 					cliente.setUsername(clienteUpdateRequest.getUsername());
@@ -334,9 +334,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						
 							String oldPass = clienteUpdateRequest.getOldPassword();
 							String newPass = clienteUpdateRequest.getNewPassword();
-												
-							if (passwordEncoder.matches(oldPass, cliente.getPassword())) {																	
-							cliente.setPassword(passwordEncoder.encode(newPass));
+							
+							
+							OurPassEncoder encoder = new OurPassEncoder();						
+															
+							if (encoder.matches(oldPass, cliente.getPassword())) {							
+							cliente.setPassword(encoder.encode(newPass));
 							
 							} else {
 								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Contraseña incorrecta");		

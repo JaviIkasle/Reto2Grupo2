@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.example.Reto2Grupo2.cifrado.OurPassEncoder;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 
 
@@ -29,7 +30,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new OurPassEncoder();
 	}
 	
 	@Bean
