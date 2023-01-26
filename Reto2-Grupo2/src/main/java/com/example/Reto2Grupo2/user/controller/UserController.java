@@ -103,8 +103,13 @@ public class UserController {
 	public ResponseEntity<UserServiceModel> updateCliente(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest,
 			Authentication authentication) {
 	
+		System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+		
+		System.out.println(clienteUpdateRequest);
+		
 		User userDetails = (User) authentication.getPrincipal();
 
+		
 		UserServiceModel userResponse = userService.updateCliente(clienteUpdateRequest, userDetails.getId());
 		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
