@@ -303,6 +303,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 		
 		OurPassEncoder encoder = new OurPassEncoder();	
+		
+		System.out.println("PASSS HASHEADAAAA"+encoder.encode(cliente.getPassword()));
 		cliente.setPassword(encoder.encode(cliente.getPassword()));
 		
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.CLIENTE.name()); 	
