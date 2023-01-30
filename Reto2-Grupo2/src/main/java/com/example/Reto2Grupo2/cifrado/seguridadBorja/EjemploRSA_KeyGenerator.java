@@ -60,7 +60,7 @@ public class EjemploRSA_KeyGenerator {
                        
             
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

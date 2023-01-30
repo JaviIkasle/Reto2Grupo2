@@ -8,17 +8,15 @@ import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
-import com.example.Reto2Grupo2.cifrado.seguridadBorja.EjemploRSA_KeyGenerator;
-
 public class GeneratorKeys {
 	
-	 private static final String PUBLIC_KEY_FILE_PATH = "//EjemploRSA_Public.key";
-	 private static final String PRIVATE_KEY_FILE_PATH = "//EjemploRSA_Private.key";
+	 private static final String PUBLIC_KEY_FILE_PATH = "RSA_Public.key";
+	 private static final String PRIVATE_KEY_FILE_PATH = "RSA_Private.key";
 	 
    /**
     * Genera el fichero con la clave privada
     */
-   public void generatePrivateKey() {
+   public void generateKeys() {
 
        KeyPairGenerator generator;
        try {
@@ -39,17 +37,11 @@ public class GeneratorKeys {
            fileOutputStream = new FileOutputStream(PRIVATE_KEY_FILE_PATH);
            fileOutputStream.write(pKCS8EncodedKeySpec.getEncoded());
            fileOutputStream.close();
-                      
-           
+                                 
        } catch (Exception e) {
            e.printStackTrace();
        }
    }
 
-   public static void main(String[] args) {
-       EjemploRSA_KeyGenerator ejemploRSA_KeyGenerator = new EjemploRSA_KeyGenerator();
-       ejemploRSA_KeyGenerator.generatePrivateKey();
-       System.out.println("Ficheros de Clave Generados!");
-   }
 
 }
