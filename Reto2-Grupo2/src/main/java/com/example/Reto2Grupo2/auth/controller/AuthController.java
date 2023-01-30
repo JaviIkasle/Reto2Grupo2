@@ -2,7 +2,10 @@ package com.example.Reto2Grupo2.auth.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.Base64;
+
 import org.hibernate.engine.spi.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Reto2Grupo2.auth.model.AuthResponse;
 import com.example.Reto2Grupo2.auth.model.LoginRequest;
 import com.example.Reto2Grupo2.auth.security.JwtTokenUtil;
-import com.example.Reto2Grupo2.cifrado.CifradoRSA;
-import com.example.Reto2Grupo2.cifrado.GeneratorKeys;
+import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
+import com.example.Reto2Grupo2.cifradoRSA.GeneratorKeys;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.User;
 
@@ -35,7 +38,9 @@ public class AuthController {
 	private JwtTokenUtil jwtUtil;
 	@Autowired
 	private CifradoRSA cifradoRSA;
+	
 
+	
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> login(@RequestBody AuthRequestEmple request) {
 
@@ -71,6 +76,8 @@ public class AuthController {
 
 		System.out.println("eeeeeeeee222222" + loginRequest);
 		
+		System.out.println(" Pass con clave publica :" + loginRequest.getPassword());
+		
 		byte[] passDescifrada = cifradoRSA.descifrarTexto(loginRequest.getPassword());
 		
 		String pass = new String(passDescifrada);
@@ -94,33 +101,40 @@ public class AuthController {
 	}
 	
 
-	@GetMapping("/generatorKeys")
-	public ResponseEntity<Status> generateKeys() {
-		System.out.println("Generaaaannndo Ficheros de Clave !");
-
-		GeneratorKeys generatorKeys = new GeneratorKeys();
-		generatorKeys.generateKeys();
-		System.out.println("Ficheros de Clave Generados!");
-
-		return ResponseEntity.status(HttpStatus.CREATED).build();
-	}
-
+//	@GetMapping("/generatorKeys")
+//	public ResponseEntity<Status> generateKeys() {
+//		System.out.println("Generaaaannndo Ficheros de Clave !");
+//
+//		GeneratorKeys generatorKeys = new GeneratorKeys();
+//		generatorKeys.generateKeys();
+//		System.out.println("Ficheros de Clave Generados!");
+//
+//		return ResponseEntity.status(HttpStatus.CREATED).build();
+//	}
+//
 	@GetMapping("/getPublicKey")
-	public byte[] getPublicKey() {
-
+	public String  getPublicKey() {
+						
 		String publicKeyPath = CifradoRSA.PUBLIC_KEY_FILE_PATH;
 		byte[] clavePublica = null;
 
 		File ficheroPublica = new File(publicKeyPath);
 		
 		try {
+			
 			clavePublica = Files.readAllBytes(ficheroPublica.toPath());
+			System.out.println(clavePublica);
+			System.out.println("Clave Publica recogida!");
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return clavePublica;
+		System.out.println("CLAVE PUBLICA  " +clavePublica);
+		
+		String encodedBASE64 = Base64.getEncoder().encodeToString(clavePublica);
+	
+		return encodedBASE64;
 	}
 
 }

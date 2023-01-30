@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cifrado;
+package com.example.Reto2Grupo2.cifradoRSA;
 
 import java.io.FileOutputStream;
 import java.security.KeyPair;
@@ -10,8 +10,8 @@ import java.security.spec.X509EncodedKeySpec;
 
 public class GeneratorKeys {
 	
-	 private static final String PUBLIC_KEY_FILE_PATH = "RSA_Public.key";
-	 private static final String PRIVATE_KEY_FILE_PATH = "RSA_Private.key";
+	 private static final String PUBLIC_KEY_FILE_PATH = "Public_KEY.key";
+	 private static final String PRIVATE_KEY_FILE_PATH = "Private_KEY.key";
 	 
    /**
     * Genera el fichero con la clave privada
@@ -31,7 +31,7 @@ public class GeneratorKeys {
            FileOutputStream fileOutputStream = new FileOutputStream(PUBLIC_KEY_FILE_PATH);
            fileOutputStream.write(x509EncodedKeySpec.getEncoded());
            fileOutputStream.close();
-
+          
            // Privada
            PKCS8EncodedKeySpec pKCS8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
            fileOutputStream = new FileOutputStream(PRIVATE_KEY_FILE_PATH);
@@ -40,9 +40,12 @@ public class GeneratorKeys {
                                  
        } catch (Exception e) {
            e.printStackTrace();
-           System.out.println("ficheros ya existen");
+           System.out.println("Ficheros ya existen");
        }
    }
 
-
+	public static void main(String[] args) {		
+		GeneratorKeys generatorKeys = new GeneratorKeys();
+		generatorKeys.generateKeys();
+	}
 }

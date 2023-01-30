@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cifrado.seguridadBorja;
+package com.example.Reto2Grupo2.cifradoRSA.seguridadBorja;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

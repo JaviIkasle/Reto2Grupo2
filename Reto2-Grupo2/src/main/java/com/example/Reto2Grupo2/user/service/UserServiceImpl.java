@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
-import com.example.Reto2Grupo2.cifrado.CifradoRSA;
-import com.example.Reto2Grupo2.cifrado.OurPassEncoder;
+import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
+import com.example.Reto2Grupo2.cifradoRSA.OurPassEncoder;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
@@ -272,6 +272,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public User signupEmpleado(AuthRequestEmple requestEmple) throws UserCantCreateException {
 			
+		//TODO to OurpassEncoder
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
 		String password = passEncoder.encode(requestEmple.getPassword());		
 		requestEmple.setPassword(password);
