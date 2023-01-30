@@ -3,7 +3,6 @@ package com.example.Reto2Grupo2.auth.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
 import org.hibernate.engine.spi.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.Reto2Grupo2.auth.model.AuthResponse;
+import com.example.Reto2Grupo2.auth.model.LoginRequest;
 import com.example.Reto2Grupo2.auth.security.JwtTokenUtil;
 import com.example.Reto2Grupo2.cifrado.CifradoRSA;
 import com.example.Reto2Grupo2.cifrado.GeneratorKeys;
@@ -30,10 +29,13 @@ import com.example.Reto2Grupo2.user.modelo.User;
 public class AuthController {
 
 	@Autowired
-	AuthenticationManager authManager;
+	private AuthenticationManager authManager;
 
 	@Autowired
-	JwtTokenUtil jwtUtil;
+	private JwtTokenUtil jwtUtil;
+	
+	@Autowired
+	private CifradoRSA cifradoRSA;
 
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> login(@RequestBody AuthRequestEmple request) {
@@ -57,17 +59,45 @@ public class AuthController {
 	
 	
 
-	@PostMapping("/auth/login/android")
-	public ResponseEntity<?> loginAndroid(@RequestBody AuthRequestEmple request) {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
+	//PARA ANDROID Y PSP
+	@PostMapping("/auth/login/android")
+	public ResponseEntity<?> loginAndroid(@RequestBody LoginRequest loginRequest) {
+	
+		
+		byte[] passDescifrada = cifradoRSA.descifrarTexto(loginRequest.getPassword());
+		
+		String pass = new String(passDescifrada);
+		
 		try {
-			
-			
-			
-			
-			
+
 			Authentication authentication = authManager.authenticate(
-					new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), pass));
 
 			User trabajadorUser = (User) authentication.getPrincipal();
 
@@ -82,28 +112,7 @@ public class AuthController {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 //	PARA ANDROID Y PSP

@@ -20,9 +20,11 @@ import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateAndroid;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
 import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
+import com.example.Reto2Grupo2.user.modelo.SignInClienteAndroid;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
@@ -102,6 +104,7 @@ public class UserController {
 	@PutMapping("/users/cliente")
 	public ResponseEntity<UserServiceModel> updateCliente(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest,
 			Authentication authentication) {
+
 		
 		User userDetails = (User) authentication.getPrincipal();
 	
@@ -120,6 +123,30 @@ public class UserController {
 
 		User userDetails = (User) authentication.getPrincipal();
 		userService.deleteCliente(userDetails.getId());
+	}
+	
+	//PARA ANDROID Y PSP
+	@PutMapping("/users/cliente/android")
+	public ResponseEntity<UserServiceModel> updateClienteAndroid(@Valid @RequestBody ClienteUpdateAndroid clienteUpdateRequest,
+			Authentication authentication) {
+
+		User userDetails = (User) authentication.getPrincipal();
+	
+		UserServiceModel userResponse = userService.updateClienteAndroid(clienteUpdateRequest, userDetails.getId());
+		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
+	}
+	
+	// PARA ANDROID Y PSP
+	@PostMapping("/auth/signup/clientes/android")
+	public ResponseEntity<?> signupClienteAndroid(@RequestBody SignInClienteAndroid request) {
+
+		try {
+			userService.signupClienteAndroid(request);
+		} catch (UserCantCreateException e) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 }

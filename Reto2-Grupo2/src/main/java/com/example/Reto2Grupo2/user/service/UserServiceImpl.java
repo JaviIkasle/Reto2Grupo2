@@ -2,6 +2,7 @@ package com.example.Reto2Grupo2.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,7 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.cifrado.CifradoRSA;
 import com.example.Reto2Grupo2.cifrado.OurPassEncoder;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
@@ -23,12 +26,14 @@ import com.example.Reto2Grupo2.rol.service.RolService;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateAndroid;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
+import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
+import com.example.Reto2Grupo2.user.modelo.SignInClienteAndroid;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
-import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
@@ -48,6 +53,9 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	private ZooRepository zooRepository; //TODO llamar al service zoo y de ahi a su repositorio
 	@Autowired
 	private RolRepository rolRepository;//TODO llamar al service rol y de ahi a su repositorio
+	
+	@Autowired
+	private CifradoRSA cifradoRSA;
 	
 	@Override
 	public List<UserServiceModel> getUsers() {
@@ -423,8 +431,77 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		}		
 	}
 
-
+//  PARA ANDROID Y PSP
+	@Override
+	public User signupClienteAndroid(SignInClienteAndroid  request) throws UserCantCreateException {
+		
 	
+		byte[] passDescifrada = cifradoRSA.descifrarTexto(request.getPassword());		
+		String pass = new String(passDescifrada);	
+		
+		User cliente = new User(request.getUsername(), pass, request.getEmail());
+		
+		
+		OurPassEncoder encoder = new OurPassEncoder();	
+		
+		System.out.println("PASSS HASHEADAAAA"+encoder.encode(cliente.getPassword()));
+		cliente.setPassword(encoder.encode(cliente.getPassword()));
+		
+		Rol trabajadorRol = rolRepository.findByName(RolEnum.CLIENTE.name()); 	
+		cliente.setRol(trabajadorRol);
+			
+		try{
+			return userRepository.save(cliente);
+		}catch (DataAccessException e) {
+			throw new UserCantCreateException(e.getMessage());
+		}		
+	}
+
+	// PARA ANDROID Y PSP
+	@Override
+	public UserServiceModel updateClienteAndroid(ClienteUpdateAndroid clienteUpdateAndroid, Integer userId) {
+				
+		byte[] oldPassCifrada = cifradoRSA.descifrarTexto(clienteUpdateAndroid.getOldPassword());		
+		byte[] newPassCifrada = cifradoRSA.descifrarTexto(clienteUpdateAndroid.getNewPassword());	
+			
+		String oldPass = new String(oldPassCifrada);
+		String newPass = new String(newPassCifrada);
+		
+		
+		User cliente = userRepository.findById(userId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Cliente no encontrado")
+		);
+		
+		//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				
+				if ( clienteUpdateAndroid.getUsername()!=null && clienteUpdateAndroid.getUsername()!= "") {
+					cliente.setUsername(clienteUpdateAndroid.getUsername());
+				}	
+								
+				if ( clienteUpdateAndroid.getOldPassword()!=null && oldPass != "" 
+							&& clienteUpdateAndroid.getNewPassword() != null && newPass != "") {
+												
+							
+							OurPassEncoder encoder = new OurPassEncoder();						
+															
+							if (encoder.matches(oldPass, cliente.getPassword())) {							
+							cliente.setPassword(encoder.encode(newPass));
+							
+							} else {
+								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Contraseña incorrecta");		
+							}																													
+				}
+	
+						
+				cliente = userRepository.save(cliente);
+					
+				UserServiceModel clienteResponse = new UserServiceModel(
+						cliente.getId(),
+						cliente.getUsername(),
+
+						cliente.getEmail());
+				return clienteResponse;
+	}
 	
 
 //	YA LO HACE EL SIGNUP

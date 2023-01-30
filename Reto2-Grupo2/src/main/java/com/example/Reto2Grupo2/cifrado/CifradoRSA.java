@@ -39,8 +39,7 @@ public class CifradoRSA {
        } catch (Exception e) {
            e.printStackTrace();
        }
-       
-       
+            
        return encodedMessage;
    }
 
@@ -51,7 +50,7 @@ public class CifradoRSA {
     * @param mensaje El mensaje a descifrar
     * @return El mensaje descifrado
     */
-   private byte[] descifrarTexto(byte[] mensaje) {
+   public byte[] descifrarTexto(byte[] mensaje) {
        byte[] decodedMessage = null;
        try {
            // Clave publica
