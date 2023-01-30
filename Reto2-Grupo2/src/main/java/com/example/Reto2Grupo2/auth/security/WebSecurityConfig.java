@@ -1,5 +1,8 @@
 package com.example.Reto2Grupo2.auth.security;
 
+
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +15,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 
 
+@CrossOrigin
 @Configuration
 public class WebSecurityConfig {
 	
@@ -32,6 +40,22 @@ public class WebSecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
+	
+	@Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:7024", "http://localhost:3100"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+        // setAllowCredentials(true) is important, otherwise:
+        // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.
+        configuration.setAllowCredentials(true);
+        // setAllowedHeaders is important! Without it, OPTIONS preflight request
+        // will fail with 403 Invalid CORS request
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
@@ -70,6 +94,8 @@ public class WebSecurityConfig {
 
 						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																																	
 						
+						.requestMatchers("/api/usersWEB/**").permitAll()
+						
 						.anyRequest().authenticated()
 						);		
 		
@@ -77,6 +103,7 @@ public class WebSecurityConfig {
 		http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 	
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);		
+		http.cors();
 		return http.build();
 	}
 }
