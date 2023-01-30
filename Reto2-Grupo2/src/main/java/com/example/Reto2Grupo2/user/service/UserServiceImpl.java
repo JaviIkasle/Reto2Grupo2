@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.email.modelo.Mensaje;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
@@ -291,8 +292,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	
 	@Override
 	public UserServiceModel updateCliente(ClienteUpdateRequest clienteUpdateRequest, Integer userId) {
-
-		System.out.println("eeeeeeeee " + userId);
 		
 		User cliente = userRepository.findById(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Cliente no encontrado")
@@ -324,10 +323,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						
 				cliente = userRepository.save(cliente);
 				
-//				String passParaMail = cliente.getPassword();
-//				String correoDeCliente = cliente.getEmail();
-//				
-				//enviarMail(passParaMail, correoDeCliente);
+				new Mensaje().enviarMensaje();
 					
 				UserServiceModel clienteResponse = new UserServiceModel(
 						cliente.getId(),
@@ -337,24 +333,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				return clienteResponse;
 		
 	}
-	
-//	private void enviarMail(String passParaMail, String correoDeCliente) {
-//		
-//		String user = "javier.bazdepa@elorrieta-errekamari.com";
-//		String pass = "abrjelxkmhtxpjey";
-//		String to = correoDeCliente;
-//		String subject = "Cambio de contraseña";
-//		String message = "Le enviamos este mail para notificar de la nueva contraseña vinculada a su cuenta: \n" + passParaMail;
-//	
-//		EmailService emailService = new EmailService(user, pass, "smtp.gmail.com", 465);
-//		try {
-//			emailService.sendMail(to, subject, message);
-//			System.out.println("Ok, mail sent!");
-//		} catch (MessagingException e) {
-//			System.out.println("Doh! " + e.getMessage());
-//		}
-//		
-//	}
 
 	// carga los detalles de usuario.
 	// la validez de la contraseña es automatica. Si es incorrecta no se loguea y devuelve 401
