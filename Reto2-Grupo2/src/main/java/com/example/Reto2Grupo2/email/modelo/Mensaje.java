@@ -14,6 +14,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import com.example.Reto2Grupo2.cifradoAES.CifradoAES;
+
 public class Mensaje {
 	
 	private String user = null;
@@ -72,16 +74,17 @@ public class Mensaje {
 		
 	}
 	
+	
 	public void enviarMensaje() {
 		
-		String user = "javier.bazdepa@elorrieta-errekamari.com";
-		String pass = "ryxtvdpcbzwepztn";
+		CifradoAES cifrado = new CifradoAES();
+		
 		String to = "javier.bazdepa@elorrieta-errekamari.com";
 		String subject = "Cambio de contraseña de cuenta en WildProject";
 		String text = "Tu contraseña se ha cambiado satisfactoriamente, ingresa en la app con tu nueva contraseña.";
 
 	
-		Mensaje emailService = new Mensaje(user, pass, "smtp.gmail.com", 465);
+		Mensaje emailService = new Mensaje(cifrado.cojerCredencialUser(), cifrado.cojerCredencialPass(), "smtp.gmail.com", 465);
 		try {
 			emailService.cambioDePass(to, subject, text);
 		} catch (MessagingException e) {

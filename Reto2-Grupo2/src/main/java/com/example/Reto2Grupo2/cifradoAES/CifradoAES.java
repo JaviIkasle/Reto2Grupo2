@@ -14,24 +14,28 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class CifradoAES {
+	
+	private static final String FILE_PATH_USER = "src\\main\\resources\\UserCredentials.dat";
+	private static final String FILE_PATH_PASS = "src\\main\\resources\\PassCredentials.dat";
+	private static final String CLAVE = "clave";
+	
+	private String user;
+	private String pass;
 
 	public CifradoAES() {
 
-		String user = "javier.bazdepa@elorrieta-errekamari.com";
-		String pass = "ryxtvdpcbzwepztn";
+		user = "javier.bazdepa@elorrieta-errekamari.com";
+		pass = "ryxtvdpcbzwepztn";
 
-		String mensajeCifrado = cifrarUser("Clave", user);
-		String mensajeCifrado2 = cifrarPass("Clave", pass);
+		cifrarUser(user);
+		cifrarPass(pass);
 
 	}
 
 	private static byte[] salt = "esta es la salt!".getBytes();
+
 	
-	private static final String FILE_PATHU = "User.dat";
-	private static final String FILE_PATHP = "Pass.dat";
-
-
-	public static String cifrarUser(String clave, String mensaje) {
+	public static String cifrarUser(String mensaje) {
 		
 		
 		String ret = null;
@@ -40,7 +44,7 @@ public class CifradoAES {
 		FileOutputStream fileOutputStream = null;
 		try {
 
-			keySpec = new PBEKeySpec(clave.toCharArray(), salt, 65536, 128); // AES-128
+			keySpec = new PBEKeySpec(CLAVE.toCharArray(), salt, 65536, 128); // AES-128
 			secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 			byte[] key = secretKeyFactory.generateSecret(keySpec).getEncoded();
 			SecretKey privateKey = new SecretKeySpec(key, 0, key.length, "AES");
@@ -52,7 +56,7 @@ public class CifradoAES {
 
 			byte[] combined = concatArrays(iv, encodedMessage);
 
-			fileOutputStream = new FileOutputStream(FILE_PATHU);
+			fileOutputStream = new FileOutputStream(FILE_PATH_USER);
 			fileOutputStream.write(combined);
 
 			ret = new String(encodedMessage);
@@ -63,7 +67,7 @@ public class CifradoAES {
 		return ret;
 	}
 
-	public static String cifrarPass(String clave, String mensaje) {
+	public static String cifrarPass(String mensaje) {
 		
 		String ret = null;
 		KeySpec keySpec = null;
@@ -71,7 +75,7 @@ public class CifradoAES {
 		FileOutputStream fileOutputStream = null;
 		try {
 
-			keySpec = new PBEKeySpec(clave.toCharArray(), salt, 65536, 128); // AES-128
+			keySpec = new PBEKeySpec(CLAVE.toCharArray(), salt, 65536, 128); // AES-128
 			secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 			byte[] key = secretKeyFactory.generateSecret(keySpec).getEncoded();
 			SecretKey privateKey = new SecretKeySpec(key, 0, key.length, "AES");
@@ -83,7 +87,7 @@ public class CifradoAES {
 
 			byte[] combined = concatArrays(iv, encodedMessage);
 
-			fileOutputStream = new FileOutputStream(FILE_PATHP);
+			fileOutputStream = new FileOutputStream(FILE_PATH_PASS);
 			fileOutputStream.write(combined);
 
 			ret = new String(encodedMessage);
@@ -94,23 +98,20 @@ public class CifradoAES {
 		return ret;
 	}
 
-	private static String descifrarUser(String clave) {
+	private static String descifrarUser() {
 		
 		String ret = null;
 		try {
-			// Fichero leido
-			File fichero = new File(FILE_PATHU);
+			File fichero = new File(FILE_PATH_USER);
 			byte[] fileContent = Files.readAllBytes(fichero.toPath());
 			KeySpec keySpec = null;
 			SecretKeyFactory secretKeyFactory = null;
 
-			// Creamos un SecretKey usando la clave + salt
-			keySpec = new PBEKeySpec(clave.toCharArray(), salt, 65536, 128); // AES-128
+			keySpec = new PBEKeySpec(CLAVE.toCharArray(), salt, 65536, 128); // AES-128
 			secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 			byte[] key = secretKeyFactory.generateSecret(keySpec).getEncoded();
 			SecretKey privateKey = new SecretKeySpec(key, 0, key.length, "AES");
 
-			// Creamos un Cipher con el algoritmos que vamos a usar
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 			IvParameterSpec ivParam = new IvParameterSpec(Arrays.copyOfRange(fileContent, 0, 16)); // La IV esta aqui
 			cipher.init(Cipher.DECRYPT_MODE, privateKey, ivParam);
@@ -122,23 +123,20 @@ public class CifradoAES {
 		return ret;
 	}
 
-	private static String descifrarPass(String clave) {
+	private static String descifrarPass() {
 		
 		String ret = null;
 		try {
-			// Fichero leido
-			File fichero = new File(FILE_PATHP);
+			File fichero = new File(FILE_PATH_PASS);
 			byte[] fileContent = Files.readAllBytes(fichero.toPath());
 			KeySpec keySpec = null;
 			SecretKeyFactory secretKeyFactory = null;
 
-			// Creamos un SecretKey usando la clave + salt
-			keySpec = new PBEKeySpec(clave.toCharArray(), salt, 65536, 128); // AES-128
+			keySpec = new PBEKeySpec(CLAVE.toCharArray(), salt, 65536, 128); // AES-128
 			secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 			byte[] key = secretKeyFactory.generateSecret(keySpec).getEncoded();
 			SecretKey privateKey = new SecretKeySpec(key, 0, key.length, "AES");
 
-			// Creamos un Cipher con el algoritmos que vamos a usar
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 			IvParameterSpec ivParam = new IvParameterSpec(Arrays.copyOfRange(fileContent, 0, 16)); // La IV esta aqui
 			cipher.init(Cipher.DECRYPT_MODE, privateKey, ivParam);
@@ -155,6 +153,14 @@ public class CifradoAES {
 		System.arraycopy(array1, 0, ret, 0, array1.length);
 		System.arraycopy(array2, 0, ret, array1.length, array2.length);
 		return ret;
+	}
+	
+	public String cojerCredencialUser() {
+		return descifrarUser();
+	}
+	
+	public String cojerCredencialPass() {
+		return descifrarPass();
 	}
 
 }
