@@ -9,6 +9,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.Cipher;
 
+import org.springframework.stereotype.Service;
+
+@Service("cifradoRSA")
 public class CifradoRSA {
 	
 	 public static final String PUBLIC_KEY_FILE_PATH = "RSA_Public.key";
@@ -21,6 +24,7 @@ public class CifradoRSA {
     * @param mensaje El mensaje a cifrar
     * @return El mensaje cifrado
     */
+		
    public byte[] cifrarTexto(String mensaje) {
        byte[] encodedMessage = null;
        try {
@@ -71,15 +75,15 @@ public class CifradoRSA {
        return decodedMessage;
    }
 
-   public static void main(String[] args) {
-	   CifradoRSA cifradoRSA = new CifradoRSA();
-       byte[] mensajeCifrado = cifradoRSA.cifrarTexto("Mensaje super secreto");
-       System.out.println("Cifrado! -> " + new String(mensajeCifrado));
-       System.out.println("Tamanio -> " + mensajeCifrado.length + " bytes");
-       System.out.println("-----------");
-       byte[] mensajeDescifrado = cifradoRSA.descifrarTexto(mensajeCifrado);
-       System.out.println("Descifrado! -> " + new String(mensajeDescifrado));
-       System.out.println("-----------");
-   }
+//   public static void main(String[] args) {
+//	   CifradoRSA cifradoRSA = new CifradoRSA();
+//       byte[] mensajeCifrado = cifradoRSA.cifrarTexto("Mensaje super secreto");
+//       System.out.println("Cifrado! -> " + new String(mensajeCifrado));
+//       System.out.println("Tamanio -> " + mensajeCifrado.length + " bytes");
+//       System.out.println("-----------");
+//       byte[] mensajeDescifrado = cifradoRSA.descifrarTexto(mensajeCifrado);
+//       System.out.println("Descifrado! -> " + new String(mensajeDescifrado));
+//       System.out.println("-----------");
+//   }
 
 }

@@ -33,7 +33,6 @@ public class AuthController {
 
 	@Autowired
 	private JwtTokenUtil jwtUtil;
-	
 	@Autowired
 	private CifradoRSA cifradoRSA;
 
@@ -58,37 +57,19 @@ public class AuthController {
 	}
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+/*
+ * 
+ * 						PARA ANDROID Y PSP
+ * 
+ *
+ * 
+ * */
 	
 
-	//PARA ANDROID Y PSP
 	@PostMapping("/auth/login/android")
 	public ResponseEntity<?> loginAndroid(@RequestBody LoginRequest loginRequest) {
-	
+
+		System.out.println("eeeeeeeee222222" + loginRequest);
 		
 		byte[] passDescifrada = cifradoRSA.descifrarTexto(loginRequest.getPassword());
 		
@@ -113,11 +94,9 @@ public class AuthController {
 	}
 	
 
-	
-
-//	PARA ANDROID Y PSP
 	@GetMapping("/generatorKeys")
 	public ResponseEntity<Status> generateKeys() {
+		System.out.println("Generaaaannndo Ficheros de Clave !");
 
 		GeneratorKeys generatorKeys = new GeneratorKeys();
 		generatorKeys.generateKeys();
@@ -126,7 +105,6 @@ public class AuthController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-//	PARA ANDROID Y PSP
 	@GetMapping("/getPublicKey")
 	public byte[] getPublicKey() {
 

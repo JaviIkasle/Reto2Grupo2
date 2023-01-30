@@ -40,6 +40,7 @@ public class GeneratorKeys {
                                  
        } catch (Exception e) {
            e.printStackTrace();
+           System.out.println("ficheros ya existen");
        }
    }
 
