@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cifrado;
+package com.example.Reto2Grupo2.cifradoRSA;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

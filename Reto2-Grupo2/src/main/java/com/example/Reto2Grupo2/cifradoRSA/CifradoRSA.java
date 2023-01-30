@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cifrado;
+package com.example.Reto2Grupo2.cifradoRSA;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 @Service("cifradoRSA")
 public class CifradoRSA {
 	
-	 public static final String PUBLIC_KEY_FILE_PATH = "RSA_Public.key";
-	 private static final String PRIVATE_KEY_FILE_PATH = "RSA_Private.key";
+	 public static final String PUBLIC_KEY_FILE_PATH = "Public_KEY.key";
+	 private static final String PRIVATE_KEY_FILE_PATH = "Private_KEY.key";
 	 
    /**
     * Cifra un texto con RSA, modo ECB y padding PKCS1Padding (asim�trica) y lo
@@ -36,10 +36,11 @@ public class CifradoRSA {
            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(clavePublica);
            PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
-
+           
            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
            encodedMessage = cipher.doFinal(mensaje.getBytes());
+           
        } catch (Exception e) {
            e.printStackTrace();
        }
@@ -55,6 +56,7 @@ public class CifradoRSA {
     * @return El mensaje descifrado
     */
    public byte[] descifrarTexto(byte[] mensaje) {
+	   
        byte[] decodedMessage = null;
        try {
            // Clave publica
