@@ -138,7 +138,7 @@ public class BilleteServiceImpl implements BilleteService {
 
 	@Override
 	public BilleteServiceModel updateById(Integer id, BilletePostRequest billetePostRequest) {
-		// TODO Auto-generated method stub
+		
 		Billete billete = billeteRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Billete no encontrado"));			
 		
