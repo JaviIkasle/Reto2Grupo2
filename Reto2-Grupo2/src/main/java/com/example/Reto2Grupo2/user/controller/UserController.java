@@ -63,7 +63,6 @@ public class UserController {
 
 	@PostMapping("/auth/signup/clientes")
 	public ResponseEntity<?> signupCliente(@RequestBody AuthRequestCliente request) {
-		//TODO pasar a service
 
 		try {
 			userService.signupCliente(request);
@@ -104,8 +103,13 @@ public class UserController {
 	public ResponseEntity<UserServiceModel> updateCliente(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest,
 			Authentication authentication) {
 	
+		System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+		
+		System.out.println(clienteUpdateRequest);
+		
 		User userDetails = (User) authentication.getPrincipal();
 
+		
 		UserServiceModel userResponse = userService.updateCliente(clienteUpdateRequest, userDetails.getId());
 		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
@@ -115,7 +119,6 @@ public class UserController {
 		userService.deleteById(id);
 
 	}
-
 	
 	@DeleteMapping("/users/cliente")
 	public void deleteCliente(Authentication authentication) {
@@ -123,13 +126,5 @@ public class UserController {
 		User userDetails = (User) authentication.getPrincipal();
 		userService.deleteCliente(userDetails.getId());
 	}
-
-	// YA LO HACE EL SIGNUP
-//	@PostMapping("/users")
-//	public ResponseEntity<UserServiceModel> createTrabajador(@RequestBody UserPostRequest trabajadorPostRequest) {
-//
-//		UserServiceModel trabajadorResponse = trabajadorService.create(trabajadorPostRequest);
-//		return new ResponseEntity<UserServiceModel>(trabajadorResponse, HttpStatus.CREATED);
-//	}
 
 }

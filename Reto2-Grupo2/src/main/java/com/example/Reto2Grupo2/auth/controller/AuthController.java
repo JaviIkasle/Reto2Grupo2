@@ -53,15 +53,4 @@ public class AuthController {
 		}
 	}
 
-
-//	@GetMapping("/auth/me")
-//	public ResponseEntity<?> getUserInfo(Authentication authentication) {
-//		// aqui podemos castearlo a UserDetails o User. El UserDetails es una interfaz,
-//		// si lo casteamos a la interfaz no podremos sacar campos como la ID
-//		User trabajadorDetails = (User) authentication.getPrincipal();
-//
-//
-//		return ResponseEntity.ok().body(trabajadorDetails);
-//	}
-
 }

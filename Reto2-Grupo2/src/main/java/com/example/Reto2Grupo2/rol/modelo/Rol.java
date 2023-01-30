@@ -24,12 +24,19 @@ public class Rol {
 	private Integer id;
 	@Column(length = 150)
 	private String name;
-	
+
 	@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<User> trabajadores;
-	
+
 	public Rol() {
+	}
+
+	public Rol(Integer id, String name, List<User> trabajadores) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.trabajadores = trabajadores;
 	}
 
 	public Rol(Integer id, String name) {
@@ -37,7 +44,8 @@ public class Rol {
 		this.id = id;
 		this.name = name;
 	}
-	public Rol( String tipo) {
+
+	public Rol(String tipo) {
 		super();
 		this.name = tipo;
 	}
@@ -57,8 +65,5 @@ public class Rol {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-
 
 }
