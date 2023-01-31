@@ -1,7 +1,6 @@
 package com.example.Reto2Grupo2.user.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateAndroid;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
 import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
@@ -103,14 +102,10 @@ public class UserController {
 	@PutMapping("/users/cliente")
 	public ResponseEntity<UserServiceModel> updateCliente(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest,
 			Authentication authentication) {
-	
-		System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-		
-		System.out.println(clienteUpdateRequest);
-		
-		User userDetails = (User) authentication.getPrincipal();
 
 		
+		User userDetails = (User) authentication.getPrincipal();
+	
 		UserServiceModel userResponse = userService.updateCliente(clienteUpdateRequest, userDetails.getId());
 		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
@@ -126,6 +121,35 @@ public class UserController {
 
 		User userDetails = (User) authentication.getPrincipal();
 		userService.deleteCliente(userDetails.getId());
+	}
+	
+	/*
+	 * 
+	 * PARA ANDROID Y PSP
+	 * 
+	 *
+	 * 
+	 */
+	@PutMapping("/users/cliente/android")
+	public ResponseEntity<UserServiceModel> updateClienteAndroid(@Valid @RequestBody ClienteUpdateAndroid clienteUpdateRequest,
+			Authentication authentication) {
+
+		User userDetails = (User) authentication.getPrincipal();
+	
+		UserServiceModel userResponse = userService.updateClienteAndroid(clienteUpdateRequest, userDetails.getId());
+		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
+	}
+	
+	@PostMapping("/auth/signup/clientes/android")
+	public ResponseEntity<?> signupClienteAndroid(@RequestBody AuthRequestCliente request) {
+
+		try {
+			userService.signupClienteAndroid(request);
+		} catch (UserCantCreateException e) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 }

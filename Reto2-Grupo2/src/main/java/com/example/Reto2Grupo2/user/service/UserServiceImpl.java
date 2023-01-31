@@ -1,6 +1,8 @@
 package com.example.Reto2Grupo2.user.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.email.modelo.Mensaje;
+import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
+import com.example.Reto2Grupo2.cifradoRSA.OurPassEncoder;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
@@ -23,13 +27,14 @@ import com.example.Reto2Grupo2.rol.service.RolService;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateAndroid;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
 import com.example.Reto2Grupo2.user.modelo.EmailService;
+import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
-import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
@@ -37,7 +42,6 @@ import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
 
 
 import jakarta.validation.Valid;
-
 
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService, UserDetailsService{
@@ -47,9 +51,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private ZooRepository zooRepository; //TODO llamar al service zoo y de ahi a su repositorio
+	private ZooRepository zooRepository; 
 	@Autowired
-	private RolRepository rolRepository;//TODO llamar al service rol y de ahi a su repositorio
+	private RolRepository rolRepository;
+	@Autowired
+	private CifradoRSA cifradoRSA;
 	
 	@Override
 	public List<UserServiceModel> getUsers() {
@@ -108,7 +114,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		UserServiceModel response = new UserServiceModel(
 				user.getId(),
 				user.getUsername(),
-
 				user.getEmail(),
 				zooResponse,
 				user.getZooId(),
@@ -141,8 +146,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						user.setUsername(clienteUpdateByAdmin.getUsername());
 					}	
 					if ( clienteUpdateByAdmin.getPassword()!=null && clienteUpdateByAdmin.getPassword()!= "") {
-						BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-						user.setPassword(passwordEncoder.encode(clienteUpdateByAdmin.getPassword()));
+						//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+						OurPassEncoder encoder = new OurPassEncoder();	
+						
+						user.setPassword(encoder.encode(clienteUpdateByAdmin.getPassword()));
 					}
 					if ( clienteUpdateByAdmin.getEmail()!=null && clienteUpdateByAdmin.getEmail()!= "") {
 						user.setEmail(clienteUpdateByAdmin.getEmail());
@@ -211,8 +218,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				user.setUsername(empleUpdateRequest.getUsername());
 			}	
 			if ( empleUpdateRequest.getPassword()!=null && empleUpdateRequest.getPassword()!= "") {
-				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-				user.setPassword(passwordEncoder.encode(empleUpdateRequest.getPassword()));
+				//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				
+				OurPassEncoder encoder = new OurPassEncoder();	
+				
+				user.setPassword(encoder.encode(empleUpdateRequest.getPassword()));
 			}
 			if ( empleUpdateRequest.getEmail()!=null && empleUpdateRequest.getEmail()!= "") {
 				user.setEmail(empleUpdateRequest.getEmail());
@@ -266,15 +276,17 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public User signupEmpleado(AuthRequestEmple requestEmple) throws UserCantCreateException {
 			
-		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
-		String password = passEncoder.encode(requestEmple.getPassword());		
-		requestEmple.setPassword(password);
+//		//TODO to OurpassEncoder
+//		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
+//		String password = passEncoder.encode();
+		
+		OurPassEncoder encoder = new OurPassEncoder();	
+		
+		requestEmple.setPassword(encoder.encode(requestEmple.getPassword()));
 	
 		Zoo zoo = zooRepository.findById(requestEmple.getZooId()).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));		
-		
-		
-		
+	
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.EMPLEADO.name()); 	
 	
 		User empleado = new User(
@@ -301,11 +313,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public User signupCliente(AuthRequestCliente request) throws UserCantCreateException {
 		
-		User cliente = new User(request.getUsername(), request.getPassword(), request.getEmail());
+		User cliente = new User(request.getUsername(), request.getPassword(), request.getEmail());	
 		
-		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
-		String password = passEncoder.encode(cliente.getPassword());		
-		cliente.setPassword(password);
+		OurPassEncoder encoder = new OurPassEncoder();	
+		
+		cliente.setPassword(encoder.encode(cliente.getPassword()));
 		
 		Rol trabajadorRol = rolRepository.findByName(RolEnum.CLIENTE.name()); 	
 		cliente.setRol(trabajadorRol);
@@ -319,12 +331,13 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	
 	@Override
 	public UserServiceModel updateCliente(ClienteUpdateRequest clienteUpdateRequest, Integer userId) {
+
 		
 		User cliente = userRepository.findById(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Cliente no encontrado")
 		);
 		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				
 				if ( clienteUpdateRequest.getUsername()!=null && clienteUpdateRequest.getUsername()!= "") {
 					cliente.setUsername(clienteUpdateRequest.getUsername());
@@ -335,9 +348,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						
 							String oldPass = clienteUpdateRequest.getOldPassword();
 							String newPass = clienteUpdateRequest.getNewPassword();
-												
-							if (passwordEncoder.matches(oldPass, cliente.getPassword())) {																	
-							cliente.setPassword(passwordEncoder.encode(newPass));
+													
+							OurPassEncoder encoder = new OurPassEncoder();						
+															
+							if (encoder.matches(oldPass, cliente.getPassword())) {							
+							cliente.setPassword(encoder.encode(newPass));
 							
 							} else {
 								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Contraseña incorrecta");		
@@ -359,15 +374,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						cliente.getEmail());
 				return clienteResponse;
 		
-	}
-
-	// carga los detalles de usuario.
-	// la validez de la contraseña es automatica. Si es incorrecta no se loguea y devuelve 401
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		 return userRepository.findByUsername(username)
-                 .orElseThrow(
-                         () -> new UsernameNotFoundException("User " + username + " not found"));
 	}
 
 	@Override
@@ -397,8 +403,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	public User signUpAdmin(AuthRequestAdmin request) throws UserCantCreateException {
 
 		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
-		String password = passEncoder.encode(request.getPassword());		
-		request.setPassword(password);
+		String password = passEncoder.encode(request.getPassword());
+		
+		OurPassEncoder encoder = new OurPassEncoder();	
+		
+		request.setPassword(encoder.encode(password));
 		
 		Rol rolAdmin = rolRepository.findByName(RolEnum.ADMIN.name());
 		
@@ -420,60 +429,118 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 			throw new UserCantCreateException(e.getMessage());
 		}		
 	}
-
-
 	
-	
+	// carga los detalles de usuario.
+	// la validez de la contraseña es automatica. Si es incorrecta no se loguea y devuelve 401
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		 return userRepository.findByUsername(username)
+                 .orElseThrow(
+                         () -> new UsernameNotFoundException("User " + username + " not found"));
+	}
 
-//	YA LO HACE EL SIGNUP
-//@Override
-//public UserServiceModel create(UserPostRequest trabajadorPostRequest) {
-//	
-//	Zoo zoo = zooRepository.findById(trabajadorPostRequest.getZooId()).orElseThrow(
-//			() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Zoo no encontrado"));
-//	
-//	Rol rol = rolRepository.findById(trabajadorPostRequest.getRolId()).orElseThrow(
-//			() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Rol no encontrado"));
-//	
-//	
-//	User trabajador = new User(
-//			null,
-//			trabajadorPostRequest.getUsername(), 
-//			trabajadorPostRequest.getPassword(),
-//			trabajadorPostRequest.getEmail(),
-//			zoo,
-//			trabajadorPostRequest.getZooId(),
-//			rol,
-//			trabajadorPostRequest.getRolId(),
-//			null //billete
-//			);
-//
-//	trabajador = trabajadorRepository.save(trabajador);
-//	
-//	
-//	UserServiceModel trabajadorResponse = new UserServiceModel(
-//			trabajador.getId(),
-//			trabajador.getUsername(),
-//			trabajador.getPassword(),
-//			trabajador.getEmail(),
-//			null,
-//			zoo.getId(),
-//			null,
-//			rol.getId(),
-//			null); 
-//	 return trabajadorResponse;			
-//}
-	
-//	@Override
-//	public Integer deleteById(Integer id) {	
-//		Integer respuesta =0;
-//		try {
-//			trabajadorRepository.deleteById(id);
-//			respuesta = 1;
-//		} catch (EmptyResultDataAccessException e) {
-//			respuesta = 2;
-//		}
-//		return 	respuesta;
-//	}
 
+	/*
+	 * 
+	 * 							PARA ANDROID Y PSP
+	 * 
+	 *
+	 * 
+	 */
+
+	@Override
+	public User signupClienteAndroid(AuthRequestCliente  request) throws UserCantCreateException {
+		
+		byte[] decodedString=null;
+			
+		try {
+			// Convierte BASE64 pass en bytes
+			decodedString = Base64.getDecoder().decode(request.getPassword().getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
+			// Descifra los bytes para sacar la pass
+		byte[] passDescifrada = cifradoRSA.descifrarTexto(decodedString);	
+			//La pass en String
+		String pass = new String(passDescifrada);	
+		
+		User cliente = new User(request.getUsername(), pass, request.getEmail());
+		
+		OurPassEncoder encoder = new OurPassEncoder();	
+		
+		cliente.setPassword(encoder.encode(cliente.getPassword()));
+		
+		Rol trabajadorRol = rolRepository.findByName(RolEnum.CLIENTE.name()); 	
+		cliente.setRol(trabajadorRol);
+			
+		try{
+			return userRepository.save(cliente);
+		}catch (DataAccessException e) {
+			throw new UserCantCreateException(e.getMessage());
+		}		
+	}
+
+	@Override
+	public UserServiceModel updateClienteAndroid(ClienteUpdateAndroid clienteUpdateAndroid, Integer userId) {
+		
+		
+		//String pass = null;
+		String oldPass = null;
+		String newPass = null;
+		
+		byte[] decodedOld;
+		byte[] decodedNew;
+
+
+			try {
+				decodedOld = Base64.getDecoder().decode(clienteUpdateAndroid.getOldPassword().getBytes("UTF-8"));
+				decodedNew = Base64.getDecoder().decode(clienteUpdateAndroid.getNewPassword().getBytes("UTF-8"));
+				
+				byte[] oldPassCifrada = cifradoRSA.descifrarTexto(decodedOld);		
+				byte[] newPassCifrada = cifradoRSA.descifrarTexto(decodedNew);
+				
+				oldPass = new String(oldPassCifrada);
+				newPass = new String(newPassCifrada);
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		
+		
+		User cliente = userRepository.findById(userId).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Cliente no encontrado")
+		);
+		
+		//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				
+				if ( clienteUpdateAndroid.getUsername()!=null && clienteUpdateAndroid.getUsername()!= "") {
+					cliente.setUsername(clienteUpdateAndroid.getUsername());
+				}	
+								
+				if ( clienteUpdateAndroid.getOldPassword()!=null && oldPass != "" 
+							&& clienteUpdateAndroid.getNewPassword() != null && newPass != "") {
+												
+							
+							OurPassEncoder encoder = new OurPassEncoder();						
+															
+							if (encoder.matches(oldPass, cliente.getPassword())) {							
+							cliente.setPassword(encoder.encode(newPass));
+							
+							} else {
+								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Contraseña incorrecta");		
+							}																													
+				}
+	
+						
+				cliente = userRepository.save(cliente);
+					
+				UserServiceModel clienteResponse = new UserServiceModel(
+						cliente.getId(),
+						cliente.getUsername(),
+
+						cliente.getEmail());
+				return clienteResponse;
+	}
+	
 }

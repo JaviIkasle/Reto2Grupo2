@@ -1,17 +1,17 @@
 package com.example.Reto2Grupo2.user.service;
 
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
+import com.example.Reto2Grupo2.user.modelo.ClienteUpdateAndroid;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
+import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
-import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 
 
@@ -29,7 +29,7 @@ public interface UserService {
 	UserServiceModel updateEmpleByAdmin(Integer id, EmpleUpdateByAdminRequest userPostRequest);
 
 	UserServiceModel updateCliente(ClienteUpdateRequest clienteUpdateRequest, Integer userId);
-	
+
 	ResponseEntity<UserServiceModel>  deleteById(Integer id);
 
 	ResponseEntity<UserServiceModel> deleteCliente(Integer id);
@@ -38,6 +38,13 @@ public interface UserService {
 
 	User signUpAdmin(AuthRequestAdmin request) throws UserCantCreateException;
 	
-//	UserServiceModel create( UserPostRequest trabajadorPostRequest);//lo hacen los signups
+	/*
+	 * 							PARA ANDROID Y PSP
+	 * 
+	 */
 	
+	User signupClienteAndroid(AuthRequestCliente cliente) throws UserCantCreateException;
+	
+	UserServiceModel updateClienteAndroid(ClienteUpdateAndroid clienteUpdateAndroid, Integer userId);
+		
 }

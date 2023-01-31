@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.example.Reto2Grupo2.cifradoRSA.OurPassEncoder;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 
 
@@ -37,7 +38,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new OurPassEncoder();
 	}
 	
 	
@@ -68,8 +69,13 @@ public class WebSecurityConfig {
 						
 						.requestMatchers("/api/auth/signup/empleados").hasAuthority(RolEnum.ADMIN.name())
 						.requestMatchers("/api/auth/signup/admin").hasAuthority(RolEnum.ADMIN.name())
-						.requestMatchers("/api/auth/signup/clientes").permitAll()					
+						.requestMatchers("/api/auth/signup/clientes").permitAll()	
+						.requestMatchers("/api/auth/signup/clientes/android").permitAll()
 						.requestMatchers("/api/auth/login").permitAll()
+						.requestMatchers("/api/auth/login/android").permitAll()
+						.requestMatchers("/api/generatorKeys").permitAll()
+						.requestMatchers("/api/getPublicKey").permitAll()
+
 						
 						
 						.requestMatchers(HttpMethod.GET, "/api/eventos/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
