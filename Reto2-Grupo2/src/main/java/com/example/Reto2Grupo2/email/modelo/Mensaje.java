@@ -88,5 +88,22 @@ public class Mensaje {
 			e.printStackTrace();
 		}
 	}
+	
+	public void enviarPassAleatoria(String contra) {
+
+		CifradoAES cifrado = new CifradoAES();
+
+		String to = "javier.bazdepa@elorrieta-errekamari.com";
+		String subject = "Generada pass para modificar perfil";
+		String text = "Ingresa este codigo:  <b>" + contra + "</b>, para cambiar la contraseña olvidada en la app WildProject.";
+
+		Mensaje emailService = new Mensaje(cifrado.cojerCredencialUser(), cifrado.cojerCredencialPass(),
+				"smtp.gmail.com", 465);
+		try {
+			emailService.cambioDePass(to, subject, text);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

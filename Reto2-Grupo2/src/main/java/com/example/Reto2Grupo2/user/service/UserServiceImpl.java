@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.email.modelo.GeneradorPass;
+import com.example.Reto2Grupo2.email.modelo.Mensaje;
 import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
 import com.example.Reto2Grupo2.cifradoRSA.OurPassEncoder;
 import com.example.Reto2Grupo2.email.modelo.Mensaje;
@@ -542,6 +544,33 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						cliente.getEmail());
 				
 				return clienteResponse;
+	}
+	
+	@Override
+	public UserServiceModel generateClientePassword(String email) {
+	
+		User user =userRepository.findUserByEmail(email)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("User " + email + " not found"));
+
+		
+		GeneradorPass pass = new GeneradorPass();
+		String contra = pass.generatePassword();
+			
+		user.setPassword(contra);
+		
+			
+		new Mensaje().enviarPassAleatoria(contra);
+			
+		user = userRepository.save(user);
+			
+		UserServiceModel ret = new UserServiceModel(
+				null,
+				user.getUsername(),
+				user.getEmail()
+				);
+		
+		return ret;
 	}
 	
 }
