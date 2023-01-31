@@ -73,7 +73,6 @@ public class WebSecurityConfig {
 						.requestMatchers("/api/auth/signup/clientes/android").permitAll()
 						.requestMatchers("/api/auth/login").permitAll()
 						.requestMatchers("/api/auth/login/android").permitAll()
-						.requestMatchers("/api/generatorKeys").permitAll()
 						.requestMatchers("/api/getPublicKey").permitAll()
 
 						
@@ -94,6 +93,7 @@ public class WebSecurityConfig {
 						.requestMatchers( "/api/billetes").denyAll() 											
 												
 						.requestMatchers("/api/users/cliente").hasAuthority(RolEnum.CLIENTE.name())
+						.requestMatchers("/api/users/cliente/android").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers("/api/users/**").hasAuthority(RolEnum.ADMIN.name())
 					
 						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																														

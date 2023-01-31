@@ -16,9 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
-import com.example.Reto2Grupo2.email.modelo.Mensaje;
 import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
 import com.example.Reto2Grupo2.cifradoRSA.OurPassEncoder;
+import com.example.Reto2Grupo2.email.modelo.Mensaje;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
@@ -30,7 +30,6 @@ import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateAndroid;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
-import com.example.Reto2Grupo2.user.modelo.EmailService;
 import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
@@ -39,7 +38,6 @@ import com.example.Reto2Grupo2.user.repository.UserRepository;
 import com.example.Reto2Grupo2.zoo.modelo.Zoo;
 import com.example.Reto2Grupo2.zoo.modelo.ZooServiceModel;
 import com.example.Reto2Grupo2.zoo.repository.ZooRepository;
-
 
 import jakarta.validation.Valid;
 
@@ -483,17 +481,16 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Override
 	public UserServiceModel updateClienteAndroid(ClienteUpdateAndroid clienteUpdateAndroid, Integer userId) {
-		
-		
-		//String pass = null;
+
 		String oldPass = null;
 		String newPass = null;
 		
 		byte[] decodedOld;
 		byte[] decodedNew;
 
-
 			try {
+				
+
 				decodedOld = Base64.getDecoder().decode(clienteUpdateAndroid.getOldPassword().getBytes("UTF-8"));
 				decodedNew = Base64.getDecoder().decode(clienteUpdateAndroid.getNewPassword().getBytes("UTF-8"));
 				
@@ -503,6 +500,11 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				oldPass = new String(oldPassCifrada);
 				newPass = new String(newPassCifrada);
 				
+				System.out.println("OLD "+ oldPass);
+				
+				System.out.println("NEW"+ newPass);
+	
+				
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -511,12 +513,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		User cliente = userRepository.findById(userId).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "Cliente no encontrado")
 		);
-		
-		//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-				
-				if ( clienteUpdateAndroid.getUsername()!=null && clienteUpdateAndroid.getUsername()!= "") {
-					cliente.setUsername(clienteUpdateAndroid.getUsername());
-				}	
+					
+//				if ( clienteUpdateAndroid.getUsername()!=null && clienteUpdateAndroid.getUsername()!= "") {
+//					cliente.setUsername(clienteUpdateAndroid.getUsername());
+//				}	
 								
 				if ( clienteUpdateAndroid.getOldPassword()!=null && oldPass != "" 
 							&& clienteUpdateAndroid.getNewPassword() != null && newPass != "") {
@@ -529,17 +529,18 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 							
 							} else {
 								throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Contraseña incorrecta");		
-							}																													
+							}
+							
 				}
-	
-						
+							
 				cliente = userRepository.save(cliente);
-					
+				new Mensaje().enviarMensaje();
+				
 				UserServiceModel clienteResponse = new UserServiceModel(
 						cliente.getId(),
 						cliente.getUsername(),
-
 						cliente.getEmail());
+				
 				return clienteResponse;
 	}
 	

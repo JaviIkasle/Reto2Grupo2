@@ -64,6 +64,8 @@ public class AuthController {
 
 	@PostMapping("/auth/login/android")
 	public ResponseEntity<?> loginAndroid(@RequestBody LoginRequest loginRequest) {
+		
+		
 		String pass = null;
 
 		byte[] decodedString;

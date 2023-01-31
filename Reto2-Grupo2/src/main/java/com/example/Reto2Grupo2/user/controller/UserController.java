@@ -130,12 +130,14 @@ public class UserController {
 	 *
 	 * 
 	 */
+	
 	@PutMapping("/users/cliente/android")
 	public ResponseEntity<UserServiceModel> updateClienteAndroid(@Valid @RequestBody ClienteUpdateAndroid clienteUpdateRequest,
 			Authentication authentication) {
-
+		
 		User userDetails = (User) authentication.getPrincipal();
 	
+
 		UserServiceModel userResponse = userService.updateClienteAndroid(clienteUpdateRequest, userDetails.getId());
 		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
