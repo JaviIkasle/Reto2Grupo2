@@ -1,7 +1,6 @@
 package com.example.Reto2Grupo2.user.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestAdmin;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestCliente;
@@ -24,7 +22,6 @@ import com.example.Reto2Grupo2.user.modelo.ClienteUpdateAndroid;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateByAdminRequest;
 import com.example.Reto2Grupo2.user.modelo.ClienteUpdateRequest;
 import com.example.Reto2Grupo2.user.modelo.EmpleUpdateByAdminRequest;
-import com.example.Reto2Grupo2.user.modelo.SignInClienteAndroid;
 import com.example.Reto2Grupo2.user.modelo.User;
 import com.example.Reto2Grupo2.user.modelo.UserExpands;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
@@ -125,7 +122,13 @@ public class UserController {
 		userService.deleteCliente(userDetails.getId());
 	}
 	
-	//PARA ANDROID Y PSP
+	/*
+	 * 
+	 * PARA ANDROID Y PSP
+	 * 
+	 *
+	 * 
+	 */
 	@PutMapping("/users/cliente/android")
 	public ResponseEntity<UserServiceModel> updateClienteAndroid(@Valid @RequestBody ClienteUpdateAndroid clienteUpdateRequest,
 			Authentication authentication) {
@@ -136,9 +139,8 @@ public class UserController {
 		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
 	
-	// PARA ANDROID Y PSP
 	@PostMapping("/auth/signup/clientes/android")
-	public ResponseEntity<?> signupClienteAndroid(@RequestBody SignInClienteAndroid request) {
+	public ResponseEntity<?> signupClienteAndroid(@RequestBody AuthRequestCliente request) {
 
 		try {
 			userService.signupClienteAndroid(request);

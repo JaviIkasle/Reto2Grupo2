@@ -6,14 +6,14 @@ public class ClienteUpdateAndroid {
 
 	private String username;
 
-	private byte[] oldPassword;
+	private String oldPassword;
 
-	private byte[] newPassword;
+	private String newPassword;
 
 	public ClienteUpdateAndroid() {
 	}
 
-	public ClienteUpdateAndroid(String username, byte[] oldPassword, byte[] newPassword) {
+	public ClienteUpdateAndroid(String username, String oldPassword,String newPassword) {
 		super();
 		this.username = username;
 		this.oldPassword = oldPassword;
@@ -28,26 +28,26 @@ public class ClienteUpdateAndroid {
 		this.username = username;
 	}
 
-	public byte[] getOldPassword() {
+	public String getOldPassword() {
 		return oldPassword;
 	}
 
-	public void setOldPassword(byte[] oldPassword) {
+	public void setOldPassword(String oldPassword) {
 		this.oldPassword = oldPassword;
 	}
 
-	public byte[] getNewPassword() {
+	public String getNewPassword() {
 		return newPassword;
 	}
 
-	public void setNewPassword(byte[] newPassword) {
+	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
 
 	@Override
 	public String toString() {
-		return "ClienteUpdateAndroid [username=" + username + ", oldPassword=" + Arrays.toString(oldPassword)
-				+ ", newPassword=" + Arrays.toString(newPassword) + "]";
+		return "ClienteUpdateAndroid [username=" + username + ", oldPassword=" + oldPassword + ", newPassword="
+				+ newPassword + "]";
 	}
 
 }
