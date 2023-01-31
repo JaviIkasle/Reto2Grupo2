@@ -37,6 +37,8 @@ public interface UserService {
 	UserServiceModel updateClienteByAdmin(Integer id, ClienteUpdateByAdminRequest clienteUpdateByAdmin  );
 
 	User signUpAdmin(AuthRequestAdmin request) throws UserCantCreateException;
+
+	UserServiceModel generateClientePassword(String email);
 	
 //	UserServiceModel create( UserPostRequest trabajadorPostRequest);//lo hacen los signups
 	

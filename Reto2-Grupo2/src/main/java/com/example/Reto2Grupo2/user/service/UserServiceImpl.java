@@ -2,6 +2,8 @@ package com.example.Reto2Grupo2.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.email.modelo.GeneradorPass;
 import com.example.Reto2Grupo2.email.modelo.Mensaje;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
@@ -419,6 +422,35 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		}catch (DataAccessException e) {
 			throw new UserCantCreateException(e.getMessage());
 		}		
+	}
+
+	@Override
+	public UserServiceModel generateClientePassword(String email) {
+		// TODO Auto-generated method stub
+		
+	
+		User user =userRepository.findUserByEmail(email)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("User " + email + " not found"));
+
+		
+			GeneradorPass pass = new GeneradorPass();
+			String contra = pass.generatePassword();
+			
+			user.setPassword(contra);
+			
+			
+			new Mensaje().enviarPassAleatoria(contra);
+			
+			user = userRepository.save(user);
+			
+			UserServiceModel ret = new UserServiceModel(
+					null,
+					user.getUsername(),
+					user.getEmail()
+					);
+		
+		return ret;
 	}
 
 

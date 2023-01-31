@@ -14,7 +14,7 @@ public class GeneradorPass {
 	    static final int Tamaño= 20;
 	
 	
-	  public static String generatePassword() {
+	  public String generatePassword() {
 	        if (Tamaño < 1) throw new IllegalArgumentException();
 
 	        StringBuilder sb = new StringBuilder(Tamaño);
@@ -27,7 +27,4 @@ public class GeneradorPass {
 	        
 	        return sb.toString();
 	    }
-	
-	
-	
 }

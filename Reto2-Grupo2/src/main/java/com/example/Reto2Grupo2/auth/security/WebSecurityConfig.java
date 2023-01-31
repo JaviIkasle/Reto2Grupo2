@@ -87,12 +87,14 @@ public class WebSecurityConfig {
 						.requestMatchers(HttpMethod.POST, "/api/billetes").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers( "/api/billetes").denyAll() 											
 												
+						.requestMatchers("/api/users/clientePass").permitAll()
 						.requestMatchers("/api/users/cliente").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers("/api/users/**").hasAuthority(RolEnum.ADMIN.name())
 					
 						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																														
 
-						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())																																	
+						.requestMatchers("/api/roles/**").hasAuthority(RolEnum.ADMIN.name())	
+						
 						
 						.requestMatchers("/api/usersWEB/**").permitAll()
 						

@@ -114,6 +114,13 @@ public class UserController {
 		UserServiceModel userResponse = userService.updateCliente(clienteUpdateRequest, userDetails.getId());
 		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
 	}
+	
+	@PutMapping("/users/clientePass")
+	public ResponseEntity<UserServiceModel> updateClientePassword(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest) {
+		
+		UserServiceModel userResponse = userService.generateClientePassword(clienteUpdateRequest.getEmail());
+		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
+	}
 
 	@DeleteMapping("/users/{id}")
 	public void deleteUserById(@PathVariable("id") Integer id) {
