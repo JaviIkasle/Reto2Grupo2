@@ -46,5 +46,7 @@ public interface UserService {
 	User signupClienteAndroid(AuthRequestCliente cliente) throws UserCantCreateException;
 	
 	UserServiceModel updateClienteAndroid(ClienteUpdateAndroid clienteUpdateAndroid, Integer userId);
+	
+	UserServiceModel generateClientePassword(String email);
 		
 }

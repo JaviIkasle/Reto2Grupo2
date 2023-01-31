@@ -151,5 +151,12 @@ public class UserController {
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/users/clientePass")
+	public ResponseEntity<UserServiceModel> updateClientePassword(@Valid @RequestBody ClienteUpdateRequest clienteUpdateRequest) {
+		
+		UserServiceModel userResponse = userService.generateClientePassword(clienteUpdateRequest.getEmail());
+		return new ResponseEntity<UserServiceModel>(userResponse, HttpStatus.OK);
+	}
 
 }

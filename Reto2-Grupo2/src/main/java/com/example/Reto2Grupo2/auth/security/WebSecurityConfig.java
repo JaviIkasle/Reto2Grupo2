@@ -75,6 +75,7 @@ public class WebSecurityConfig {
 						.requestMatchers("/api/auth/login/android").permitAll()
 						.requestMatchers("/api/generatorKeys").permitAll()
 						.requestMatchers("/api/getPublicKey").permitAll()
+						.requestMatchers("/api/users/clientePass").permitAll()
 
 						
 						
