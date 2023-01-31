@@ -7,12 +7,12 @@ public class LoginRequest {
 
 	private String username;
 
-	private byte[] password;
+	private String password;
 
 	public LoginRequest() {
 	}
 
-	public LoginRequest(String username, byte[] password) {
+	public LoginRequest(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -26,17 +26,17 @@ public class LoginRequest {
 		this.username = username;
 	}
 
-	public byte[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(byte[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return "LoginRequest [username=" + username + ", password=" + Arrays.toString(password) + "]";
+		return "LoginRequest [username=" + username + ", password=" + password + "]";
 	}
 
 }

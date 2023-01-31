@@ -8,7 +8,7 @@ import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
-public class GeneratorKeys {
+public class RunGeneratorKeys {
 	
 	 private static final String PUBLIC_KEY_FILE_PATH = "Public_KEY.key";
 	 private static final String PRIVATE_KEY_FILE_PATH = "Private_KEY.key";
@@ -45,7 +45,7 @@ public class GeneratorKeys {
    }
 
 	public static void main(String[] args) {		
-		GeneratorKeys generatorKeys = new GeneratorKeys();
+		RunGeneratorKeys generatorKeys = new RunGeneratorKeys();
 		generatorKeys.generateKeys();
 	}
 }

@@ -3,6 +3,7 @@ package com.example.Reto2Grupo2.auth.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.util.Base64;
 
@@ -23,7 +24,7 @@ import com.example.Reto2Grupo2.auth.model.AuthResponse;
 import com.example.Reto2Grupo2.auth.model.LoginRequest;
 import com.example.Reto2Grupo2.auth.security.JwtTokenUtil;
 import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
-import com.example.Reto2Grupo2.cifradoRSA.GeneratorKeys;
+import com.example.Reto2Grupo2.cifradoRSA.RunGeneratorKeys;
 import com.example.Reto2Grupo2.user.modelo.AuthRequestEmple;
 import com.example.Reto2Grupo2.user.modelo.User;
 
@@ -73,14 +74,24 @@ public class AuthController {
 
 	@PostMapping("/auth/login/android")
 	public ResponseEntity<?> loginAndroid(@RequestBody LoginRequest loginRequest) {
-
-		System.out.println("eeeeeeeee222222" + loginRequest);
+		String pass = null;
 		
-		System.out.println(" Pass con clave publica :" + loginRequest.getPassword());
+		 byte[] decodedString;
+		try {
+			decodedString = Base64.getDecoder().decode(loginRequest.getPassword().getBytes("UTF-8"));
+			
+			System.out.println("eeeeeeeee222222" + loginRequest);
+			
+			System.out.println(" Pass con clave publica :" + loginRequest.getPassword());
+			
+			byte[] passDescifrada = cifradoRSA.descifrarTexto(decodedString);
+			
+			 pass = new String(passDescifrada);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		byte[] passDescifrada = cifradoRSA.descifrarTexto(loginRequest.getPassword());
-		
-		String pass = new String(passDescifrada);
 		
 		try {
 
@@ -101,17 +112,6 @@ public class AuthController {
 	}
 	
 
-//	@GetMapping("/generatorKeys")
-//	public ResponseEntity<Status> generateKeys() {
-//		System.out.println("Generaaaannndo Ficheros de Clave !");
-//
-//		GeneratorKeys generatorKeys = new GeneratorKeys();
-//		generatorKeys.generateKeys();
-//		System.out.println("Ficheros de Clave Generados!");
-//
-//		return ResponseEntity.status(HttpStatus.CREATED).build();
-//	}
-//
 	@GetMapping("/getPublicKey")
 	public String  getPublicKey() {
 						
@@ -133,6 +133,8 @@ public class AuthController {
 		System.out.println("CLAVE PUBLICA  " +clavePublica);
 		
 		String encodedBASE64 = Base64.getEncoder().encodeToString(clavePublica);
+		
+		System.out.println( "BASE 64 " + encodedBASE64);
 	
 		return encodedBASE64;
 	}
