@@ -556,8 +556,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 		GeneradorPass pass = new GeneradorPass();
 		String contra = pass.generatePassword();
+		
+		OurPassEncoder encoder = new OurPassEncoder();
 			
-		user.setPassword(contra);
+		user.setPassword(encoder.encode(contra));
 		
 			
 		new Mensaje().enviarPassAleatoria(contra);
