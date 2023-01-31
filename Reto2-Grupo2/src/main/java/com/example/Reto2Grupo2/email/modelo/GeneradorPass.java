@@ -4,14 +4,13 @@ import java.security.SecureRandom;
 
 public class GeneradorPass {
 
-	  static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
-	    static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
-	    static final String NUMBER = "0123456789";
-	    static final String OTHER_CHAR = "!@#$%&*()_+-=[]?";
-
-	    static final String PASSWORD_ALLOW_BASE = CHAR_LOWER + CHAR_UPPER + NUMBER + OTHER_CHAR;
-	    static SecureRandom random = new SecureRandom();
-	    static final int Tamaño= 20;
+	  private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+	  private  static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
+	  private  static final String NUMBER = "0123456789";
+	  private  static final String OTHER_CHAR = "!@#$%&*()_+-=[]?";
+	  private  static final String PASSWORD_ALLOW_BASE = CHAR_LOWER + CHAR_UPPER + NUMBER + OTHER_CHAR;
+	  private  static SecureRandom random = new SecureRandom();
+	  private  static final int Tamaño= 20;
 	
 	
 	  public String generatePassword() {
