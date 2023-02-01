@@ -1,6 +1,5 @@
 package com.example.Reto2Grupo2.auth.model;
 
-import java.util.Arrays;
 
 //PARA ANDROID Y PSP
 public class LoginRequest {

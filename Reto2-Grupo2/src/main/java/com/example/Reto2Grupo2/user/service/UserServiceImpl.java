@@ -20,7 +20,6 @@ import com.example.Reto2Grupo2.email.modelo.GeneradorPass;
 import com.example.Reto2Grupo2.email.modelo.Mensaje;
 import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
 import com.example.Reto2Grupo2.cifradoRSA.OurPassEncoder;
-import com.example.Reto2Grupo2.email.modelo.Mensaje;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;

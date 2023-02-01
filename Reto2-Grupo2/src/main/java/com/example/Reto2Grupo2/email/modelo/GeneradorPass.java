@@ -14,7 +14,8 @@ public class GeneradorPass {
 	 private final int Tamaño= 20;
 	
 	
-	  public String generatePassword() {
+	  @SuppressWarnings("unused")
+	public String generatePassword() {
 	        if (Tamaño < 1) throw new IllegalArgumentException();
 
 	        StringBuilder sb = new StringBuilder(Tamaño);

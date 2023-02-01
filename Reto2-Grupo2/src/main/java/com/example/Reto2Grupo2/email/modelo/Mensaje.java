@@ -24,7 +24,6 @@ public class Mensaje {
 	private String smtp_host = null;
 	private int smtp_port = 0;
 
-	@SuppressWarnings("unused")
 	public Mensaje() {
 	}
 
@@ -56,7 +55,7 @@ public class Mensaje {
 
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(user));
-		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user));
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 		message.setSubject(subject);
 		message.setContent(text, "text/html; charset=utf-8");
 
