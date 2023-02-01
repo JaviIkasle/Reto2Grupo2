@@ -381,7 +381,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 		try {
 			userRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}catch (EmptyResultDataAccessException e) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Id del User no encontrada");
 		}		
@@ -392,7 +392,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 		try {
 			userRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}catch (EmptyResultDataAccessException e) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Id del Cliente no encontrada");
 		}		

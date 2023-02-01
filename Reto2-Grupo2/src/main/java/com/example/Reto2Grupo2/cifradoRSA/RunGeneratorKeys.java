@@ -10,8 +10,8 @@ import java.security.spec.X509EncodedKeySpec;
 
 public class RunGeneratorKeys {
 	
-	 private static final String PUBLIC_KEY_FILE_PATH = "src\\main\\resources\\Public_KEY.key";
-	 private static final String PRIVATE_KEY_FILE_PATH = "src\\main\\resources\\Private_KEY.key";
+	 private static final String PUBLIC_KEY_FILE_PATH = "Public_KEY.key";
+	 private static final String PRIVATE_KEY_FILE_PATH = "Private_KEY.key";
 	 
    /**
     * Genera el fichero con la clave privada
