@@ -62,7 +62,7 @@ public class UserController {
 	}
 
 	@PostMapping("/auth/signup/clientes")
-	public ResponseEntity<?> signupCliente(@RequestBody AuthRequestCliente request) {
+	public ResponseEntity<?> signupCliente(@Valid @RequestBody AuthRequestCliente request) {
 
 		try {
 			userService.signupCliente(request);
@@ -143,7 +143,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/auth/signup/clientes/android")
-	public ResponseEntity<?> signupClienteAndroid(@RequestBody AuthRequestCliente request) {
+	public ResponseEntity<?> signupClienteAndroid(@Valid @RequestBody AuthRequestCliente request) {
 
 		try {
 			userService.signupClienteAndroid(request);
