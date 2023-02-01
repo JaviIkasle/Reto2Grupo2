@@ -365,7 +365,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 						
 				cliente = userRepository.save(cliente);
 				
-				new Mensaje().enviarMensaje();
+				new Mensaje().enviarMensaje(cliente.getEmail());
 					
 				UserServiceModel clienteResponse = new UserServiceModel(
 						cliente.getId(),
@@ -536,7 +536,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				}
 							
 				cliente = userRepository.save(cliente);
-				new Mensaje().enviarMensaje();
+				
+				new Mensaje().enviarMensaje(cliente.getEmail());
 				
 				UserServiceModel clienteResponse = new UserServiceModel(
 						cliente.getId(),
@@ -562,7 +563,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		user.setPassword(encoder.encode(contra));
 		
 			
-		new Mensaje().enviarPassAleatoria(contra);
+		new Mensaje().enviarPassAleatoria(contra, user.getEmail());
 			
 		user = userRepository.save(user);
 			

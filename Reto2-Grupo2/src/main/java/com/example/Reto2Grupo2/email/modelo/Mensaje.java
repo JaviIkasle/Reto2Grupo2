@@ -72,11 +72,11 @@ public class Mensaje {
 
 	}
 
-	public void enviarMensaje() {
+	public void enviarMensaje(String email) {
 
 		CifradoAES cifrado = new CifradoAES();
 
-		String to = "javier.bazdepa@elorrieta-errekamari.com";
+		String to = email;
 		String subject = "Cambio de contraseña de cuenta en WildProject";
 		String text = "Tu contraseña se ha cambiado satisfactoriamente, ingresa en la app con tu nueva contraseña.";
 
@@ -89,11 +89,11 @@ public class Mensaje {
 		}
 	}
 	
-	public void enviarPassAleatoria(String contra) {
+	public void enviarPassAleatoria(String contra, String email) {
 
 		CifradoAES cifrado = new CifradoAES();
 
-		String to = "javier.bazdepa@elorrieta-errekamari.com";
+		String to = email;
 		String subject = "Generada pass para modificar perfil";
 		String text = "Ingresa este codigo:  <b>" + contra + "</b>, para cambiar la contraseña olvidada en la app WildProject.";
 
