@@ -154,7 +154,7 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/users/clientePass/{email}")
+	@PutMapping("/users/clientePass/{email}")
 	public ResponseEntity<UserServiceModel> updateClientePassword(@PathVariable("email") String email) {
 		
 		UserServiceModel userResponse = userService.generateClientePassword(email);
