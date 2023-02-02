@@ -1,24 +1,57 @@
 #Wild Project
 
-ldldldld
+## subtitulo
+
+### subtitulo 3
+
+#### subtitulo 4
+
+##### subtitulo 5
+
+###### subtitulo 6
 
 
-## jsdhjksbd asjkdhn 
 
-** ESto esta en engrita **
+*Esto es cursiva*
 
-* esto en CURSIVA *
+_Esto tambien es cursiva_
 
-Lista:
-- 1
-- 2
-- 3
+**Esto es negrita**
 
-Fin de la lista.
+__Esto tambien es negrita__
+
+*puedes **combinar** estilos* de esta manera.
+
+Alguien dijo:
+> Esto es una cita
+> y la cita sigue aqui
+
+Lista 1
+
+* Elemento uno
+* elemento dos
+* elemento tres
+
+Lista 2
+
+1. elementos
+2. elemento dos
+3. elemento tres
+
+
 
 [link]<https://es.wikipedia.org/wiki/Wikipedia:Portada>
 
 
-\\\
-public static void a() {}
-\\\
+Bloque de codigo
+...
+@GetMapping("/animales")
+	public ResponseEntity<List<AnimalServiceModel>> getAnimales() {
+		
+		List<AnimalServiceModel> response = animalService.getAllAnimales();
+		return new ResponseEntity<List<AnimalServiceModel>>(response, HttpStatus.OK);
+	}
+...
+
+---
+Linea que separa
