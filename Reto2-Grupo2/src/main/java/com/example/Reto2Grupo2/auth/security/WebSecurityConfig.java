@@ -91,7 +91,7 @@ public class WebSecurityConfig {
 						.requestMatchers("/api/animales/**").hasAuthority(RolEnum.EMPLEADO.name())	
 						
 						.requestMatchers(HttpMethod.GET, "/api/especies/**").hasAnyAuthority(RolEnum.CLIENTE.name(),RolEnum.EMPLEADO.name())
-						.requestMatchers("/api/especies/**").hasAuthority(RolEnum.EMPLEADO.name())	
+						.requestMatchers("/api/especies/**").denyAll()
 									
 						.requestMatchers(HttpMethod.POST, "/api/billetes").hasAuthority(RolEnum.CLIENTE.name())
 						.requestMatchers( "/api/billetes").denyAll() 											
