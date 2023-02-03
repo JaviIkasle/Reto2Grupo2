@@ -139,7 +139,6 @@ public class AnimalServiceImpl implements AnimalService{
 
 	@Override
 	public List<AnimalServiceModel> getZooAnimals(Integer id) {
-		// TODO Auto-generated method stub
 		Iterable<Animal> animales = animalRepository.findAnimalByZoosId(id);
 
 		List<AnimalServiceModel> response = new ArrayList<AnimalServiceModel>();

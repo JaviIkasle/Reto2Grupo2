@@ -69,7 +69,7 @@ public class UserController {
 		} catch (UserCantCreateException e) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		// TODO que devuelva los datos del usuario creado ???
+		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

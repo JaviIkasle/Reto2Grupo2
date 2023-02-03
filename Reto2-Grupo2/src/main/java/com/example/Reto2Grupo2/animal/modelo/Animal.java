@@ -55,7 +55,7 @@ public class Animal {
 			inverseJoinColumns = @JoinColumn(
 					name = "zoo_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="FK_zoo_id")
 			)
-			//TODO ON DELETE CASCADE PARA PODER BORRAR ZOOS
+			
 	)
 	private Set<Zoo> zoos;
 	

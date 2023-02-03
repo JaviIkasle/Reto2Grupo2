@@ -48,7 +48,6 @@ public class ZooController {
 	@GetMapping("/zoos/{id}")
 	public ResponseEntity<ZooServiceModel> getZooById(@PathVariable("id") Integer id, Authentication authentication) {
 		
-		//TODO comprobar si se puede hacer con getRol
 		User userDetails = (User) authentication.getPrincipal();
 		
 		ZooServiceModel response=	zooService.getZoosById(id, userDetails.getId());	
@@ -82,12 +81,19 @@ public class ZooController {
 		}
 	}
 	
-	@GetMapping("/zoos/{id}/animal")
-	public ResponseEntity<List<AnimalServiceModel>> getAnimalByZooId(@PathVariable("id") Integer id) {
-		
-		List<AnimalServiceModel> response = animalService.getZooAnimals(id);
+	
+	
+	
 
-		return new ResponseEntity<List<AnimalServiceModel>>(response, HttpStatus.OK);
-	}
+//	
+//	@GetMapping("/zoos/animales/{id}")
+//	public ResponseEntity<List<AnimalServiceModel>> getAnimalsZoo(@PathVariable("id") Integer id) {
+//		
+//
+//		
+//		List<AnimalServiceModel> response = animalService.getZooAnimals(id);
+//
+//		return new ResponseEntity<List<AnimalServiceModel>>(response, HttpStatus.OK);
+//	}
 	
 }

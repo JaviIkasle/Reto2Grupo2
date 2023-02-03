@@ -35,13 +35,12 @@ public class EventoController {
 	public ResponseEntity<List<EventoServiceModel>> getEventos(Authentication authentication) {
 
 		User userDetails = (User) authentication.getPrincipal();
-		// TODO userDetails.getRol().getName() ;
+	
 		
 		List<EventoServiceModel> response = eventoService.getEventos(userDetails.getId());
 		return new ResponseEntity<List<EventoServiceModel>>(response, HttpStatus.OK);
 	}
 
-	// TODO comprobar expands, necesarios? hacerlo sieso
 	@GetMapping("/eventos/{id}")
 	public ResponseEntity<EventoServiceModel> getEventoById(@PathVariable("id") Integer id,
 			@RequestParam(required = false) List<EventosExpands> expand, Authentication authentication) {

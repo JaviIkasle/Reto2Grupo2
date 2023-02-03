@@ -2,8 +2,6 @@ package com.example.Reto2Grupo2.zoo.modelo;
 
 public class ZooPostRequest {
 
-	//TODO validacioness, Si se ponen validaciones aqui, tambien validara a la hora de hacer un PUT 
-	// y obligara a escribir los atributos validados para el POST, Queremos que pueda modificar unicamente los atributos que quiera.
 	private String nombre;
 
 	private float pvpEntrada;

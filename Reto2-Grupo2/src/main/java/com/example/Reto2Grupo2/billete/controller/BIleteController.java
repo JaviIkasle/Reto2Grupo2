@@ -61,7 +61,7 @@ public class BIleteController {
 		
 		BilleteServiceModel billeteResponse = billeteService.create(billetePostRequest, userDetails.getId());
 		
-		//TODO metodo para enviar correo electronico a cliente con el billeteResponse.
+		
 		
 		return new ResponseEntity<BilleteServiceModel>(billeteResponse, HttpStatus.CREATED);
 	}

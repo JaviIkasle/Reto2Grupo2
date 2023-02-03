@@ -100,8 +100,7 @@ public class EventoServiceImpl  implements EventoService{
 			}else {		
 				
 				throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Evento no pertenece a tu zoo");
-//				//TODO en vez de devolver esto, deberia de devolver un "Evento no pertenece a tu zoo" o lo que sea
-//				 response = new EventoServiceModel();			
+		
 			}
 		//si no es un empleado..	
 		}else{
@@ -115,26 +114,7 @@ public class EventoServiceImpl  implements EventoService{
 			
 		}
 
-		
-		//TODO Hacer EXPANDS si es necesario		
-//		ZooServiceModel zooResponse = null;
-//		if (expand != null&& expand.indexOf(EventosExpands.ZOO) != -1) {
-//			Zoo zooBD = evento.getZoo();
-//			
-//			zooResponse = new ZooServiceModel(
-//					zooBD.getId(),
-//					zooBD.getNombre(),
-//					zooBD.getPvpEntrada(),
-//					zooBD.getWeb(),
-//					zooBD.getInformacion(),
-//					zooBD.getLatitud(),
-//					zooBD.getLongitud(),
-//					zooBD.getCiudad(),
-//					zooBD.getPais(),
-//					null,
-//					null);
-//			
-//		}		
+			
  		
 
 		return response;

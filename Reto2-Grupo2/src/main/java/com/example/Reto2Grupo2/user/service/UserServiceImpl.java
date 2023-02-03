@@ -16,10 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.Reto2Grupo2.auth.exception.UserCantCreateException;
+import com.example.Reto2Grupo2.cifrados.RSA.CifradoRSA;
+import com.example.Reto2Grupo2.cifrados.RSA.OurPassEncoder;
 import com.example.Reto2Grupo2.email.modelo.GeneradorPass;
 import com.example.Reto2Grupo2.email.modelo.Mensaje;
-import com.example.Reto2Grupo2.cifradoRSA.CifradoRSA;
-import com.example.Reto2Grupo2.cifradoRSA.OurPassEncoder;
 import com.example.Reto2Grupo2.rol.modelo.Rol;
 import com.example.Reto2Grupo2.rol.modelo.RolEnum;
 import com.example.Reto2Grupo2.rol.modelo.RolServiceModel;
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				user.getZooId(),
 				rolResponse,
 				user.getRolId(),
-				null // TODO poner los billetes
+				null 
 				);
 		
 		return response;
@@ -194,7 +194,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	public UserServiceModel updateEmpleByAdmin(Integer id, EmpleUpdateByAdminRequest empleUpdateRequest) {
 
 
-		//SI SE MODIFICA UN registro QUE NO EXISTE, PROVOCAMOS ESTE ERROR
 		User user = userRepository.findById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.CONFLICT, "User no encontrado")
 		);	
@@ -274,11 +273,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Override
 	public User signupEmpleado(AuthRequestEmple requestEmple) throws UserCantCreateException {
-			
-//		//TODO to OurpassEncoder
-//		BCryptPasswordEncoder  passEncoder = new BCryptPasswordEncoder();
-//		String password = passEncoder.encode();
-		
+				
 		OurPassEncoder encoder = new OurPassEncoder();	
 		
 		requestEmple.setPassword(encoder.encode(requestEmple.getPassword()));
@@ -500,10 +495,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 				
 				oldPass = new String(oldPassCifrada);
 				newPass = new String(newPassCifrada);
-				
-				System.out.println("OLD "+ oldPass);
-				
-				System.out.println("NEW"+ newPass);
 	
 				
 			} catch (UnsupportedEncodingException e) {

@@ -15,7 +15,7 @@ import com.example.Reto2Grupo2.user.modelo.UserExpands;
 import com.example.Reto2Grupo2.user.modelo.UserServiceModel;
 
 
-//TODO invertir nombres de las clases service
+
 public interface UserService {
 
 	User signupEmpleado(AuthRequestEmple empleado) throws UserCantCreateException;

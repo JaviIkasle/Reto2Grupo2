@@ -34,7 +34,7 @@ public class BilleteServiceImpl implements BilleteService {
 	@Override
 	public List<BilleteServiceModel> getBilletes(Integer userId) {
 		Iterable<Billete> billetes = billeteRepository.findAll();
-		//TODO consulta compleja para generar los billetes del usuario registrado
+		
 		
 		List<BilleteServiceModel> response = new ArrayList<BilleteServiceModel>();
 		for (Billete billete : billetes) {

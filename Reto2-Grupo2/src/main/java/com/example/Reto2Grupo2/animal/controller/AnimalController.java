@@ -27,6 +27,7 @@ public class AnimalController {
 	
 	@GetMapping("/animales")
 	public ResponseEntity<List<AnimalServiceModel>> getAnimales() {
+				
 		
 		List<AnimalServiceModel> response = animalService.getAllAnimales();
 		return new ResponseEntity<List<AnimalServiceModel>>(response, HttpStatus.OK);

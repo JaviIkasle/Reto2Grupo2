@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cifradoRSA;
+package com.example.Reto2Grupo2.cifrados.RSA;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,10 +11,7 @@ public class OurPassEncoder implements PasswordEncoder{
 
 	@Override
 	public String encode(CharSequence rawPassword) {	
-		
-		
-		System.out.println("eeeeeeeeeee"+ rawPassword);
-		
+				
 		return cifradoCustom(rawPassword.toString());
 	}
 
@@ -37,13 +34,6 @@ public class OurPassEncoder implements PasswordEncoder{
 			byte dataBytes[] = passString.getBytes(); 
 			algoritmo.update(dataBytes); // El mensaje que queremos cifrar
 			byte resumen[] = algoritmo.digest(); // Generamos el resumen
-
-			System.out.println("Mensaje original: " + passString);
-			System.out.println("Numero de Bytes: " + algoritmo.getDigestLength());
-			System.out.println("Algoritmo usado: " + algoritmo.getAlgorithm());
-			System.out.println("Resumen del Mensaje: " + new String(resumen));
-			System.out.println("Mensaje en Hexadecimal: " + Hexadecimal(resumen));
-			System.out.println("Proveedor: " + algoritmo.getProvider().toString());
 
 			 passSHA = Hexadecimal(resumen);
 			return passSHA;

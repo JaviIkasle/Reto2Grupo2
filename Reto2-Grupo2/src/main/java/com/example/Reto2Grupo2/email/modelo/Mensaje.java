@@ -14,7 +14,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.example.Reto2Grupo2.cifradoAES.CifradoAES;
+import com.example.Reto2Grupo2.cifrados.AES.CifradoAES;
+
+
 
 public class Mensaje {
 

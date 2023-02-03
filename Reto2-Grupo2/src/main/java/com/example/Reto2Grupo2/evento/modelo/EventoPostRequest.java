@@ -5,7 +5,6 @@ import java.sql.Date;
 
 public class EventoPostRequest {
 
-//TODO falta alguna validación
 	private String nombre;
 
 	private String informacion;

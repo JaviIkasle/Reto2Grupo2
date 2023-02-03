@@ -1,4 +1,4 @@
-package com.example.Reto2Grupo2.cifradoRSA;
+package com.example.Reto2Grupo2.cifrados.RSA;
 
 import java.io.FileOutputStream;
 import java.security.KeyPair;
@@ -40,7 +40,6 @@ public class RunGeneratorKeys {
                                  
        } catch (Exception e) {
            e.printStackTrace();
-           System.out.println("Ficheros ya existen");
        }
    }
 

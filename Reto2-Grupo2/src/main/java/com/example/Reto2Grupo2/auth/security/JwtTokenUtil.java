@@ -36,7 +36,7 @@ public class JwtTokenUtil {
 	private static final String ROL_CLAIM = "rol";
 	
 	
-	//TODO no funcionan los .claim, deberia
+	
 	public String generateAccessToken(User trabajador) {
 		// cuando generamos el token podemos meter campos custom que nos puedan ser utiles mas adelante.
 		
@@ -54,7 +54,6 @@ public class JwtTokenUtil {
 	}
 	
 	public boolean validateAccessToken(String token) {
-		System.out.println("TOKEN:"+ token);
 		
 		try {
 			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
@@ -86,64 +85,19 @@ public class JwtTokenUtil {
 	
 	public Rol getUserRol(String token){
 		Claims claims = parseClaims(token);
-		// Object jsonObject = claims.get(ROL_CLAIM);
-		// Rol rol = (Rol)jsonObject;
+		
 		@SuppressWarnings("unchecked")
 		LinkedHashMap<String, ?> jsonObject = (LinkedHashMap<String, ?>) claims.get(ROL_CLAIM);
-//		RolServiceModel rol = null;
-//		try {
-//			rol = jsonToObject(jsonObject);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		
 		Integer id = (Integer) jsonObject.get("id");
 		String name = (String) jsonObject.get("name");
-		System.out.println(id);
-		System.out.println(name);
-		
+	
 		
 		Rol response = new Rol(id,name);
 		
 		return response;
 	}
 	
-//	public static RolServiceModel jsonToObject(Object json) throws IOException{
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		String jsonString = objectMapper.writeValueAsString(json);
-//		System.out.println(jsonString);
-//		RolServiceModel rol = objectMapper.readValue(jsonString, RolServiceModel.class);
-//		
-//		
-//		// RolServiceModel rol = new RolServiceModel(1, "EMPLEADO");
-//		System.out.println(1);
-//		System.out.println(rol.toString());
-//		return rol; 
-//		
-//		// CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
-//		// return objectMapper.readValue(jsonString, listType);
-//	}
-
-	
-//	public static <T> T jsonToObject(Object json, Class<T>elementClass) throws IOException{
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		String jsonString = objectMapper.writeValueAsString(json);
-//		
-//		T obj = objectMapper.readValue(jsonString, elementClass);
-//		return obj; 
-//		
-//		// CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
-//		// return objectMapper.readValue(jsonString, listType);
-//	}
-	
-	//TODO no se tendria que hacer esto, ya que no tenemos lista de roles
-//	public static <T> List<T> jsonArrayToList(Object json, Class<T>elementClass) throws IOException{
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		String jsonString = objectMapper.writeValueAsString(json);
-//		CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
-//		return objectMapper.readValue(jsonString, listType);
-//	}
 	
 	private Claims parseClaims(String token) {
 		return Jwts.parser()
