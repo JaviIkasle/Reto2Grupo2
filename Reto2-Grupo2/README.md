@@ -1,5 +1,13 @@
 #Wild Project
 
+### Descripcion del proyecto
+Este proyecto se basa en una aplicacion movil que se conectara a un servidor conectado a una base de datos con la cual los usuarios podran interactuar.
+El cometido de este proyecto es una aplicacion en la que se muestren distintos zoologicos repartidos por el mundo. Los usuarios clientes podran ver los zoos que hay en la aplicacion y los animales que cada uno tiene con su informacion.
+
+Habra otro tipo de usuarios que seran los empleados, estos solo podran ver la informacion y animales de los zoos en los que trabajan, ademas de ver los eventos que tiene su zoo. Por otra parte la edicion del usuario empleado esta destinada al administrador. Un usuario que utilizara una aplicacion web para gestionar a los empleados de la aplicacion.
+
+---
+
 ### Diagrama E-R de la base de datos:
 
 ![Diagrama E-R de la base de datos.](src\\main\\resources\\E-R_BBDD.png)
@@ -88,75 +96,40 @@ spring.datasource.password=elorrieta
  3. Cambiar el password segun sus especificaciones de MySQL.
  
  
+ Cojer el archivo BBDD_script.sql que se encuentra enn la carpeta src/main/resources, copiar el texto y pegarlo en MySQL
+ para precisar de la base de datos con datos iniciales para poder ejecutarlo correctamente.
+ 
 ---
 
+### Usage (uso)
+Una vez completados el punto anterior, para iniciar el servidor debe seguir estos pasos:
 
+ * En el paquete  __cifrados.RSA__ debe ejecutar la clase  __RunGeneratorKeys__ .
+ * Ejecutar la clase  __Reto2Grupo2Application__ -
+ 
+_Recordar que las contraseñas están cifradas en la base de datos._
 
+---
 
+### API Documentation
+Para acceder a la documentacion API que genera el Swagger, debe acceder a este link:
+<http://localhost:3100/swagger-ui/index.html>
 
+_recordar el puerto del servidor, en este caso 3100. Ademas para su uso el servidor debe estar arrancado_
 
+En la documentacion de la API se puede ver todos los servicios pero no se podran acceder a la mayoria si no estas autorizado, es por eso que se recomienda el uso de Postman para realizar las pruebas
 
+---
 
+### Contact
+
+Iñaki (inaki.riojane@elorreita-errekamari.com)
+Adrian (adrian.g.riobello@elorrieta-errekamari.com)
+Javier (javier.bazdepa@elorrieta-errekamari.com)
+
+---
 
 ### Licencia
 Distributed under the MIT License.
  
  
- # __(controlar cuando el admin va a modificar un empleado y mete la id de un cliente y viceversa)__
-## subtitulo
-
-### subtitulo 3
-
-#### subtitulo 4
-
-##### subtitulo 5
-
-###### subtitulo 6
-
-
-
-*Esto es cursiva*
-
-_Esto tambien es cursiva_
-
-**Esto es negrita**
-
-__Esto tambien es negrita__
-
-*puedes **combinar** estilos* de esta manera.
-
-Alguien dijo:
-> Esto es una cita
-> y la cita sigue aqui
-
-Lista 1
-
-* Elemento uno
-* elemento dos
-* elemento tres
-
-Lista 2
-
-1. elementos
-2. elemento dos
-3. elemento tres
-
-
-
-[link]<https://es.wikipedia.org/wiki/Wikipedia:Portada>
-
-
-Bloque de codigo
-
-...
-
-@GetMapping("/animales")
-	public ResponseEntity<List<AnimalServiceModel>> getAnimales() {
-		
-		List<AnimalServiceModel> response = animalService.getAllAnimales();
-		return new ResponseEntity<List<AnimalServiceModel>>(response, HttpStatus.OK);
-	}
-...
-
----
-Linea que separa
